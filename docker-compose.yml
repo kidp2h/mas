@@ -1,0 +1,37 @@
+version: "3.1"
+
+services:
+  server:
+    container_name: mas_server
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - ${PORT}:${PORT}
+    volumes:
+      - ./:/var/www/html/
+    networks:
+      - mas
+  db:
+    container_name: mas_db
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./.docker/mysql:/var/lib/mysql
+    networks:
+      - mas
+  adminer:
+    container_name: mas_adminer
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - mas
+
+networks:
+  mas:
+    driver: bridge
