@@ -4,11 +4,11 @@
   "type": "project",
   "autoload": {
     "psr-4": {
-      "": "src/"
-      "Core\\": "src/Core/"
-      "Controller\\": "src/Controller/"
-      "Model\\": "src/Model/"
-      "View\\": "src/View/"
+      "": "src/",
+      "Core\\": "src/Core/",
+      "Controller\\": "src/Controller/",
+      "Model\\": "src/Model/",
+      "View\\": "src/View/",
       "Schema\\": "src/Schema/"
     }
   },

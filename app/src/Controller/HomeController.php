@@ -24,20 +24,10 @@ class HomeController extends Controller {
   }
 
   public function home(Request $request, Response $response) {
-    // $this->model
-    //   ->select('id', 'name', 'email')
-    //   ->where('name', '>', '5')
-    //   ->where('id', '=', '5')
-    //   ->orWhere(function ($query) {
-    //     $query->where('email', '>', '5');
-    //     $query->where('email', '<', '10');
-    //   })
-    //   ->where('name', '<', '11')
-    //   ->get();
     $this->model->insert([
-      'name' => 'Thinh',
-      'email' => 'kidp2h@gmail.com',
-      'password' => 'xxxx',
+      'name' => 'Thin123',
+      'email' => 'kid2p222h@gmail.com',
+      'password' => 'xxx',
     ]);
   }
 }
