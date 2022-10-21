@@ -5,7 +5,7 @@ namespace Core;
 use Closure;
 use Database;
 use mysqli;
-
+use Schema\UserSchema;
 class Model {
   protected Schema $schema;
   protected string $nameTable;
@@ -25,7 +25,7 @@ class Model {
 
   public function select(...$fields): self {
     foreach ($fields as $name) {
-      if (!in_array($name, $this->fields)) {
+      if (!in_array($name, $this->fields) && $name !== '*') {
         echo $name;
         throw new \Exception("Field `{$name}` not available !", 1);
       }
@@ -52,7 +52,7 @@ class Model {
     return $this;
   }
 
-  public function get() {
+  public function get(): array {
     $stringSelect = implode(', ', $this->fieldSelect);
     $stringWhere = '';
     for ($i = 0; $i < count($this->conditions) - 1; $i++) {
@@ -65,19 +65,26 @@ class Model {
         $stringWhere .= "{$this->conditions[$i]}  ";
       } else {
         $stringWhere .= "{$this->conditions[$i]} and  ";
-        if ($i + 1 == count($this->conditions)) {
-          echo $this->conditions;
-        }
       }
     }
     if (end($this->conditions) == ')') {
       $stringWhere .= '  )';
     } else {
-      $stringWhere .= "and {$this->conditions[$i]}";
+      if (count($this->conditions) <= 2) {
+        $stringWhere .= "{$this->conditions[$i]}";
+      } else {
+        $stringWhere .= "and  {$this->conditions[$i]}";
+      }
     }
-    echo $stringWhere . '<br>';
     $query = "SELECT {$stringSelect} FROM $this->nameTable WHERE {$stringWhere}";
-    echo $query;
+    $result = $this->execute($query);
+    $rows = [];
+    while ($row = $result->fetch_assoc()) {
+      // $rows[] = new $this->schema((object) $row);
+      $row = (object) $row;
+      $rows[] = $row;
+    }
+    return $rows;
   }
 
   public function nextID(): int {
@@ -89,7 +96,7 @@ class Model {
     );
   }
 
-  public function insert(array $list): void {
+  public function insert(array $list) {
     $fields = [];
     $values = [];
     foreach ($list as $field => $value) {
@@ -101,7 +108,24 @@ class Model {
     $values = "'" . implode("', '", $values) . "'";
 
     $queryCommand = "INSERT INTO {$this->nameTable} ({$fields}) VALUES ({$values})";
-    echo $queryCommand;
+    return $this->execute($queryCommand);
+  }
+
+  public function execute($query) {
+    try {
+      return $this->connection->query($query);
+    } catch (\Throwable $th) {
+      // duplicate
+      switch ($this->connection->errno) {
+        case 1062:
+          return false;
+          break;
+
+        default:
+          return $th;
+          break;
+      }
+    }
   }
 }
 

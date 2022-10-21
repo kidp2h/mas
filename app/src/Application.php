@@ -4,12 +4,15 @@ use Core\Request;
 use Core\Response;
 use Core\Router;
 
+/**
+ * Application
+ */
 class Application {
   private static self $instance;
   public Router $__router;
   private Request $request;
   private Response $response;
-
+  
   public function __construct() {
     Database::Instance()->connect();
     $this->request = new Request();
@@ -17,7 +20,7 @@ class Application {
 
     $this->__router = new Router($this->request, $this->response);
   }
-
+  
   public static function Instance(): self {
     if (!isset(self::$instance)) {
       self::$instance = new self();
