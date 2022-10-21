@@ -1,7 +1,8 @@
 <?php
 
 declare(strict_types=1);
-define('_DIR_ROOT_', __DIR__ . '/app/');
+define('_DIR_ROOT_', __DIR__ . "/app/");
+define("_DIR_VIEW_",__DIR__."/app/src/View/");
 require_once __DIR__ . '/app/vendor/autoload.php';
 
 $uri = urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));

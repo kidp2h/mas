@@ -12,7 +12,7 @@ class Application {
   public Router $__router;
   private Request $request;
   private Response $response;
-  
+
   public function __construct() {
     Database::Instance()->connect();
     $this->request = new Request();
@@ -20,7 +20,7 @@ class Application {
 
     $this->__router = new Router($this->request, $this->response);
   }
-  
+
   public static function Instance(): self {
     if (!isset(self::$instance)) {
       self::$instance = new self();
@@ -31,6 +31,7 @@ class Application {
   public function run() {
     $this->route('index');
     $this->route('photo');
+    $this->route('user');
     return $this->__router->handle();
   }
 
