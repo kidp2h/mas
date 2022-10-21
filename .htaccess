@@ -1,5 +1,7 @@
 RewriteEngine On
 
+ErrorDocument 404 error.html
+
 RewriteCond %{REQUEST_FILENAME} -d [OR]
 RewriteCond %{REQUEST_FILENAME} -f
 RewriteRule ^ ^$1 [N]
@@ -10,3 +12,4 @@ RewriteRule ^(.*)$ app/public/$1
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^ index.php
+

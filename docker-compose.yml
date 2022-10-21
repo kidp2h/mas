@@ -1,4 +1,4 @@
-version: "3.1"
+version: '3.1'
 
 services:
   server:
@@ -11,14 +11,22 @@ services:
       - ${PORT}:${PORT}
     volumes:
       - ./:/var/www/html/
+    environment:
+      HOSTNAME_DB: ${HOSTNAME_DB}
+      USERNAME_DB: ${USERNAME_DB}
+      PASSWORD_DB: ${PASSWORD_DB}
+      DB: ${DB}
     networks:
       - mas
   db:
     container_name: mas_db
     image: mysql
     restart: always
+    hostname: mas
     environment:
       MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mas
+      MYSQL_ROOT_HOST: '%'
     volumes:
       - ./.docker/mysql:/var/lib/mysql
     networks:

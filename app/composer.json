@@ -1,0 +1,22 @@
+{
+  "name": "kidp2h/app",
+  "description": "MAS",
+  "type": "project",
+  "autoload": {
+    "psr-4": {
+      "": "src/"
+      "Core\\": "src/Core/"
+      "Controller\\": "src/Controller/"
+      "Model\\": "src/Model/"
+      "View\\": "src/View/"
+      "Schema\\": "src/Schema/"
+    }
+  },
+  "authors": [
+    {
+      "name": "kidp2h",
+      "email": "f7kingeagles@gmail.com"
+    }
+  ],
+  "require": {}
+}

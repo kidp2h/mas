@@ -1,2 +1,6 @@
-<?php 
-echo "Hello world";
+<?
+
+$app = Application::Instance();
+
+
+$app->run();
