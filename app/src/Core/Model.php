@@ -9,6 +9,7 @@ use Schema\UserSchema;
 class Model {
   protected Schema $schema;
   protected string $nameTable;
+  private static self $instance;
   private array $conditions = [];
   public array $fields = [];
   public array $fieldSelect = [];
@@ -99,15 +100,27 @@ class Model {
   public function insert(array $list) {
     $fields = [];
     $values = [];
+
+    echo '<pre>';
+    var_dump($this->fields);
+    echo '</pre>';
+    echo '<pre>';
+    var_dump($list);
+    echo '</pre>';
     foreach ($list as $field => $value) {
-      array_push($fields, $field);
-      array_push($values, $value);
+      if (in_array($field, $this->fields)) {
+        echo '5';
+        array_push($fields, $field);
+
+        array_push($values, $value);
+      }
     }
 
     $fields = implode(',', $fields);
     $values = "'" . implode("', '", $values) . "'";
 
     $queryCommand = "INSERT INTO {$this->nameTable} ({$fields}) VALUES ({$values})";
+    echo $queryCommand;
     return $this->execute($queryCommand);
   }
 

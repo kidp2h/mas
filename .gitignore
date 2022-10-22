@@ -2,3 +2,4 @@
 .docker
 vendor
 cache
+.phpdoc

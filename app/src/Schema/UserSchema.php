@@ -17,8 +17,6 @@ class UserSchema extends Schema {
   public string $memo;
   public int $useFlag;
   public \DateTime $created_at;
-  public int $created_by;
   public \DateTime $updated_at;
-  public int $updated_by;
 }
 ?>

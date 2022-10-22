@@ -1,4 +1,3 @@
-
 <?php
 use Controller\UserController;
 use Core\Request;
@@ -18,14 +17,13 @@ $router->get(
   ) => UserController::Instance()->register($request, $response)
 );
 
-
 $router->get(
   '/login',
   [],
-  fn(
-    Request $request,
-    Response $response
-  ) => UserController::Instance()->login($request, $response)
+  fn(Request $request, Response $response) => UserController::Instance()->login(
+    $request,
+    $response
+  )
 );
 
 $router->post(
@@ -37,8 +35,13 @@ $router->post(
   ) => UserController::Instance()->handleRegister($request, $response)
 );
 
-
-
-
+$router->post(
+  '/login',
+  [],
+  fn(
+    Request $request,
+    Response $response
+  ) => UserController::Instance()->handleLogin($request, $response)
+);
 
 ?>
