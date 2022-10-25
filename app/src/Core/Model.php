@@ -9,6 +9,7 @@ use Schema\UserSchema;
 class Model {
   protected Schema $schema;
   protected string $nameTable;
+  private static self $instance;
   private array $conditions = [];
   public array $fields = [];
   public array $fieldSelect = [];
@@ -26,7 +27,6 @@ class Model {
   public function select(...$fields): self {
     foreach ($fields as $name) {
       if (!in_array($name, $this->fields) && $name !== '*') {
-        echo $name;
         throw new \Exception("Field `{$name}` not available !", 1);
       }
     }
@@ -35,7 +35,7 @@ class Model {
     return $this;
   }
   public function where(string $field, string $operator, string $value): self {
-    array_push($this->conditions, "{$field} {$operator} {$value}");
+    array_push($this->conditions, "{$field} {$operator} '{$value}'");
     return $this;
   }
 
@@ -44,10 +44,6 @@ class Model {
     $query($this);
 
     array_push($this->conditions, ')');
-
-    echo '<pre>';
-    var_dump($this->conditions);
-    echo '</pre>';
 
     return $this;
   }
@@ -99,9 +95,12 @@ class Model {
   public function insert(array $list) {
     $fields = [];
     $values = [];
+
     foreach ($list as $field => $value) {
-      array_push($fields, $field);
-      array_push($values, $value);
+      if (in_array($field, $this->fields)) {
+        array_push($fields, $field);
+        array_push($values, $value);
+      }
     }
 
     $fields = implode(',', $fields);

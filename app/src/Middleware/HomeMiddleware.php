@@ -3,9 +3,8 @@
 namespace Middleware;
 use Core\Request;
 use Core\Response;
-use Core\Middleware;
 
-class HomeMiddleware extends Middleware {
+class HomeMiddleware {
   public static function pass(Request $request, Response $response) {
     return true;
   }

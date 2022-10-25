@@ -24,10 +24,6 @@ class HomeController extends Controller {
   }
 
   public function home(Request $request, Response $response) {
-    $this->model->insert([
-      'name' => 'Thin123',
-      'email' => 'kid2p222h@gmail.com',
-      'password' => 'xxx',
-    ]);
+    $this->render('home');
   }
 }
