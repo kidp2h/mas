@@ -45,6 +45,7 @@ abstract class Validation {
         if ($ruleName === self::RULE_REQUIRED && !$value) {
           $this->addError($attr, self::RULE_REQUIRED);
         }
+
         if (
           $ruleName === self::RULE_EMAIL &&
           !filter_var($value, FILTER_VALIDATE_EMAIL)
@@ -53,7 +54,6 @@ abstract class Validation {
         }
 
         if ($ruleName === self::RULE_MIN && strlen($value) < $rule['min']) {
-          echo $ruleName;
           $this->addError($attr, self::RULE_MIN, ['min' => $rule['min']]);
         }
 

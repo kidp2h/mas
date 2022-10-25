@@ -7,6 +7,8 @@
     <title>Welcome to MAS</title>
 </head>
 <body>
+
+    <?php $this->renderAllSection(); ?>
     
 </body>
 </html>

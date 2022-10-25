@@ -13,7 +13,7 @@ class RegistrationValidation extends Validation {
     return [
       'name' => [self::RULE_REQUIRED, [self::RULE_MIN, 'min' => 6]],
       'email' => [self::RULE_EMAIL],
-      'password' => [[self::RULE_MIN, 'min' => 6]],
+      'password' => [[self::RULE_MIN, 'min' => 8]],
       'confirmPassword' => [
         self::RULE_REQUIRED,
         [self::RULE_MATCH, 'match' => 'password'],

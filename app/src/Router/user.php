@@ -44,4 +44,11 @@ $router->post(
   ) => UserController::Instance()->handleLogin($request, $response)
 );
 
+$router->get('/reset-password', [], [UserController::class, 'resetPassword']);
+$router->post(
+  '/reset-password',
+  [],
+  [UserController::class, 'handleResetPassword']
+);
+
 ?>

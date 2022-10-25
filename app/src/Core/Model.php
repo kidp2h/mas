@@ -27,7 +27,6 @@ class Model {
   public function select(...$fields): self {
     foreach ($fields as $name) {
       if (!in_array($name, $this->fields) && $name !== '*') {
-        echo $name;
         throw new \Exception("Field `{$name}` not available !", 1);
       }
     }
@@ -36,7 +35,7 @@ class Model {
     return $this;
   }
   public function where(string $field, string $operator, string $value): self {
-    array_push($this->conditions, "{$field} {$operator} {$value}");
+    array_push($this->conditions, "{$field} {$operator} '{$value}'");
     return $this;
   }
 
@@ -45,10 +44,6 @@ class Model {
     $query($this);
 
     array_push($this->conditions, ')');
-
-    echo '<pre>';
-    var_dump($this->conditions);
-    echo '</pre>';
 
     return $this;
   }
@@ -101,17 +96,9 @@ class Model {
     $fields = [];
     $values = [];
 
-    echo '<pre>';
-    var_dump($this->fields);
-    echo '</pre>';
-    echo '<pre>';
-    var_dump($list);
-    echo '</pre>';
     foreach ($list as $field => $value) {
       if (in_array($field, $this->fields)) {
-        echo '5';
         array_push($fields, $field);
-
         array_push($values, $value);
       }
     }
@@ -120,7 +107,6 @@ class Model {
     $values = "'" . implode("', '", $values) . "'";
 
     $queryCommand = "INSERT INTO {$this->nameTable} ({$fields}) VALUES ({$values})";
-    echo $queryCommand;
     return $this->execute($queryCommand);
   }
 
