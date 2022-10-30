@@ -11,7 +11,7 @@ class LoginValidation extends Validation {
 
   public function rules() {
     return [
-      'email' => [self::RULE_EMAIL],
+      'email' => [self::RULE_REQUIRED, self::RULE_EMAIL],
       'password' => [self::RULE_REQUIRED, [self::RULE_MIN, 'min' => 8]],
     ];
   }

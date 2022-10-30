@@ -1,0 +1,17 @@
+#header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 3rem;
+  padding: 0 3.6rem;
+}
+#titlePage {
+  margin-top: 0;
+}
+#menuHeader a {
+  margin-right: 3.5rem;
+  text-decoration: none;
+}
+#menuHeader a:last-child {
+  margin-right: 0;
+}

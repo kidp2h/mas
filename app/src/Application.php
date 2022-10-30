@@ -3,20 +3,30 @@
 use Core\Request;
 use Core\Response;
 use Core\Router;
+use Core\Session;
 
 /**
- * Application
+ * application
  */
 class Application {
   private static self $instance;
   public Router $__router;
   private Request $request;
   private Response $response;
-  public Session $session;
   public function __construct() {
     Database::Instance()->connect();
     $this->request = new Request();
     $this->response = new Response();
+    $user = $this->getCookie('__masu');
+    $hash = $this->getCookie('_masu');
+
+    if ($user && !Session::get('user')) {
+      $id = base64_decode(urldecode($user));
+      $isCorrect = password_verify($id . $_ENV['SECRET'], urldecode($hash));
+      if ($isCorrect) {
+        Session::set('user', $user);
+      }
+    }
 
     $this->__router = new Router($this->request, $this->response);
   }
@@ -42,7 +52,7 @@ class Application {
     $path = '/'
   ) {
     $time = time() + $time;
-    setcookie($name, $value, $time, $path, true, true);
+    setcookie($name, $value, $time, $path, '', true, true);
     if ($this->getCookie($name) !== null) {
       return true;
     }
@@ -50,7 +60,10 @@ class Application {
   }
 
   public function getCookie($name) {
-    return $_COOKIE[$name];
+    if (isset($_COOKIE[$name])) {
+      return $_COOKIE[$name];
+    }
+    return null;
   }
 
   public function deleteCookie($name) {
