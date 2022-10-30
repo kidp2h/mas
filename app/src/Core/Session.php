@@ -1,5 +1,9 @@
 <?php
+
+namespace Core;
 class Session {
+  public function __construct() {
+  }
   public static function set($key, $value) {
     $_SESSION[$key] = $value;
     if (!empty($_SESSION[$key])) {
@@ -8,7 +12,9 @@ class Session {
     return false;
   }
   public static function get($key) {
-    return $_SESSION[$key];
+    if (isset($_SESSION[$key])) {
+      return $_SESSION[$key];
+    }
   }
   public static function delete($key = '') {
     if (isset($_SESSION[$key])) {

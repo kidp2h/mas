@@ -2,11 +2,12 @@
 
 namespace Controller;
 
+use Application;
 use Core\Controller;
 use Core\Model;
 use Core\Request;
 use Core\Response;
-use Core\Template;
+use Core\Session;
 use Model\UserModel;
 use Validation\LoginValidation;
 use Validation\RegistrationValidation;
@@ -27,7 +28,10 @@ class UserController extends Controller {
     return self::$instance;
   }
   public function login(Request $request, Response $response) {
-    $this->render('login', ['title' => 'Login']);
+    $this->render('login', [
+      'title' => 'Login',
+      'titlePage' => 'Memory Album System - 1000 Login',
+    ]);
   }
 
   public function handleLogin(Request $request, Response $response) {
@@ -43,18 +47,34 @@ class UserController extends Controller {
         ->get();
       if (!empty($rows)) {
         $user = $rows[0];
+        Session::set('user', $user);
+        Application::Instance()->setCookie('__masu', base64_encode($user->id));
+        Application::Instance()->setCookie(
+          '_masu',
+          password_hash($user->id . $_ENV['SECRET'], PASSWORD_BCRYPT)
+        );
         $response->redirect('/');
       } else {
         $this->render('login', [
           'title' => 'Login',
+          'titlePage' => 'Memory Album System - 1000 Login',
           'message' => 'Email or password is incorrect, please try again',
         ]);
       }
+    } else {
+      $this->render('login', [
+        'title' => 'Login',
+        'titlePage' => 'Memory Album System - 1000 Login',
+        'form' => $result,
+      ]);
     }
   }
 
   public function register(Request $request, Response $response) {
-    $this->render('register', ['title' => 'Register']);
+    $this->render('register', [
+      'title' => 'Register',
+      'titlePage' => 'Memory Album System - 1010 Sign up',
+    ]);
   }
 
   public function handleRegister(Request $request, Response $response) {
@@ -70,14 +90,22 @@ class UserController extends Controller {
       } else {
         $this->render('register', [
           'title' => 'Register',
+          'titlePage' => 'Memory Album System - 1010 Sign in',
           'message' => 'Email has already exist, please try again !',
         ]);
       }
     } else {
-      $this->render('register', ['title' => 'Register', 'form' => $result]);
+      $this->render('register', [
+        'title' => 'Register',
+        'form' => $result,
+        'titlePage' => 'Memory Album System - 1010 Sign in',
+      ]);
     }
   }
-  public function logout(Request $request, Response $response) {
+  public static function logout(Request $request, Response $response) {
+    Application::Instance()->deleteCookie('_masu');
+    Application::Instance()->deleteCookie('__masu');
+    $response->redirect('/user/login');
   }
 }
 

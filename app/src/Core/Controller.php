@@ -2,6 +2,8 @@
 
 namespace Core;
 
+use Application;
+
 class Controller {
   public function render($view, $data = []) {
     $template = new Template($view, $data);

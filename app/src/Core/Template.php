@@ -8,6 +8,7 @@ class Template {
   private $data;
   private $sections;
   private $script;
+  private $style;
   private $currentSection;
   public function __construct(string $view, array $data) {
     $this->layout = 'main';
@@ -15,6 +16,7 @@ class Template {
     $this->data = $data;
     $this->sections = [];
     $this->script = '';
+    $this->style = '';
   }
 
   public function layout($layout) {
@@ -53,6 +55,21 @@ class Template {
 
     ob_end_clean();
     $this->script = $script;
+  }
+
+  public function style() {
+    ob_start();
+  }
+
+  public function endStyle() {
+    $style = ob_get_contents();
+
+    ob_end_clean();
+    $this->style = $style;
+  }
+
+  public function renderStyle() {
+    echo $this->style;
   }
 
   public function section(string $nameSection) {

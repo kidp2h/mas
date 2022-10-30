@@ -1,0 +1,133 @@
+#action {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  margin-top: 9.1rem;
+  display: flex;
+  justify-content: center;
+}
+#titlePage {
+  align-self: center;
+  justify-self: center;
+}
+#action a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
+}
+
+.itemAction {
+  background-color: #5866E1;
+  width: 6.5rem;
+  height: 5.7rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.3rem;
+}
+.itemAction:first-child {
+  margin-right: 1.7rem;
+}
+
+#listPhoto {
+	margin-top: 7rem;
+	display: grid;
+	flex-wrap: wrap;
+	gap: 7rem;
+	row-gap: 5rem;
+	grid-template-columns:repeat(7, 1fr);;
+}
+.photo {
+  width: 30rem;
+}
+.photo img {
+  width: 30rem;
+  border-radius: 1.8rem;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+
+}
+#wrapListPhoto {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+@media (min-width: 360px) and (max-width:723px) {
+  #listPhoto {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  #menuHeader {
+    display: none;
+  }
+
+  #header {
+    margin-top: 0;
+    padding: 0 1rem;
+    justify-content: space-between;
+    position: fixed;
+    padding-left: 0;
+    width: 100%;
+    top: 0;
+    height: 7rem;
+    background-color: white;
+  }
+}
+
+
+
+@media (min-width: 724px) and (max-width: 1023px) {
+  #listPhoto {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  #menuHeader {
+    display: none;
+  }
+
+  #header {
+    margin-top: 0;
+    padding: 0 1rem;
+    justify-content: space-between;
+    position: fixed;
+    padding-left: 0;
+    width: 100%;
+    height: 7rem;
+    top: 0;
+    background-color: white;
+  }
+}
+
+
+@media (min-width: 1024px) and (max-width: 1365px) {
+  #listPhoto {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+}
+
+@media (min-width: 1366px) and (max-width: 1919px) {
+  #listPhoto {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1920px) and (max-width: 2559px) {
+  #listPhoto {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (min-width: 2560px) and (max-width: 3839px) {
+  #listPhoto {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+@media (min-width: 3840px) and (max-width: 4096px) {
+  #listPhoto {
+    grid-template-columns: repeat(10, 1fr);
+  }
+}
+

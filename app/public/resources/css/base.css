@@ -1,3 +1,6 @@
+html {
+  font-family: 'Inter';
+}
 button,
 hr,
 input {
@@ -17,6 +20,7 @@ legend {
 html {
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 body {
   margin: 0;
@@ -136,4 +140,236 @@ summary {
 [hidden],
 template {
   display: none;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+.slide-right {
+  -webkit-animation: slide-right 0.5s ease-in-out forwards;
+  animation: slide-right 0.5s ease-in-out forwards;
+}
+
+#titlePage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3rem;
+  font-size: 3.6rem;
+  font-family: 'Inter';
+  font-weight: 400;
+  line-height: 2.75rem;
+}
+
+#hamburger {
+  width: 5rem;
+  height: 4rem;
+  position: relative;
+  margin: 1rem;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: 0.5s ease-in-out;
+  -moz-transition: 0.5s ease-in-out;
+  -o-transition: 0.5s ease-in-out;
+  transition: 0.5s ease-in-out;
+  cursor: pointer;
+
+  display: none;
+}
+
+#hamburger span {
+  display: block;
+  position: absolute;
+  height: 4px;
+  width: 100%;
+  background: black;
+  border-radius: 50px;
+  opacity: 1;
+  left: 0;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: 0.25s ease-in-out;
+  -moz-transition: 0.25s ease-in-out;
+  -o-transition: 0.25s ease-in-out;
+  transition: 0.25s ease-in-out;
+}
+
+#hamburger span:nth-child(1) {
+  top: 0px;
+}
+
+#hamburger span:nth-child(2),
+#hamburger span:nth-child(3) {
+  top: 18px;
+}
+
+#hamburger span:nth-child(4) {
+  top: 36px;
+}
+
+#hamburger.open span:nth-child(1) {
+  top: 18px;
+  width: 0%;
+  left: 50%;
+}
+
+#hamburger.open span:nth-child(2) {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+#hamburger.open span:nth-child(3) {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+#hamburger.open span:nth-child(4) {
+  top: 18px;
+  width: 0%;
+  left: 50%;
+}
+#overlay {
+  width: 100%;
+  height: 100%;
+  background-color: #000000ad;
+  position: fixed;
+  display: none;
+  top: 0;
+}
+
+#overlay.active {
+  display: block;
+}
+
+.wrapMenu {
+  position: fixed;
+  z-index: 10;
+  background-color: white;
+  top: 0;
+  left: 0;
+  width: 81%;
+  height: 100%;
+  display: none;
+  transition: all 0.5s;
+  animation: slide-left 0.5s ease-in-out forwards;
+}
+#hamburger.open ~ .wrapMenu {
+  display: none;
+  animation: slide-right 0.5s ease-in-out forwards;
+}
+
+.wrapMenu > .btn-close-menu {
+  cursor: pointer;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+}
+#menuHamburger {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 7rem;
+  padding-left: 0;
+}
+.itemMenu {
+  list-style: none;
+  cursor: pointer;
+  font-size: 1.4rem;
+  height: 6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.itemMenu a {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: black;
+  text-transform: uppercase;
+}
+
+.itemMenu a .imageItem {
+  min-width: 10rem;
+}
+.imageItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.itemMenu a:hover {
+  background-color: rgba(151, 151, 151, 0.144);
+}
+
+
+@media (min-width: 360px) and (max-width: 1024px) {
+  #hamburger {
+    display: block;
+  }
+  #titlePage {
+    display: none;
+  }
+
+  #hamburger.open ~ .wrapMenu {
+    display: block;
+
+  }
+}
+
+/**
+ * ----------------------------------------
+ * animation slide-right
+ * ----------------------------------------
+ */
+@-webkit-keyframes slide-right {
+  0% {
+    -webkit-transform: translateX(-300px);
+    transform: translateX(-300px);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+@keyframes slide-right {
+  0% {
+    -webkit-transform: translateX(-300px);
+    transform: translateX(-300px);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+
+@-webkit-keyframes slide-left {
+  0% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(-300px);
+    transform: translateX(-300px);
+  }
+}
+@keyframes slide-left {
+  0% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(-300px);
+    transform: translateX(-300px);
+  }
 }

@@ -6,6 +6,8 @@ define('_DIR_VIEW_', __DIR__ . '/app/src/View/');
 define('_DIR_IMAGE_', __DIR__ . '/app/src/resources/images/');
 define('_DIR_CSS_', __DIR__ . '/app/src/resources/css/');
 define('_DIR_JS_', __DIR__ . '/app/src/resources/js/');
+ini_set('session.gc_maxlifetime', 365 * 24 * 60 * 60);
+ini_set('session.cookie_lifetime ', 999);
 require_once __DIR__ . '/app/vendor/autoload.php';
 
 $uri = urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));

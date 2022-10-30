@@ -1,4 +1,5 @@
 <?php
+
 namespace Controller;
 
 use Core\Controller;
@@ -24,6 +25,15 @@ class HomeController extends Controller {
   }
 
   public function home(Request $request, Response $response) {
-    $this->render('home');
+    $this->render('home', [
+      'title' => 'Photo list',
+      'titlePage' => 'Memory Album System - 1100 Photo List',
+    ]);
+  }
+  public function qrcode(Request $request, Response $response) {
+    $this->render('qrcode', [
+      'title' => 'QR Code',
+      'titlePage' => 'Memory Album System - 1300 QR code Print sheet',
+    ]);
   }
 }
