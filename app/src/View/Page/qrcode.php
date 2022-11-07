@@ -8,45 +8,7 @@
   <img src="/resources/images/chevron-left.png">
 </a>
 <span id="titlePage"><?= $titlePage ?></span>
-<div id="hamburger">
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-</div>
 
-<div class="wrapMenu">
-  <ul id="menuHamburger">
-    <li class="itemMenu">
-      <a href="">
-        <div class="imageItem">
-          <img src="/resources/images/display.png">
-        </div>
-
-        <span>Display</span>
-      </a>
-
-    </li>
-    <li class="itemMenu">
-      <a href="">
-        <div class="imageItem">
-          <img src="/resources/images/qrcode.png">
-        </div>
-        <span>QR Code</span>
-      </a>
-
-    </li>
-    <li class="itemMenu">
-      <a href="">
-        <div class="imageItem">
-          <img src="/resources/images/gear.png">
-        </div>
-        <span>Settings</span>
-      </a>
-
-    </li>
-  </ul>
-</div>
 
 
 <div id="menuHeader">
@@ -64,5 +26,24 @@
 <?php $this->end(); ?>
 
 <?php $this->section('content'); ?>
+
+<div id="action">
+  <a href="">
+    <div id="trash" class="itemAction">
+      <img src="/resources/images/printer.png" alt="">
+    </div>
+  </a>
+</div>
+
+
+<div id="qr">
+
+<div id="cardQR">
+  <span class="titleQR">招待メッセージ invitation message</span>
+  <img src="/resources/images/qr.png" >
+  <a href="/">https://mas.com/</a>
+</div>
+
+</div>
 
 <?php $this->end(); ?>

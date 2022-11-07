@@ -15,3 +15,29 @@
 #menuHeader a:last-child {
   margin-right: 0;
 }
+#action {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  margin-top: 9.1rem;
+  display: flex;
+  justify-content: center;
+}
+#action a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.itemAction {
+  background-color: #5866e1;
+  width: 6.5rem;
+  height: 5.7rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.3rem;
+}
+.itemAction:first-child {
+  margin-right: 1.7rem;
+}

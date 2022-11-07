@@ -159,6 +159,7 @@ html {
   font-size: 3.6rem;
   font-family: 'Inter';
   font-weight: 400;
+  text-align: center;
   line-height: 2.75rem;
 }
 
@@ -312,18 +313,48 @@ html {
   background-color: rgba(151, 151, 151, 0.144);
 }
 
-
-@media (min-width: 360px) and (max-width: 1024px) {
+@media (min-width: 360px) and (max-width: 1280px) {
   #hamburger {
     display: block;
   }
-  #titlePage {
-    display: none;
-  }
-
   #hamburger.open ~ .wrapMenu {
     display: block;
+  }
 
+  div#menuHeader {
+    display: none;
+  }
+}
+
+@media (min-width: 360px) and (max-width: 479px) {
+  #titlePage {
+    font-size: 2rem;
+
+    text-align: center;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 629px) {
+  #titlePage {
+    font-size: 2.5rem;
+
+    text-align: center;
+  }
+}
+
+@media (min-width: 630px) and (max-width: 739px) {
+  #titlePage {
+    font-size: 2.7rem;
+
+    text-align: center;
+  }
+}
+
+@media (min-width: 870px) and (max-width: 1023px) {
+  #titlePage {
+    font-size: 2.9rem;
+
+    text-align: center;
   }
 }
 

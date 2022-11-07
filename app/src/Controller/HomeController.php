@@ -36,4 +36,11 @@ class HomeController extends Controller {
       'titlePage' => 'Memory Album System - 1300 QR code Print sheet',
     ]);
   }
+
+  public function settings(Request $request, Response $response) {
+    $this->render('settings', [
+      'title' => 'Settings',
+      'titlePage' => 'Memory Album System - 1400 Settings',
+    ]);
+  }
 }

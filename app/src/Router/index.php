@@ -27,4 +27,13 @@ $router->get(
     Response $response
   ) => HomeController::Instance()->qrcode($request, $response)
 );
+
+$router->get(
+  '/settings',
+  [[AuthMiddleware::class, 'isAuth']],
+  fn(
+    Request $request,
+    Response $response
+  ) => HomeController::Instance()->settings($request, $response)
+);
 ?>
