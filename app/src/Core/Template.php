@@ -11,7 +11,7 @@ class Template {
   private $style;
   private $currentSection;
   public function __construct(string $view, array $data) {
-    $this->layout = 'main';
+    $this->layout = 'index';
     $this->view = $view;
     $this->data = $data;
     $this->sections = [];

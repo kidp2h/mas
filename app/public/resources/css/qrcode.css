@@ -8,6 +8,11 @@ div#menuHeader {
   margin-top: 2.8rem;
   margin-bottom: 8.1rem;
 }
+
+#cardQR img {
+  height: fit-content;
+  border-radius: 20px;
+}
 #cardQR {
   width: 54.4rem;
   height: 72.2rem;

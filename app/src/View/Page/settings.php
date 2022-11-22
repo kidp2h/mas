@@ -10,10 +10,10 @@
 </span>
 <div class="groupAction">
   <div class="btn-action">
-    <a href="">登録</a>
+    <a href="/registerEvent">登録</a>
   </div>
   <div class="btn-action">
-    <a href=""> 戻る</a>
+    <a href="/"> 戻る</a>
 
   </div>
 

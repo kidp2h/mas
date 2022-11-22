@@ -18,5 +18,7 @@
       "email": "f7kingeagles@gmail.com"
     }
   ],
-  "require": {}
+  "require": {
+    "chillerlan/php-qrcode": "dev-main"
+  }
 }

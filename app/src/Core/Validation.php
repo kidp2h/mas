@@ -1,7 +1,9 @@
 <?php
 
 namespace Core;
-abstract class Validation {
+
+abstract class Validation
+{
   public const RULE_REQUIRED = 'required';
   public const RULE_EMAIL = 'email';
   public const RULE_MIN = 'min';
@@ -11,21 +13,28 @@ abstract class Validation {
 
   abstract public function rules();
 
-  public function loadData($data) {
+  public function loadData($data)
+  {
     foreach ($data as $key => $value) {
       if (property_exists($this, $key)) {
+        if ($value == "undefined" || $value == "null") {
+          $this->{$key} = null;
+          continue;
+        }
         $this->{$key} = $value;
       }
     }
   }
-  public function addError($attr, $rule, $params = []) {
+  public function addError($attr, $rule, $params = [])
+  {
     $message = $this->errorMessages()[$rule] ?? '';
     foreach ($params as $key => $value) {
       $message = str_replace("{{$key}}", $value, $message);
     }
     $this->errors[$attr][] = $message;
   }
-  public function errorMessages() {
+  public function errorMessages()
+  {
     return [
       self::RULE_REQUIRED => 'This field can not be empty',
       self::RULE_EMAIL => 'Email is not valid',
@@ -34,7 +43,8 @@ abstract class Validation {
       self::RULE_MATCH => 'This field must be same as field {match}',
     ];
   }
-  public function validate() {
+  public function validate()
+  {
     foreach ($this->rules() as $attr => $rules) {
       $value = $this->{$attr};
       foreach ($rules as $rule) {
@@ -74,11 +84,12 @@ abstract class Validation {
       return $this->errors;
     }
   }
-  public function hasError($attr) {
+  public function hasError($attr)
+  {
     return $this->errors[$attr] ?? false;
   }
-  public function getFirstError($attr) {
+  public function getFirstError($attr)
+  {
     return $this->errors[$attr][0] ?? false;
   }
 }
-?>

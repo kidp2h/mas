@@ -1,0 +1,92 @@
+.btn-back {
+  background-color: #D9D9D9;
+  width: 6rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-back a {
+  text-decoration: none;
+  color: black;
+  font-size: 2rem;
+
+}
+.wrapFlex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#header {
+  display: flex;
+  flex-direction: row;
+  height: 6.6rem;
+  margin-top: 3rem;
+  padding: 0 3.6rem;
+}
+.headerText {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+
+}
+.headerText h3 {
+  font-size: 3.6rem;
+  font-weight: normal;
+  margin: 0;
+}
+
+#camera {
+  width: 35rem;
+  height: 35rem;
+  background-color: #EEE;
+  border: 1px solid #AAA;
+  color:#666 ;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#content {
+  margin-top: 15rem;
+  display: flex;
+  flex-direction: row;
+  gap: 10rem;
+}
+.btn-action {
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  background-color: #5866E1;
+  font-size: 1.6rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 5rem;
+  width: 15rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.group_btn-action {
+  position: relative;
+}
+.note {
+  font-size: 1.4rem;
+  margin-top: 0.5rem;
+  display: block;
+  position: absolute;
+}
+
+#canvas {
+  position:absolute;
+  visibility: hidden;
+}

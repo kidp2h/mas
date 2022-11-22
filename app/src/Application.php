@@ -8,12 +8,14 @@ use Core\Session;
 /**
  * application
  */
-class Application {
+class Application
+{
   private static self $instance;
   public Router $__router;
   private Request $request;
   private Response $response;
-  public function __construct() {
+  public function __construct()
+  {
     Database::Instance()->connect();
     $this->request = new Request();
     $this->response = new Response();
@@ -31,18 +33,21 @@ class Application {
     $this->__router = new Router($this->request, $this->response);
   }
 
-  public static function Instance(): self {
+  public static function Instance(): self
+  {
     if (!isset(self::$instance)) {
       self::$instance = new self();
     }
     return self::$instance;
   }
 
-  public function run() {
+  public function run()
+  {
     $this->route('index');
     $this->route('photo');
     $this->route('user');
-    return $this->__router->handle();
+    $this->route('attendee');
+    echo $this->__router->handle();
   }
 
   public function setCookie(
@@ -59,20 +64,23 @@ class Application {
     return false;
   }
 
-  public function getCookie($name) {
+  public function getCookie($name)
+  {
     if (isset($_COOKIE[$name])) {
       return $_COOKIE[$name];
     }
     return null;
   }
 
-  public function deleteCookie($name) {
+  public function deleteCookie($name)
+  {
     unset($_COOKIE[$name]);
     $this->setCookie($name, '', time() - 3600);
     return !isset($_COOKIE[$name]);
   }
 
-  public function route(string $filename) {
+  public function route(string $filename)
+  {
     require_once __DIR__ . "/../src/Router/{$filename}.php";
   }
 }

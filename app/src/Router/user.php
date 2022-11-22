@@ -1,4 +1,5 @@
 <?php
+
 use Controller\UserController;
 use Core\Request;
 use Core\Response;
@@ -11,7 +12,7 @@ $router->prefix('user');
 $router->get(
   '/register',
   [[AuthMiddleware::class, 'isNotAuth']],
-  fn(
+  fn (
     Request $request,
     Response $response
   ) => UserController::Instance()->register($request, $response)
@@ -20,7 +21,7 @@ $router->get(
 $router->get(
   '/login',
   [[AuthMiddleware::class, 'isNotAuth']],
-  fn(Request $request, Response $response) => UserController::Instance()->login(
+  fn (Request $request, Response $response) => UserController::Instance()->login(
     $request,
     $response
   )
@@ -29,7 +30,7 @@ $router->get(
 $router->post(
   '/register',
   [[AuthMiddleware::class, 'isNotAuth']],
-  fn(
+  fn (
     Request $request,
     Response $response
   ) => UserController::Instance()->handleRegister($request, $response)
@@ -38,7 +39,7 @@ $router->post(
 $router->post(
   '/login',
   [[AuthMiddleware::class, 'isNotAuth']],
-  fn(
+  fn (
     Request $request,
     Response $response
   ) => UserController::Instance()->handleLogin($request, $response)
@@ -53,4 +54,9 @@ $router->post(
   [UserController::class, 'handleResetPassword']
 );
 
-?>
+
+$router->post(
+  '/forgot-password',
+  [[AuthMiddleware::class, 'isNotAuth']],
+  [UserController::class, 'handleResetPassword']
+);

@@ -17,6 +17,7 @@ services:
       PASSWORD_DB: ${PASSWORD_DB}
       DB: ${DB}
       SECRET: ${SECRET}
+      BASE_URL: http://localhost:${PORT}
     networks:
       - mas
   db:
