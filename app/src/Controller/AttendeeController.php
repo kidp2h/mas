@@ -12,42 +12,26 @@ use DateTime;
 use Model\UserModel;
 use Validation\AttendeeUploadValidation;
 
-class AttendeeController extends Controller
-{
-  private Model $model;
+class AttendeeController extends Controller {
 
-  private static self $instance;
-
-  public function __construct()
-  {
-    $this->model = new UserModel();
+  public function __construct() {
   }
 
-  public static function Instance(): self
-  {
-    if (!isset(self::$instance)) {
-      self::$instance = new self();
-    }
-    return self::$instance;
-  }
-  public function toppage(Request $request, Response $response)
-  {
+  public function toppage(Request $request, Response $response) {
     $this->render('toppage', [
       'title' => 'Top page',
       'titlePage' => 'Memory Album System 2000 Top page',
     ]);
   }
 
-  public function upload(Request $request, Response $response)
-  {
+  public function upload(Request $request, Response $response) {
     $this->render('upload', [
       'title' => 'Upload',
       'titlePage' => 'Memory Album System 2000 Top page',
     ]);
   }
 
-  public function handleUpload(Request $request, Response $response)
-  {
+  public function handleUpload(Request $request, Response $response) {
     header('Access-Control-Allow-Origin: *');
     $body = $request->body();
     $validation = new AttendeeUploadValidation();
@@ -101,8 +85,7 @@ class AttendeeController extends Controller
     }
   }
 
-  public function check(Request $request, Response $response)
-  {
+  public function check(Request $request, Response $response) {
     $this->render('check', [
       'title' => 'Photocheck',
       'titlePage' => 'Memory Album System 2000 Top page',

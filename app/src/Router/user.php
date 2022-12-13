@@ -45,18 +45,34 @@ $router->post(
   ) => UserController::Instance()->handleLogin($request, $response)
 );
 
-$router->get('/reset-password', [], [UserController::class, 'resetPassword']);
+$router->get('/reset-password/{token:.*?[\S\s]+}', [[AuthMiddleware::class, 'isNotAuth']], fn (
+  Request $request,
+  Response $response
+) => UserController::Instance()->reset($request, $response));
+$router->get('/forgot-password', [[AuthMiddleware::class, 'isNotAuth']], fn (
+  Request $request,
+  Response $response
+) => UserController::Instance()->forgot($request, $response));
+
+$router->post('/reset-password/{token:.*?[\S\s]+}', [[AuthMiddleware::class, 'isNotAuth']], fn (
+  Request $request,
+  Response $response
+) => UserController::Instance()->handleReset($request, $response));
+$router->post('/forgot-password', [[AuthMiddleware::class, 'isNotAuth']], fn (
+  Request $request,
+  Response $response
+) => UserController::Instance()->handleForgot($request, $response));
 $router->get('/logout', [], [UserController::class, 'logout']);
 
-$router->post(
-  '/reset-password',
-  [[AuthMiddleware::class, 'isNotAuth']],
-  [UserController::class, 'handleResetPassword']
-);
+// $router->post(
+//   '/reset-password',
+//   [[AuthMiddleware::class, 'isNotAuth']],
+//   [UserController::class, 'handleResetPassword']
+// );
 
 
-$router->post(
-  '/forgot-password',
-  [[AuthMiddleware::class, 'isNotAuth']],
-  [UserController::class, 'handleResetPassword']
-);
+// $router->post(
+//   '/forgot-password',
+//   [[AuthMiddleware::class, 'isNotAuth']],
+//   [UserController::class, 'handleResetPassword']
+// );

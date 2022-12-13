@@ -62,18 +62,30 @@
         const canvas = document.querySelector('#canvas')
         canvas.width = camera.videoWidth
         canvas.height = camera.videoHeight
-        setTimeout(() => {
+        setTimeout(async () => {
 
           canvas.getContext('2d').drawImage(camera, 0, 0)
           camera.pause();
+
           let anchor = document.createElement("a");
           anchor.href = canvas.toDataURL("image/png");
-          anchor.download = "IMAGE.PNG";
-          anchor.click();
+          // upload
+          const form = new FormData();
+          form.append("image", anchor.href);
+          const result = await fetch("/uploadExhibition", {
+            method: "POST",
+            body: form,
+          })
 
-        }, 3000);
+          if (result.status === 200) {
+            const response = await result.json();
+            console.log(response);
+            camera.play();
+          } else {
+            console.log("error");
+          }
+        }, 2500);
       })
-
       $(".edit").addEventListener("click", function() {
         camera.play();
       })

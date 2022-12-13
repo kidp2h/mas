@@ -19,7 +19,6 @@ const validator = (rules) => {
       let temp = {};
       temp.selector = selector;
       temp.message = MESSAGE.REQUIRED;
-      console.log(selector,"required: ", rule.required,temp.message);
       result.push(temp);
 
     }
@@ -27,19 +26,27 @@ const validator = (rules) => {
       let temp = {};
       temp.selector = selector;
       temp.message = MESSAGE.MIN(rule.min)
-      console.log(selector,"min: ",  rule.min,temp.message);
       result.push(temp);
     }
     if(rule?.max && value.length > rule.max) {
       let temp = {};
       temp.selector = selector;
       temp.message = MESSAGE.MAX(rule.max)
-      console.log(selector,"max: ", rule.max, temp.message);
       result.push(temp);
     }
+    const messageSelector = `span[message='${selector.slice(1)}']`
+    $(messageSelector).classList.remove("active")
+    $(`${selector}`).classList.remove("error")
   });
-  console.log(result);
   if(result.length === 0 ) return true;
+
+  result?.forEach(item => {
+    if ($(`${item.selector}`) && $(`span[message='${item.selector.slice(1)}']`)) {
+      $(`span[message='${item.selector.slice(1)}']`).innerText = item.message
+      $(`span[message='${item.selector.slice(1)}']`)?.classList.add("active")
+      $(`${item.selector}`).classList.add("error")
+    }
+  })
   return result;
 
 }

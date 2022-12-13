@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/chillerlan/php-qrcode.git",
-                "reference": "54fc7009a332595afd5fa5f70c0ea747c42973eb"
+                "reference": "7fd54b78d8207fbd175bfd312472ec644d42d22e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chillerlan/php-qrcode/zipball/54fc7009a332595afd5fa5f70c0ea747c42973eb",
-                "reference": "54fc7009a332595afd5fa5f70c0ea747c42973eb",
+                "url": "https://api.github.com/repos/chillerlan/php-qrcode/zipball/7fd54b78d8207fbd175bfd312472ec644d42d22e",
+                "reference": "7fd54b78d8207fbd175bfd312472ec644d42d22e",
                 "shasum": ""
             },
             "require": {
@@ -95,7 +95,7 @@
                     "type": "ko_fi"
                 }
             ],
-            "time": "2022-11-09T19:59:31+00:00"
+            "time": "2022-11-10T18:47:49+00:00"
         },
         {
             "name": "chillerlan/php-settings-container",

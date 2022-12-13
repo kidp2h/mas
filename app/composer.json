@@ -7,9 +7,10 @@
       "": "src/",
       "Core\\": "src/Core/",
       "Controller\\": "src/Controller/",
+      "Repository\\": "src/Repository/",
       "Model\\": "src/Model/",
       "View\\": "src/View/",
-      "Schema\\": "src/Schema/"
+      "Util\\": "src/Util/"
     }
   },
   "authors": [

@@ -1,4 +1,8 @@
-<?php $this->layout('auth'); ?>
+<?php
+
+use Core\Session;
+
+$this->layout('auth'); ?>
 
 <?php $this->section('content'); ?>
 
@@ -10,12 +14,31 @@
       <td><span class="titleForm">Memory Album System</span></td>
     </tr>
 
+    <!-- <?php if (isset($message)) { ?>
+      <tr class="groupMessage">
+        <td></td>
+        <td class="messageResponse"><?= $message ?></td>
+
+      </tr>
+    <?php } ?> -->
+
     <tr class="groupInput">
       <td class="fieldInput"><label for="email">E-mail</label></td>
       <td class="colInput">
         <?php if (isset($form['email'])) { ?>
 
           <span class="message"><?= $form['email'][0] ?></span>
+        <?php } ?>
+        <?php if (isset($message)) { ?>
+
+          <span class="messageResponse"><?= $message ?></span>
+        <?php } ?>
+        <?php
+        $messageResponse = Session::getFlash('messageResponse');
+        if ($messageResponse) {
+        ?>
+
+          <span class="messageResponse"><?= $messageResponse ?></span>
         <?php } ?>
         <input type="email" name="email" placeholder="E-mail" />
       </td>

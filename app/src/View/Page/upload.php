@@ -24,9 +24,9 @@
 <div class="wrapFlex">
   <form id="content" method="post" enctype="multipart/form-data">
     <div class="groupInput">
-      <span class="messageValidate">Message</span>
+      <span class="messageValidate" message="imgFile">Message</span>
       <input name="img" type="file" class="inputFileHidden" id="imgFile" accept=".jpg,.jpeg,.png">
-      <input type="text" value="写真を選択して下さい select photo" readonly class="inputFile">
+      <input type="text" value="写真を選択して下さい select photo" readonly class="inputFileUpload">
 
 
 
@@ -34,12 +34,12 @@
 
 
     <div class="image">
-      <img src="" alt="" id="preview">
+      <img src="" alt="" id="preview" onerror="this.style.display='none'">
       <span>選択した写真</span>
       <span>Selected Photo</span>
     </div>
     <div class="groupInput">
-      <span class="messageValidate">Message</span>
+      <span class="messageValidate" message="message">Message</span>
       <textarea name="" id="" cols="30" rows="10" class="message">
 メッセージもお願いします
 message please
@@ -47,7 +47,7 @@ message please
     </div>
 
     <div class="groupInput">
-      <span class="messageValidate">Message</span>
+      <span class="messageValidate" message="nickname">Message</span>
       <input type="text" value="名前(ニックネーム) Nickname" class="nickname">
     </div>
 
@@ -61,7 +61,7 @@ message please
 <script>
   let validFile = false;
   let messageValidateFile = "";
-  $(".inputFile").addEventListener("click", function() {
+  $(".inputFileUpload").addEventListener("click", function() {
     const img = $("#imgFile");
     img.click();
 
@@ -81,27 +81,9 @@ message please
       min: 6,
       max: 15,
     }]
-    rules.forEach(rule => {
-      $(`${rule.selector}`)?.previousElementSibling?.classList.remove("active")
-      $(`${rule.selector}`).classList.remove("error")
-    })
+
     const result = validator(rules);
-    if (result !== true || !validFile) {
-      if (result !== true) {
-        result?.forEach(item => {
-          if ($(`${item.selector}`)) {
-            $(`${item.selector}`).previousElementSibling.innerText = item.message
-            $(`${item.selector}`)?.previousElementSibling?.classList.add("active")
-            $(`${item.selector}`).classList.add("error")
-          }
-        })
-      }
-      if (!validFile) {
-        $(`#imgFile`).previousElementSibling.innerText = messageValidateFile
-        $(`#imgFile`)?.previousElementSibling?.classList.add("active")
-        $(`#imgFile`).classList.add("error")
-      }
-    } else {
+    if (result === true) {
       const img = $("#imgFile");
       const message = $(".message").value;
       const nickname = $(".nickname").value;
@@ -122,47 +104,31 @@ message please
       }
 
     }
-
-    // selectors.forEach(selector => {
-    //   const {
-    //     value
-    //   } = $(`${selector}`);
-    //   if (value === "" || value === null || value === undefined) {
-    //     $(`${selector}`).style.borderColor = "red";
-    //     $(`${selector}`).style.color = "red";
-    //     isValid.push(0)
-    //   }
-    // })
-
-
-
   })
   $("#imgFile").addEventListener("change", function() {
     const [file] = this.files
     const preview = $("#preview")
     const validSize = 3000000
     if (file) {
-      console.log(file);
       if (!(/(.*?).png|jpg|jpeg/g.test(file.name))) {
-        console.log("ext");
         messageValidateFile = "File is not valid, please upload only image file"
         $(`#imgFile`).previousElementSibling.innerText = messageValidateFile
         $(`#imgFile`)?.previousElementSibling?.classList.add("active")
         $(`#imgFile`).classList.add("error")
-        validFile = false;
       } else if (file.size > validSize) {
         console.log("size");
         messageValidateFile = "File too large, upload image file less than 3MB"
         $(`#imgFile`).previousElementSibling.innerText = messageValidateFile
         $(`#imgFile`)?.previousElementSibling?.classList.add("active")
         $(`#imgFile`).classList.add("error")
-        validFile = false;
       } else {
+        const bufferView = new Uint8Array(file)
+        console.log(bufferView);
         preview.src = URL.createObjectURL(file)
-        $(".inputFile").value = file.name
+        $(".inputFileUpload").value = file.name
+        $("#preview").style.display = "block";
         $("#imgFile").classList.remove("error")
         $(`#imgFile`)?.previousElementSibling?.classList.remove("active")
-        validFile = true;
       }
     }
   })

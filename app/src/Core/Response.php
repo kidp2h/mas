@@ -1,5 +1,7 @@
 <?php
+
 namespace Core;
+
 class Response {
   private static self $instance;
 
@@ -13,7 +15,6 @@ class Response {
     if ($statusCode >= 400 && $statusCode <= 599) {
       http_response_code($statusCode);
       require_once _DIR_ROOT_ . 'src/View/Page/NotFound.php';
-      exit();
     }
     http_response_code($statusCode);
   }

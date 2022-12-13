@@ -53,6 +53,11 @@ div.groupInput {
   font-size: 1.6rem;
   text-indent: 0.4rem;
   line-height: 1.9rem;
+
+}
+.groupInput > .inputValue {
+  display: flex;
+  flex-direction: row;
 }
 .pattern > span {
   font-size: 1.4rem;
@@ -110,7 +115,7 @@ div.groupInput {
   padding: 1px;
 }
 .selectedImage {
-  width: 36rem;
+  width: 36.6rem;
   height: 18rem;
   border: 1px solid #AAAAAA;
   background-color: #EEEEEE;
@@ -120,6 +125,7 @@ div.groupInput {
   align-items: center;
   justify-content: center;
   padding: 0 2px;
+  position: relative;
 }
 .selectedImage .wrapText div {
   color: #666666;
@@ -156,8 +162,20 @@ font-size: 2rem;
 .radioText:first-child {
   margin-right: 1.5rem;
 }
+span.messageValidate {
 
+  font-size: 1.4rem;
+  color: red;
+  display: none;
+  
+}
+span.messageValidate.active {
 
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
 @media (min-width: 360px) and (max-width: 1280px) {
   .textPC, label.textPC {
     display: none !important;
@@ -209,5 +227,5 @@ font-size: 2rem;
   }
   .radioText span {
     font-size: 1.3rem;
-    }
+  }
 }

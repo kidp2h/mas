@@ -1,4 +1,5 @@
 <?php
+
 namespace Core;
 
 class Router {
@@ -83,7 +84,7 @@ class Router {
       if (count($match[0]) !== 0) {
         $patternRoute = preg_replace_callback(
           '#\{(.*?):(.*?)\}#',
-          fn($matches) => '(' . $matches[2] . ')',
+          fn ($matches) => '(' . $matches[2] . ')',
           $key
         );
         $patternRoute = '/^' . str_replace('/', '\/', $patternRoute) . '\/?$/';
@@ -120,4 +121,3 @@ class Router {
     }
   }
 }
-?>

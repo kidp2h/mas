@@ -2,25 +2,23 @@
 
 namespace Core;
 
-class Request
-{
+class Request {
   public array $params;
-  public function __construct()
-  {
+  public function __construct() {
     $this->params = [];
   }
 
-  public function path()
-  {
+  public function param($name) {
+    return $this->params[$name];
+  }
+  public function path() {
     return $_SERVER['REDIRECT_URL'];
   }
 
-  public function method()
-  {
+  public function method() {
     return strtoupper($_SERVER['REQUEST_METHOD']);
   }
-  public function body()
-  {
+  public function body() {
     $body = [];
     if ($this->method() === 'GET') {
       foreach ($_GET as $key) {
@@ -45,8 +43,7 @@ class Request
     }
     return $body;
   }
-  public function setParams(array $params)
-  {
+  public function setParams(array $params) {
     $this->params = $params;
   }
 }
