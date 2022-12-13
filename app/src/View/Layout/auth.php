@@ -9,18 +9,18 @@
   <link rel="stylesheet" href="/resources/css/base.css">
   <link rel="stylesheet" href="/resources/css/auth.css">
   <link rel="stylesheet" href="/resources/css/login.css">
+  </link>
 
 <body>
   <div class="bg">
     <span id="titlePage"><?= $titlePage ?></span>
     <div id="formAuth">
-
       <?php $this->renderSection('content'); ?>
-
     </div>
   </div>
-  <?php $this->renderScript(); ?>
 
+  <script src="/resources/js/main.js"></script>
+  <?php $this->renderScript(); ?>
 </body>
 
 </html>

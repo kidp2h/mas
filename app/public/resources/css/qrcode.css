@@ -1,3 +1,67 @@
 div#menuHeader {
   visibility: hidden;
 }
+#qr {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2.8rem;
+  margin-bottom: 8.1rem;
+}
+
+#cardQR img {
+  height: fit-content;
+  border-radius: 20px;
+}
+#cardQR {
+  width: 54.4rem;
+  height: 72.2rem;
+  border-radius: 18px;
+  background-color: #fafafa;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.titleQR {
+  font-size: 3.6rem;
+  line-height: 4.4rem;
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 3.8rem;
+}
+
+#cardQR a {
+  font-size: 3.6rem;
+  line-height: 4.4rem;
+  font-weight: 400;
+  text-align: center;
+  margin-top: 2.8rem;
+  color: black;
+  text-decoration: none;
+}
+
+@media (min-width: 360px) and (max-width: 1024px) {
+  .titleQR {
+    font-size: 2rem;
+    line-height: 4.4rem;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 3.8rem;
+  }
+  #cardQR a {
+    font-size: 2rem;
+  }
+
+  #cardQR {
+    width: 90%;
+    height: 100%;
+    padding: 3rem 0;
+  }
+
+  #cardQR img {
+    width: 80%;
+  }
+}

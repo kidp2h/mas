@@ -20,7 +20,8 @@
 <?php $this->renderSection('content'); ?>
 
 <body>
-<?php $this->renderScript(); ?>
+  <script src="/resources/js/main.js"></script>
+  <?php $this->renderScript(); ?>
 </body>
 
 </html>

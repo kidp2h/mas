@@ -1,43 +1,15 @@
-#action {
-  display: flex;
-  align-items: center;
-  justify-items: center;
-  margin-top: 9.1rem;
-  display: flex;
-  justify-content: center;
-}
 #titlePage {
   align-self: center;
   justify-self: center;
 }
-#action a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-
-}
-
-.itemAction {
-  background-color: #5866E1;
-  width: 6.5rem;
-  height: 5.7rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 0.3rem;
-}
-.itemAction:first-child {
-  margin-right: 1.7rem;
-}
 
 #listPhoto {
-	margin-top: 7rem;
-	display: grid;
-	flex-wrap: wrap;
-	gap: 7rem;
-	row-gap: 5rem;
-	grid-template-columns:repeat(7, 1fr);;
+  margin-top: 7rem;
+  display: grid;
+  flex-wrap: wrap;
+  gap: 7rem;
+  row-gap: 5rem;
+  grid-template-columns: repeat(7, 1fr);
 }
 .photo {
   width: 30rem;
@@ -46,7 +18,6 @@
   width: 30rem;
   border-radius: 1.8rem;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
-
 }
 #wrapListPhoto {
   display: flex;
@@ -54,8 +25,7 @@
   align-items: center;
 }
 
-
-@media (min-width: 360px) and (max-width:723px) {
+@media (min-width: 360px) and (max-width: 723px) {
   #listPhoto {
     grid-template-columns: repeat(1, 1fr);
   }
@@ -75,8 +45,6 @@
     background-color: white;
   }
 }
-
-
 
 @media (min-width: 724px) and (max-width: 1023px) {
   #listPhoto {
@@ -99,12 +67,16 @@
   }
 }
 
+@media (min-width: 360px) and (max-width: 1024px) {
+  #titlePage {
+    display: none;
+  }
+}
 
 @media (min-width: 1024px) and (max-width: 1365px) {
   #listPhoto {
     grid-template-columns: repeat(3, 1fr);
   }
-
 }
 
 @media (min-width: 1366px) and (max-width: 1919px) {
@@ -130,4 +102,3 @@
     grid-template-columns: repeat(10, 1fr);
   }
 }
-

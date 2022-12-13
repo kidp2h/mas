@@ -1,6 +1,7 @@
 <?php
 
 namespace Core;
+
 abstract class Validation {
   public const RULE_REQUIRED = 'required';
   public const RULE_EMAIL = 'email';
@@ -14,6 +15,10 @@ abstract class Validation {
   public function loadData($data) {
     foreach ($data as $key => $value) {
       if (property_exists($this, $key)) {
+        if ($value == "undefined" || $value == "null") {
+          $this->{$key} = null;
+          continue;
+        }
         $this->{$key} = $value;
       }
     }
@@ -42,7 +47,7 @@ abstract class Validation {
         if (!is_string($ruleName)) {
           $ruleName = $rule[0];
         }
-        if ($ruleName === self::RULE_REQUIRED && !$value) {
+        if ($ruleName === self::RULE_REQUIRED && !$value && $value !== 0) {
           $this->addError($attr, self::RULE_REQUIRED);
         }
 
@@ -81,4 +86,3 @@ abstract class Validation {
     return $this->errors[$attr][0] ?? false;
   }
 }
-?>

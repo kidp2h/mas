@@ -4,7 +4,7 @@ namespace Core;
 
 use Application;
 
-class Controller {
+class Controller extends SingletonBase {
   public function render($view, $data = []) {
     $template = new Template($view, $data);
     $template->run();

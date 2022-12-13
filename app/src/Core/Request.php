@@ -1,4 +1,5 @@
 <?php
+
 namespace Core;
 
 class Request {
@@ -7,6 +8,9 @@ class Request {
     $this->params = [];
   }
 
+  public function param($name) {
+    return $this->params[$name];
+  }
   public function path() {
     return $_SERVER['REDIRECT_URL'];
   }
@@ -32,6 +36,9 @@ class Request {
           $key,
           FILTER_SANITIZE_SPECIAL_CHARS
         );
+      }
+      foreach ($_FILES as $key => $value) {
+        $body[$key] = $_FILES[$key];
       }
     }
     return $body;

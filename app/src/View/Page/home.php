@@ -30,7 +30,7 @@
 
     </li>
     <li class="itemMenu">
-      <a href="">
+      <a href="/qrcode">
         <div class="imageItem">
           <img src="/resources/images/qrcode.png">
         </div>
@@ -39,7 +39,7 @@
 
     </li>
     <li class="itemMenu">
-      <a href="">
+      <a href="/settings">
         <div class="imageItem">
           <img src="/resources/images/gear.png">
         </div>

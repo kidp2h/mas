@@ -22,7 +22,6 @@ class Database {
       mysqli_set_charset(self::$con, 'UTF8');
       if (mysqli_connect_errno()) {
         echo 'Failed' . mysqli_connect_error();
-        exit();
       }
       return self::$con;
     } catch (\Exception $th) {

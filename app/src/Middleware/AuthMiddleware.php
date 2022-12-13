@@ -1,8 +1,13 @@
 <?php
+
 namespace Middleware;
+
 use Core\Request;
 use Core\Response;
 use Application;
+use Core\Session;
+use DateTime;
+use Repository\UserRepository;
 
 class AuthMiddleware {
   public static function isAuth(Request $request, Response $response) {
@@ -44,5 +49,19 @@ class AuthMiddleware {
       return true;
     }
   }
+
+  public static function isNotExpireTrial(Request $request, Response $response) {
+    $userSession = Session::get(KEY_SESSION_USER);
+    $user = UserRepository::Instance()->getById($userSession->id);
+    if ($user->useFlag) {
+      $createdAt = strtotime($user->created_at);
+      $now = strtotime((new DateTime())->format('Y-m-d H:i:s'));
+      $hours = ($now - $createdAt) / 3600;
+      if ($hours > 1) {
+        Session::setFlash("messageResponse", 'Your trial is expire !');
+        return $response->redirect('/user/logout');
+      }
+    }
+    return true;
+  }
 }
-?>

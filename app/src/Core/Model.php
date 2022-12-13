@@ -2,23 +2,21 @@
 
 namespace Core;
 
-use Closure;
 use Database;
 use mysqli;
-use Schema\UserSchema;
-class Model {
-  protected Schema $schema;
-  protected string $nameTable;
-  private static self $instance;
+
+abstract class Model extends SingletonBase {
+  public string $table;
   private array $conditions = [];
+  private array $sets = [];
   public array $fields = [];
   public array $fieldSelect = [];
   public mysqli $connection;
-  public function __construct(Schema $schema) {
-    $this->schema = $schema;
-    $fields = get_class_vars(get_class($this->schema));
+  public function __construct() {
+    $fields = get_class_vars(static::class);
+    $this->table = $fields['nameTable'];
+    unset($fields["nameTable"]);
     $this->connection = Database::Instance()->getConnect();
-
     foreach ($fields as $name => $value) {
       array_push($this->fields, $name);
     }
@@ -34,8 +32,38 @@ class Model {
     $this->fieldSelect = $fields;
     return $this;
   }
+
+  public function update() {
+    $stringWhere = $this->getStatementWhere();
+    $stringSet = $this->getStatementSet();
+    try {
+      $query = "UPDATE $this->table SET $stringSet WHERE {$stringWhere}";
+      $result = $this->execute($query);
+      if ($result !== true)
+        return ["message" => "Bad statement", "status" => false];
+      return ["status" => true];
+    } catch (\Throwable $th) {
+    }
+  }
+
+  public function delete() {
+    $stringWhere = $this->getStatementWhere();
+    try {
+      $query = "DELETE FROM $this->table WHERE {$stringWhere}";
+      $result = $this->execute($query);
+      if ($result !== true)
+        return ["message" => "Bad statement", "status" => false];
+      return ["status" => true];
+    } catch (\Throwable $th) {
+    }
+  }
   public function where(string $field, string $operator, string $value): self {
     array_push($this->conditions, "{$field} {$operator} '{$value}'");
+    return $this;
+  }
+
+  public function set($column, $value): self {
+    array_push($this->sets, "{$column} = '{$value}'");
     return $this;
   }
 
@@ -48,9 +76,32 @@ class Model {
     return $this;
   }
 
-  public function get(): array {
+  public function get($limit = NULL): static|null {
     $stringSelect = implode(', ', $this->fieldSelect);
-    $stringWhere = '';
+    $stringWhere = $this->getStatementWhere();
+    $query = "";
+    if ($limit) {
+      $query = "SELECT {$stringSelect} FROM $this->table WHERE {$stringWhere} LIMIT=$limit";
+    } else {
+      $query = "SELECT {$stringSelect} FROM $this->table WHERE {$stringWhere}";
+    }
+
+    $result = $this->execute($query);
+    $resultORM = new static();
+    $fetch = $result->fetch_assoc();
+    if (!empty($fetch)) {
+      foreach ($fetch as $key => $value) {
+        $resultORM->$key = $value;
+      }
+
+      return $resultORM;
+    } else {
+      return null;
+    }
+  }
+
+  public function getStatementWhere() {
+    $stringWhere = "";
     for ($i = 0; $i < count($this->conditions) - 1; $i++) {
       if (
         str_contains($this->conditions[$i + 1], '(') ||
@@ -72,22 +123,20 @@ class Model {
         $stringWhere .= "and  {$this->conditions[$i]}";
       }
     }
-    $query = "SELECT {$stringSelect} FROM $this->nameTable WHERE {$stringWhere}";
-    $result = $this->execute($query);
-    $rows = [];
-    while ($row = $result->fetch_assoc()) {
-      // $rows[] = new $this->schema((object) $row);
-      $row = (object) $row;
-      $rows[] = $row;
-    }
-    return $rows;
+
+    $this->conditions = [];
+    return $stringWhere;
+  }
+
+  public function getStatementSet() {
+    return implode(",", $this->sets);
   }
 
   public function nextID(): int {
     return mysqli_query(
       $this->connection,
       "SELECT AUTO_INCREMENT FROM information_schema.TABLES
-        WHERE TABLE_SCHEMA = 'mas' AND TABLE_NAME = '{$this->nameTable}';
+        WHERE TABLE_SCHEMA = 'mas' AND TABLE_NAME = '{$this->table}';
       "
     );
   }
@@ -106,7 +155,7 @@ class Model {
     $fields = implode(',', $fields);
     $values = "'" . implode("', '", $values) . "'";
 
-    $queryCommand = "INSERT INTO {$this->nameTable} ({$fields}) VALUES ({$values})";
+    $queryCommand = "INSERT INTO {$this->table} ({$fields}) VALUES ({$values})";
     return $this->execute($queryCommand);
   }
 
@@ -126,6 +175,38 @@ class Model {
       }
     }
   }
-}
 
-?>
+  public static function query($query) {
+    try {
+      return Database::Instance()->getConnect()->query($query);
+    } catch (\Throwable $th) {
+      // duplicate
+      switch (Database::Instance()->getConnect()->errno) {
+        case 1062:
+          return false;
+          break;
+
+        default:
+          return $th;
+          break;
+      }
+    }
+  }
+
+  public static function multiQuery($query) {
+    try {
+      return Database::Instance()->getConnect()->multi_query($query);
+    } catch (\Throwable $th) {
+      // duplicate
+      switch (Database::Instance()->getConnect()->errno) {
+        case 1062:
+          return false;
+          break;
+
+        default:
+          return $th;
+          break;
+      }
+    }
+  }
+}

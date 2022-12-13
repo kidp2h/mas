@@ -4,12 +4,13 @@ use Core\Request;
 use Core\Response;
 use Core\Router;
 use Core\Session;
+use Core\SingletonBase;
+use Repository\UserRepository;
 
 /**
  * application
  */
-class Application {
-  private static self $instance;
+class Application extends SingletonBase {
   public Router $__router;
   private Request $request;
   private Response $response;
@@ -18,9 +19,13 @@ class Application {
     $this->request = new Request();
     $this->response = new Response();
     $user = $this->getCookie('__masu');
+    $userSession = Session::get(KEY_SESSION_USER);
+    if ($user && empty($userSession)) {
+      $userObject = UserRepository::Instance()->getById(base64_decode($user));
+      Session::set(KEY_SESSION_USER, $userObject);
+    }
     $hash = $this->getCookie('_masu');
-
-    if ($user && !Session::get('user')) {
+    if ($user && empty(Session::get('user'))) {
       $id = base64_decode(urldecode($user));
       $isCorrect = password_verify($id . $_ENV['SECRET'], urldecode($hash));
       if ($isCorrect) {
@@ -31,18 +36,13 @@ class Application {
     $this->__router = new Router($this->request, $this->response);
   }
 
-  public static function Instance(): self {
-    if (!isset(self::$instance)) {
-      self::$instance = new self();
-    }
-    return self::$instance;
-  }
 
   public function run() {
     $this->route('index');
     $this->route('photo');
     $this->route('user');
-    return $this->__router->handle();
+    $this->route('attendee');
+    echo $this->__router->handle();
   }
 
   public function setCookie(

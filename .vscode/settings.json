@@ -1,0 +1,6 @@
+{
+  "editor.minimap.autohide": true,
+  "editor.minimap.side": "right",
+  "editor.acceptSuggestionOnEnter": "smart",
+  "editor.suggest.localityBonus": true
+}

@@ -1,6 +1,7 @@
 <?php
 
 namespace Core;
+
 class Session {
   public function __construct() {
   }
@@ -21,5 +22,21 @@ class Session {
       unset($_SESSION[$key]);
     }
   }
+
+  public static function setFlash($key, $value) {
+    $_SESSION[$key] = $value;
+    if (!empty($_SESSION[$key])) {
+      return true;
+    }
+    return false;
+  }
+
+  public static function getFlash($key) {
+    $value = false;
+    if (isset($_SESSION[$key])) {
+      $value = $_SESSION[$key];
+      unset($_SESSION[$key]);
+    }
+    return $value;
+  }
 }
-?>
