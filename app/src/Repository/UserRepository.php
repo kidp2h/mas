@@ -15,7 +15,7 @@ class UserRepository extends Repository {
       ->select('*')
       ->where('email', '=', $email)
       ->where('password', '=', md5($password))
-      ->get();
+      ->findOne();
   }
 
   public function register($payload) {
@@ -26,13 +26,13 @@ class UserRepository extends Repository {
     return $this->model
       ->select("*")
       ->where("email", "=", $email)
-      ->get();
+      ->findOne();
   }
   public function getById(string $id): ?User {
     return $this->model
       ->select("*")
       ->where("id", "=", $id)
-      ->get();
+      ->findOne();
   }
   public function resetPassword($id, $password) {
     TokenRepository::Instance()->deleteById($id);
@@ -48,15 +48,15 @@ class UserRepository extends Repository {
     $welcomeMessage = $data['welcomeMessage'];
     $actionFlag = $data['actionFlag'];
     $QRCodeFlag = $data['QRCodeFlag'];
-    $image = $data['image'];
-    return $this->model
+    $this->model
       ->set("name", $name)
       ->set('eventTitle', $eventTitle)
       ->set('welcomeMessage', $welcomeMessage)
-      ->set('welcomeImageFilename', $image->name)
       ->set('actionFlag', $actionFlag)
       ->set('QRCodeFlag', $QRCodeFlag)
-      ->where("id", '=', $id)
-      ->update();
+      ->where("id", '=', $id);
+    if (isset($data['image']))
+      return $this->model->set('welcomeImageFilename',  $data['image'])->update();
+    return $this->model->update();
   }
 }

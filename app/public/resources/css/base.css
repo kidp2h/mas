@@ -245,6 +245,17 @@ html {
   position: fixed;
   display: none;
   top: 0;
+  z-index: 10;
+}
+#overlay.active {
+  width: 100%;
+  height: 100%;
+  background-color: #000000ad;
+  position: fixed;
+  display: block;
+  top: 0;
+  z-index: 2;
+
 }
 
 #overlay.active {
@@ -324,7 +335,8 @@ html {
   border-radius: 2px;
   border: 1px solid #AAAAAA;
   height: 3.4rem;
-  width: 36.6rem;
+  /* width: 36.6rem; */
+  width: 100%;
   color: black;
   cursor: pointer;
   outline: none;

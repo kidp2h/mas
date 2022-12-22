@@ -3,6 +3,7 @@
 use Controller\AttendeeController;
 use Core\Request;
 use Core\Response;
+use Middleware\AttendeeMiddleware;
 
 $app = Application::Instance();
 $router = $app->__router;
@@ -10,7 +11,7 @@ $router->prefix('attendee');
 
 $router->get(
   '/toppage',
-  [],
+  [[AttendeeMiddleware::class, 'isJoined']],
   fn (
     Request $request,
     Response $response
@@ -19,7 +20,7 @@ $router->get(
 
 $router->get(
   '/upload',
-  [],
+  [[AttendeeMiddleware::class, 'isJoined']],
   fn (
     Request $request,
     Response $response
@@ -28,7 +29,7 @@ $router->get(
 
 $router->post(
   '/upload',
-  [],
+  [[AttendeeMiddleware::class, 'isJoined']],
   fn (
     Request $request,
     Response $response
@@ -37,9 +38,18 @@ $router->post(
 
 $router->get(
   '/check',
-  [],
+  [[AttendeeMiddleware::class, 'isJoined']],
   fn (
     Request $request,
     Response $response
   ) => AttendeeController::Instance()->check($request, $response)
+);
+
+$router->post(
+  '/delete-image',
+  [[AttendeeMiddleware::class, 'isJoined']],
+  fn (
+    Request $request,
+    Response $response
+  ) => AttendeeController::Instance()->deleteImage($request, $response)
 );

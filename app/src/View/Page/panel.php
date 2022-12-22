@@ -7,7 +7,7 @@
 <div class="wrapFlex">
   <div class="header">
     <h3>Memory Album System</h3>
-    <h3>2000 Top page</h3>
+    <h3>2300 Panel Remo-con</h3>
   </div>
 </div>
 <?php $this->end(); ?>

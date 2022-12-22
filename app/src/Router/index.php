@@ -68,5 +68,30 @@ $router->get(
   fn (
     Request $request,
     Response $response
-  ) => AttendeeController::Instance()->toppage($request, $response)
+  ) => AttendeeController::Instance()->join($request, $response)
+);
+
+$router->get(
+  '/pattern1',
+  [[AuthMiddleware::class, "isAuth"], [AuthMiddleware::class, 'isNotExpireTrial']],
+  fn (
+    Request $request,
+    Response $response
+  ) => HomeController::Instance()->pattern1($request, $response)
+);
+$router->get(
+  '/pattern2',
+  [[AuthMiddleware::class, "isAuth"], [AuthMiddleware::class, 'isNotExpireTrial']],
+  fn (
+    Request $request,
+    Response $response
+  ) => HomeController::Instance()->pattern2($request, $response)
+);
+$router->post(
+  '/get-images',
+  [[AuthMiddleware::class, "isAuth"], [AuthMiddleware::class, 'isNotExpireTrial']],
+  fn (
+    Request $request,
+    Response $response
+  ) => HomeController::Instance()->getImages($request, $response)
 );

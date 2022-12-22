@@ -190,8 +190,11 @@ class UserController extends Controller {
       $validation->loadData($data);
       $result = $validation->validate();
       if (!is_array($result)) {
-        $imageResult = Image::Instance()->upload($data['image']);
-        $data['image'] = $imageResult;
+        if (isset($data['image'])) {
+          $imageResult = Image::Instance()->upload($data['image']);
+          $data['image'] = $imageResult;
+        }
+
         $statusUpdate = $this->userRepository->updateSettings($data, $id);
         $response->status(200);
         return json_encode($statusUpdate);

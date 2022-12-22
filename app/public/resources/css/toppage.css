@@ -34,6 +34,16 @@
   height: 19.5rem;
 }
 
+.wrapImage {
+  width: 100%;
+  height: 100%;
+}
+.wrapImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .group-btn {
   width: 100%;
   display: flex;
@@ -57,4 +67,11 @@
   color: white;
   text-decoration: none;
   font-size: 1.6rem;
+}
+
+.eventTitle {
+  margin-bottom: 3rem;
+  font-size: 1.6rem;
+  text-align:  center;
+  text-transform: uppercase;
 }

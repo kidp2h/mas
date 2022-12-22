@@ -1,0 +1,108 @@
+.wrapFlex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.header h3 {
+  font-size: 3.6rem;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 2.4rem;
+  margin-top: 1.5rem;
+}
+
+body {
+  background-color: #FFCCF4;
+}
+
+div#menuHeader {
+  visibility: hidden;
+}
+
+#listImage {
+  display: grid;
+  grid-auto-flow:column; 
+  /* flex-direction: row; */
+  overflow: scroll;
+  width: 100%;
+  height: 85vh;
+
+}
+#wrapCarousel {
+  margin-top: 5rem;
+  width: 100%;
+}
+.cardImage > img {
+  height: 70% ;
+  /* max-width: 48rem; */
+  max-height: 85vh;
+  transition: all 1s;
+}
+
+#listImage::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+#listImage {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.cardImage.empty {
+  height: 85%;
+  visibility: hidden;
+}
+.cardImage.visible.select > img {
+  height: 85%;
+  transition: all 1s;
+  box-shadow: 0px 0px 50px 20px #FC6DDC;
+
+}
+
+.cardImage.visible,.cardImage.empty {
+  display: flex;
+  align-items: center;
+  /* transition: all 1s; */
+}
+.wrapVisible {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 8rem;
+}
+.cardImage.visible > span.card-message {
+  display: none;
+}
+.cardImage.visible > span.nickname {
+  display: none;
+}
+.cardImage.visible.select {
+  position: relative;
+}
+.wrapCardImage {
+  height: 80%;
+}
+.cardImage.visible.select > span.card-message {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-flex;
+  text-shadow: 4px 4px 4px #FFFFFF;
+  color: #E10F0F;
+  font-size: 4rem;
+  transform: translate(-10rem,60%) rotate(-6deg);
+  z-index: 999999;
+  transition: 0s all;
+  width: 50rem;
+}
+
+.cardImage.visible.select > span.nickname {
+  position: absolute;
+  bottom: 2.5rem;
+  display: inline-block;
+  color: white;
+  font-size: 2.4rem;
+  z-index: 9999999;
+  width: 100%;
+  text-align: right;
+}

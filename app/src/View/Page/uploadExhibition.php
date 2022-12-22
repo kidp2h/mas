@@ -29,7 +29,7 @@
         <span class="note">３秒後に撮影します</span>
       </div>
       <div class="btn-action edit">やり直し</div>
-      <div class="btn-action">投稿</div>
+      <div class="btn-action upload">投稿</div>
     </div>
   </div>
 
@@ -59,35 +59,44 @@
       const videoStream = await navigator.mediaDevices.getUserMedia(constraints)
       camera.srcObject = videoStream
       $(".take").addEventListener("click", function() {
+        $('.take').classList.add('disabled')
         const canvas = document.querySelector('#canvas')
         canvas.width = camera.videoWidth
         canvas.height = camera.videoHeight
         setTimeout(async () => {
-
-          canvas.getContext('2d').drawImage(camera, 0, 0)
           camera.pause();
+          canvas.getContext('2d').drawImage(camera, 0, 0)
+
 
           let anchor = document.createElement("a");
           anchor.href = canvas.toDataURL("image/png");
-          // upload
-          const form = new FormData();
-          form.append("image", anchor.href);
-          const result = await fetch("/uploadExhibition", {
-            method: "POST",
-            body: form,
-          })
 
-          if (result.status === 200) {
-            const response = await result.json();
-            console.log(response);
-            camera.play();
-          } else {
-            console.log("error");
+          const uploadFn = async function() {
+            $('.upload').classList.add('disabled')
+            const form = new FormData();
+            form.append("image", anchor.href);
+            const result = await fetch("/uploadExhibition", {
+              method: "POST",
+              body: form,
+            })
+
+            if (result.status === 200) {
+              const response = await result.json();
+              console.log(response);
+            } else {
+              console.log("error");
+            }
           }
+          // upload
+          $(".upload").addEventListener('click', uploadFn)
+
+
         }, 2500);
       })
       $(".edit").addEventListener("click", function() {
         camera.play();
+        $('.take').classList.remove('disabled')
+        $('.upload').classList.remove('disabled')
       })
     })();
   }

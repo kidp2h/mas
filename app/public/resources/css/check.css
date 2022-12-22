@@ -17,7 +17,14 @@
   height: 100%;
   transition: all 1s;
   object-fit: cover;
+  position: relative;
 
+}
+.imageSlide {
+  width: 100%;
+  border-radius: 6px;
+  height: 100%;
+  transition: all 1s;
 }
 
 
@@ -71,9 +78,23 @@
   display: flex;
   flex-direction: column;
   margin-top: 0.5rem;
+  position: absolute;
+  top: 100%;
+  left: 0;
 }
 .information span {
   font-size: 1.4rem;
   color:#666666;
   line-height: 1.7rem;
+}
+
+.btn-delete-image {
+  position: absolute;
+  top: 0;
+  right: 1rem;
+  font-size: 3.2rem;
+  color: #AAA9A9;
+  width: fit-content;
+  height: fit-content;
+  cursor: pointer;
 }
