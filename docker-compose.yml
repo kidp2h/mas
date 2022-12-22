@@ -26,7 +26,6 @@ services:
     image: mysql
     restart: always
     hostname: mas
-
     ports:
       - 3303:3306
     environment:
@@ -36,6 +35,7 @@ services:
       TZ: Asia/Ho_Chi_Minh
     volumes:
       - ./.docker/mysql:/var/lib/mysql
+      - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
     networks:
       - mas
   adminer:
