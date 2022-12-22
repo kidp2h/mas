@@ -77,7 +77,7 @@
         <input name="img" type="file" class="inputFileHidden" id="imgFile" accept=".jpg,.jpeg,.png" value="<?= $settings['welcomeMessageFilename'] ?? "" ?>">
         <div class="groupInput">
           <input type="text" value="<?= $settings['welcomeMessageFilename']  ?? '写真を選択して下さい' ?>" readonly class="inputFileUpload" value="">
-          <span class="messageValidate" message="imgFile">Message</span>
+          <span class="messageValidate" message="inputFileUpload">Message</span>
         </div>
         <!-- <span class="messageValidate">Message</span> -->
         <div class="selectedImage">
@@ -139,6 +139,19 @@
 <script>
   let validFile = false;
   let messageValidateFile = "";
+  let inputTextIsChanged = false;
+  let imageIsChanged = false;
+  $$('input[type="text"],input[type="email"], textarea').forEach(item => {
+    item.onchange = function(e) {
+      inputTextIsChanged = true;
+    }
+  })
+
+  $$('input[type="file"]').forEach(item => {
+    item.onchange = function(e) {
+      imageIsChanged = true;
+    }
+  })
   $(".inputFileUpload").addEventListener("click", function() {
     const img = $("#imgFile");
     img.click();
@@ -147,7 +160,7 @@
   $("#btn-register-event").addEventListener("click", async function(e) {
     e.preventDefault();
     const rules = [{
-        selector: "#imgFile",
+        selector: ".inputFileUpload",
         required: true
       }, {
         selector: "#fullname",
@@ -173,41 +186,44 @@
         max: 255,
       }
     ]
-    rules.forEach(rule => {
+    if (!imageIsChanged && !inputTextIsChanged) {
+      window.location.href = '/';
+    } else {
+      const result = validator(rules);
+      if (result === true) {
+        const img = $("#imgFile");
+        const fullname = $("#fullname").value;
+        const eventTitle = $("#eventTitle").value;
+        const email = $("#email").value;
+        const welcomeMessage = $("#welcomeMessage").value;
+        const QRCodeFlag = +$(`input[name='qr']:checked`).value
+        const actionFlag = +$(`input[name='pattern']:checked`).value
 
-    })
-    const result = validator(rules);
-    if (result === true) {
-      const img = $("#imgFile");
-      const fullname = $("#fullname").value;
-      const eventTitle = $("#eventTitle").value;
-      const email = $("#email").value;
-      const welcomeMessage = $("#welcomeMessage").value;
-      const QRCodeFlag = +$(`input[name='qr']:checked`).value
-      const actionFlag = +$(`input[name='pattern']:checked`).value
+        let form = new FormData();
+        if (imageIsChanged) form.append("image", img.files[0]);
 
-      let form = new FormData();
-      form.append("image", img.files[0]);
-      form.append("fullname", fullname);
-      form.append("eventTitle", eventTitle);
-      form.append("email", email);
-      form.append("welcomeMessage", welcomeMessage);
-      form.append("QRCodeFlag", QRCodeFlag);
-      form.append("actionFlag", actionFlag);
-      const result = await fetch("/update-settings", {
-        method: "POST",
-        body: form,
-      })
-      const response = await result.json();
-      if (result.status === 200) {
-        if (response.status === true) {
-          window.location.href = '/';
+        form.append("fullname", fullname);
+        form.append("eventTitle", eventTitle);
+        form.append("email", email);
+        form.append("welcomeMessage", welcomeMessage);
+        form.append("QRCodeFlag", QRCodeFlag);
+        form.append("actionFlag", actionFlag);
+        const result = await fetch("/update-settings", {
+          method: "POST",
+          body: form,
+        })
+        const response = await result.json();
+        if (result.status === 200) {
+          if (response.status === true) {
+            window.location.href = '/';
+          }
+        } else {
+
         }
-      } else {
 
       }
-
     }
+
   })
   $("#imgFile").addEventListener("change", function() {
     const [file] = this.files

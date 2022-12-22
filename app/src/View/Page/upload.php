@@ -12,7 +12,7 @@
     </a>
     <div class="headerText">
       <h3>Memory Album System</h3>
-      <h3>2000 Top page</h3>
+      <h3>2100 Photo upload</h3>
     </div>
 
   </div>
@@ -99,6 +99,9 @@ message please
       if (result.status === 200) {
         const response = await result.json();
         console.log(response);
+        $("#preview").src = '#';
+        $(".inputFileUpload").value = "写真を選択して下さい select photo"
+        $(".inputFileHidden").value = ""
       } else {
         console.log("error");
       }
@@ -107,6 +110,7 @@ message please
   })
   $("#imgFile").addEventListener("change", function() {
     const [file] = this.files
+    console.log(file);
     const preview = $("#preview")
     const validSize = 3000000
     if (file) {
@@ -122,8 +126,6 @@ message please
         $(`#imgFile`)?.previousElementSibling?.classList.add("active")
         $(`#imgFile`).classList.add("error")
       } else {
-        const bufferView = new Uint8Array(file)
-        console.log(bufferView);
         preview.src = URL.createObjectURL(file)
         $(".inputFileUpload").value = file.name
         $("#preview").style.display = "block";

@@ -14,13 +14,6 @@ $this->layout('auth'); ?>
       <td><span class="titleForm">Memory Album System</span></td>
     </tr>
 
-    <!-- <?php if (isset($message)) { ?>
-      <tr class="groupMessage">
-        <td></td>
-        <td class="messageResponse"><?= $message ?></td>
-
-      </tr>
-    <?php } ?> -->
 
     <tr class="groupInput">
       <td class="fieldInput"><label for="email">E-mail</label></td>

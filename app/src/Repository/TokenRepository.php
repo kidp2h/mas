@@ -18,7 +18,7 @@ class TokenRepository extends Repository {
   }
 
   public function getTokenById($id): ?Token {
-    return $this->model->select("*")->where("id", "=", $id)->where("expire", ">", (new DateTime())->format("Y-m-d H:i:s"))->get();
+    return $this->model->select("*")->where("id", "=", $id)->where("expire", ">", (new DateTime())->format("Y-m-d H:i:s"))->findOne();
   }
 
   public function deleteTokenExpired() {
@@ -30,6 +30,6 @@ class TokenRepository extends Repository {
   }
 
   public function verifyToken($token) {
-    return $this->model->select("*")->where("token", "=", $token)->where("expire", ">", (new DateTime())->format("Y-m-d H:i:s"))->get();
+    return $this->model->select("*")->where("token", "=", $token)->where("expire", ">", (new DateTime())->format("Y-m-d H:i:s"))->findOne();
   }
 }

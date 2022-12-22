@@ -15,13 +15,15 @@
 <?php $this->section('content'); ?>
 <div class="wrapFlex">
   <div id="content">
+    <div class="eventTitle"><?= $data["eventTitle"] ?></div>
     <div class="message org">
-      <span>主催者からメッセージ</span>
-      <span>Organizer message</span>
+      <span><?= $data["welcomeMessage"] ?></span>
     </div>
     <div class="message image">
-      <span>メッセージ画像</span>
-      <span>Message image</span>
+      <div class="wrapImage">
+        <img src="/resources/uploads/<?= $data["welcomeImageFilename"] ?>">
+      </div>
+
 
     </div>
     <div class="group-btn">

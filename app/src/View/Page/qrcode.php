@@ -16,7 +16,7 @@ $this->layout('main'); ?>
 
 
 <div id="menuHeader">
-  <a href="/display">
+  <a href="/pattern12">
     <img src="/resources/images/display.png">
   </a>
   <a href="/qrcode">

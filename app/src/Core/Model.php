@@ -58,7 +58,14 @@ abstract class Model extends SingletonBase {
     }
   }
   public function where(string $field, string $operator, string $value): self {
-    array_push($this->conditions, "{$field} {$operator} '{$value}'");
+    $pattern = "/{(.*)}/i";
+    $match = preg_match($pattern, $value, $matches);
+    if ($match) {
+      array_push($this->conditions, "{$field} {$operator} {$matches[1]}");
+    } else {
+      array_push($this->conditions, "{$field} {$operator} '{$value}'");
+    }
+
     return $this;
   }
 
@@ -76,7 +83,7 @@ abstract class Model extends SingletonBase {
     return $this;
   }
 
-  public function get($limit = NULL): static|null {
+  public function findOne($limit = NULL): static|null {
     $stringSelect = implode(', ', $this->fieldSelect);
     $stringWhere = $this->getStatementWhere();
     $query = "";
@@ -99,28 +106,56 @@ abstract class Model extends SingletonBase {
       return null;
     }
   }
+  public function find($limit = NULL): array|null {
+    $stringSelect = implode(', ', $this->fieldSelect);
+    $stringWhere = $this->getStatementWhere();
+    $query = "";
+    if ($limit) {
+      $query = "SELECT {$stringSelect} FROM $this->table WHERE {$stringWhere} LIMIT=$limit";
+    } else {
+      $query = "SELECT {$stringSelect} FROM $this->table WHERE {$stringWhere}";
+    }
 
+    $result = $this->execute($query);
+    $resultORM = [];
+    if ($result->num_rows) {
+      while ($data = $result->fetch_assoc()) {
+        $tempORM = new static();
+        foreach ($data as $key => $value) {
+          $tempORM->$key = $value;
+        }
+        array_push($resultORM, $tempORM);
+      }
+      return $resultORM;
+    } else {
+      return null;
+    }
+  }
   public function getStatementWhere() {
     $stringWhere = "";
-    for ($i = 0; $i < count($this->conditions) - 1; $i++) {
-      if (
-        str_contains($this->conditions[$i + 1], '(') ||
-        str_contains($this->conditions[$i + 1], ')') ||
-        str_contains($this->conditions[$i], '(') ||
-        str_contains($this->conditions[$i], ')')
-      ) {
-        $stringWhere .= "{$this->conditions[$i]}  ";
-      } else {
-        $stringWhere .= "{$this->conditions[$i]} and  ";
-      }
-    }
-    if (end($this->conditions) == ')') {
-      $stringWhere .= '  )';
+    if (empty($this->conditions)) {
+      $stringWhere = '1=1';
     } else {
-      if (count($this->conditions) <= 2) {
-        $stringWhere .= "{$this->conditions[$i]}";
+      for ($i = 0; $i < count($this->conditions) - 1; $i++) {
+        if (
+          str_contains($this->conditions[$i + 1], '(') ||
+          str_contains($this->conditions[$i + 1], ')') ||
+          str_contains($this->conditions[$i], '(') ||
+          str_contains($this->conditions[$i], ')')
+        ) {
+          $stringWhere .= "{$this->conditions[$i]}  ";
+        } else {
+          $stringWhere .= "{$this->conditions[$i]} and  ";
+        }
+      }
+      if (end($this->conditions) == ')') {
+        $stringWhere .= '  )';
       } else {
-        $stringWhere .= "and  {$this->conditions[$i]}";
+        if (count($this->conditions) <= 2) {
+          $stringWhere .= "{$this->conditions[$i]}";
+        } else {
+          $stringWhere .= "and  {$this->conditions[$i]}";
+        }
       }
     }
 

@@ -1,7 +1,6 @@
-
 <?php $this->layout('main'); ?>
 <?php $this->style(); ?>
-   <link rel="stylesheet" href="/resources/css/home.css">
+<link rel="stylesheet" href="/resources/css/home.css">
 <?php $this->endStyle(); ?>
 
 
@@ -52,7 +51,7 @@
 
 
 <div id="menuHeader">
-  <a href="/display">
+  <a href="/pattern">
     <img src="/resources/images/display.png">
   </a>
   <a href="/qrcode">
@@ -81,68 +80,55 @@
 </div>
 <div id="wrapListPhoto">
   <div id="listPhoto">
-    <div class="card photo">
-      <img src="/resources/images/cat1.jpg" alt="">
-    </div>
-    <div class="card photo">
-      <img src="/resources/images/cat2.jpg" alt="">
-    </div>
-    <div class="card photo">
-      <img src="/resources/images/cat3.jpg" alt="">
-    </div>
 
-
-    <div class="card photo">
-      <img src="/resources/images/cat3.jpg" alt="">
-    </div>
-    <div class="card photo">
-      <img src="/resources/images/cat2.jpg" alt="">
-    </div>
-    <div class="card photo">
-      <img src="/resources/images/cat1.jpg" alt="">
-    </div>
-
-
-    <div class="card photo">
-      <img src="/resources/images/cat3.jpg" alt="">
-    </div>
-    <div class="card photo">
-      <img src="/resources/images/cat3.jpg" alt="">
-    </div>
-    <div class="card photo">
-      <img src="/resources/images/cat2.jpg" alt="">
-    </div>
-
-    <div class="card photo">
-      <img src="/resources/images/cat2.jpg" alt="">
-    </div>
-    <div class="card photo">
-      <img src="/resources/images/cat1.jpg" alt="">
-    </div>
-    <div class="card photo">
-      <img src="/resources/images/cat2.jpg" alt="">
-    </div>
-
-
-    <div class="card photo">
-      <img src="/resources/images/cat1.jpg" alt="">
-    </div>
-    <div class="card photo">
-      <img src="/resources/images/cat3.jpg" alt="">
-    </div>
-    <div class="card photo">
-      <img src="/resources/images/cat2.jpg" alt="">
-    </div>
+    <?php foreach ($photos as $key => $value) { ?>
+      <div class="card photo">
+        <img class="cardImage" src="/resources/uploads/<?= $value->attendeeFileName ?>" alt="">
+        <div class="imageAction">
+          <div class="downloadImage btn-img-action">
+            <img src="/resources/images/download2.png" alt="">
+          </div>
+          <div class="deleteImage btn-img-action">
+            <img src="/resources/images/del.png" alt="">
+          </div>
+        </div>
+      </div>
+    <?php } ?>
   </div>
 </div>
 
 <?php $this->end(); ?>
 
 <?php $this->startScript(); ?>
-  <script>
-    document.getElementById("hamburger").addEventListener("click", function() {
-      this.classList.toggle("open");
-      document.getElementById("overlay").classList.toggle("active")
+<script>
+  document.getElementById("hamburger").addEventListener("click", function() {
+    this.classList.toggle("open");
+    document.getElementById("overlay").classList.toggle("active")
+  })
+
+  $$('.deleteImage').forEach(btnDelete => {
+    btnDelete.addEventListener('click', function() {
+      const cardPhoto = this.parentElement.parentElement.remove();
     })
-  </script>
+  })
+
+  $$('.downloadImage').forEach(btnDownload => {
+    btnDownload.addEventListener('click', function() {
+      const link = document.createElement('a')
+      link.href = this.parentElement.parentElement.querySelector('.cardImage').src;
+      link.download = Date.now();
+      link.click();
+    })
+  });
+  $$('.cardImage').forEach(cardImage => {
+    cardImage.addEventListener('click', function() {
+      const urlImage = this.src;
+      $("#overlay").classList.add('active');
+      $("#wrapDetail > img").src = urlImage;
+    })
+  });
+  $("#overlay").addEventListener('click', function(e) {
+    if (e?.srcElement?.classList?.contains('active')) $("#overlay").classList.remove('active');
+  })
+</script>
 <?php $this->endScript(); ?>

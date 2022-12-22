@@ -90,3 +90,9 @@
   position:absolute;
   visibility: hidden;
 }
+
+.disabled {
+  background-color: #AAA;
+  pointer-events: none;
+  cursor:not-allowed;
+}

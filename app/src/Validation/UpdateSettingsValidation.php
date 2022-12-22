@@ -15,7 +15,7 @@ class UpdateSettingsValidation extends Validation {
 
   public function rules() {
     return [
-      'image' => [self::RULE_REQUIRED],
+      'image' => [self::RULE_OPTIONAL],
       'fullname' => [self::RULE_REQUIRED, [self::RULE_MIN, 'min' => 1]],
       'eventTitle' => [self::RULE_REQUIRED, [self::RULE_MIN, 'min' => 1]],
       'email' => [self::RULE_REQUIRED, [self::RULE_MIN, 'min' => 1]],
