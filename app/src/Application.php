@@ -52,7 +52,7 @@ class Application extends SingletonBase {
     $path = '/'
   ) {
     $time = time() + $time;
-    setcookie($name, $value, $time, $path, $_ENV['DOMAIN'], true, true);
+    setcookie($name, $value, $time, $path, $_ENV['DOMAIN'], false, true);
     if ($this->getCookie($name) !== null) {
       return true;
     }

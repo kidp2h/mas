@@ -24,7 +24,7 @@ class HomeController extends Controller {
     $this->render('home', [
       'title' => 'Photo list',
       'titlePage' => 'Memory Album System - 1100 Photo List',
-      'photos' => $listPhotos
+      'photos' => $listPhotos ?? []
     ]);
   }
   public function qrcode(Request $request, Response $response) {
