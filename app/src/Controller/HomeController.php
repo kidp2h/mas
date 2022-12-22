@@ -42,15 +42,15 @@ class HomeController extends Controller {
       'title' => 'Settings',
       'titlePage' => 'Memory Album System - 1400 Settings',
       'settings' => [
-        'name' => $user->name,
-        'eventTitle' => $user->eventTitle,
-        'welcomeMessage' => $user->welcomeMessage,
-        'welcomeMessageFilename' => $user->welcomeImageFilename,
+        'name' => $user?->name,
+        'eventTitle' => $user?->eventTitle,
+        'welcomeMessage' => $user?->welcomeMessage,
+        'welcomeMessageFilename' => $user?->welcomeImageFilename,
         'created_at' => $createdAt,
-        'email' => $user->email,
-        'useFlag' => $user->useFlag,
-        'actionFlag' => $user->actionFlag,
-        'QRCodeFlag' => $user->QRCodeFlag
+        'email' => $user?->email,
+        'useFlag' => $user?->useFlag,
+        'actionFlag' => $user?->actionFlag,
+        'QRCodeFlag' => $user?->QRCodeFlag
       ]
     ]);
   }
@@ -86,7 +86,7 @@ class HomeController extends Controller {
     $this->render('pattern1', [
       'title' => 'Exhibition',
       'titlePage' => 'Memory Album System - 1200 Exhibition panel (Pattern 1)',
-      'photos' => $listPhotos
+      'photos' => $listPhotos ?? []
     ]);
   }
   public function pattern2(Request $request, Response $response) {
@@ -94,7 +94,7 @@ class HomeController extends Controller {
     $this->render('pattern2', [
       'title' => 'Exhibition',
       'titlePage' => 'Memory Album System - 1200 Exhibition panel (Pattern 2)',
-      'photos' => $listPhotos
+      'photos' => $listPhotos ?? []
     ]);
   }
 
