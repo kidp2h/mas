@@ -51,7 +51,7 @@
 
 
 <div id="menuHeader">
-  <a href="/pattern">
+  <a href="/pattern1">
     <img src="/resources/images/display.png">
   </a>
   <a href="/qrcode">
