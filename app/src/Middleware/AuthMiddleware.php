@@ -53,7 +53,7 @@ class AuthMiddleware {
   public static function isNotExpireTrial(Request $request, Response $response) {
     $userSession = Session::get(KEY_SESSION_USER);
     $user = UserRepository::Instance()->getById($userSession->id);
-    if ($user->useFlag) {
+    if ($user?->useFlag) {
       $createdAt = strtotime($user->created_at);
       $now = strtotime((new DateTime())->format('Y-m-d H:i:s'));
       $hours = ($now - $createdAt) / 3600;
