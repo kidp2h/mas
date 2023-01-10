@@ -87,6 +87,14 @@ $router->get(
     Response $response
   ) => HomeController::Instance()->pattern2($request, $response)
 );
+$router->get(
+  '/remote',
+  [[AuthMiddleware::class, "isAuth"], [AuthMiddleware::class, 'isNotExpireTrial']],
+  fn (
+    Request $request,
+    Response $response
+  ) => HomeController::Instance()->remote($request, $response)
+);
 $router->post(
   '/get-images',
   [[AuthMiddleware::class, "isAuth"], [AuthMiddleware::class, 'isNotExpireTrial']],
@@ -94,4 +102,59 @@ $router->post(
     Request $request,
     Response $response
   ) => HomeController::Instance()->getImages($request, $response)
+);
+
+$router->post(
+  '/get-new-images',
+  [[AuthMiddleware::class, "isAuth"], [AuthMiddleware::class, 'isNotExpireTrial']],
+  fn (
+    Request $request,
+    Response $response
+  ) => HomeController::Instance()->getNewImages($request, $response)
+);
+
+$router->post(
+  '/deleteImage',
+  [[AuthMiddleware::class, "isAuth"], [AuthMiddleware::class, 'isNotExpireTrial']],
+  fn (
+    Request $request,
+    Response $response
+  ) => HomeController::Instance()->deleteImage($request, $response)
+);
+
+
+$router->post(
+  '/remote',
+  [[AuthMiddleware::class, "isAuth"], [AuthMiddleware::class, 'isNotExpireTrial']],
+  fn (
+    Request $request,
+    Response $response
+  ) => HomeController::Instance()->handleRemote($request, $response)
+);
+
+$router->post(
+  '/poll-remote',
+  [[AuthMiddleware::class, "isAuth"], [AuthMiddleware::class, 'isNotExpireTrial']],
+  fn (
+    Request $request,
+    Response $response
+  ) => HomeController::Instance()->pollRemote($request, $response)
+);
+
+
+$router->post(
+  '/downloadAllImage',
+  [[AuthMiddleware::class, "isAuth"], [AuthMiddleware::class, 'isNotExpireTrial']],
+  fn (
+    Request $request,
+    Response $response
+  ) => HomeController::Instance()->downloadAllImage($request, $response)
+);
+$router->post(
+  '/deleteZipImage',
+  [[AuthMiddleware::class, "isAuth"], [AuthMiddleware::class, 'isNotExpireTrial']],
+  fn (
+    Request $request,
+    Response $response
+  ) => HomeController::Instance()->deleteZipImage($request, $response)
 );

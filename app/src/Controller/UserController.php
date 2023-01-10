@@ -86,6 +86,7 @@ class UserController extends Controller {
     $validation->loadData($body);
     $result = $validation->validate();
     if ($result === true) {
+      $body['password'] = md5($body['password']);
       $isInsert = $this->userRepository->register($body);
       if ($isInsert) {
         $response->redirect('/user/login');
@@ -184,7 +185,7 @@ class UserController extends Controller {
 
   public function updateSettings(Request $request, Response $response) {
     try {
-      $id = base64_decode(Application::Instance()->getCookie('__masu'));
+      $id = base64_decode(urldecode(Application::Instance()->getCookie('__masu')));
       $data = $request->body();
       $validation = new UpdateSettingsValidation();
       $validation->loadData($data);

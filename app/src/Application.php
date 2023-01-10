@@ -3,9 +3,11 @@
 use Core\Request;
 use Core\Response;
 use Core\Router;
+
 use Core\Session;
 use Core\SingletonBase;
 use Repository\UserRepository;
+
 
 /**
  * application
@@ -15,11 +17,13 @@ class Application extends SingletonBase {
   private Request $request;
   private Response $response;
   public function __construct() {
+
     Database::Instance()->connect();
     $this->request = new Request();
     $this->response = new Response();
     $user = $this->getCookie('__masu');
     $userSession = Session::get(KEY_SESSION_USER);
+
     if ($user && empty($userSession)) {
       $userObject = UserRepository::Instance()->getById(base64_decode($user));
       Session::set(KEY_SESSION_USER, $userObject);

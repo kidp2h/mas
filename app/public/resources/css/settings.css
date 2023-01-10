@@ -73,10 +73,12 @@ div.groupInput {
   display: flex;
   flex-direction: row;
   margin-right: 3.9rem;
+  font-size: 1.6rem;
+  align-items: center;
+  justify-content: center;
 }
 .radioPattern input {
   height: fit-content;
-  margin-top: 0.7rem;
   margin-right: 0.9rem;
 
 }
@@ -140,7 +142,7 @@ div.groupInput {
 }
 
 .radioText span {
-font-size: 2rem;
+font-size: 1.6rem;
 }
 .radioText {
   display: flex;

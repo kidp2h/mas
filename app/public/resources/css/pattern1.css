@@ -90,7 +90,7 @@ div#menuHeader {
   text-shadow: 4px 4px 4px #FFFFFF;
   color: #E10F0F;
   font-size: 4rem;
-  transform: translate(-10rem,60%) rotate(-6deg);
+  transform: translate(-5rem,60%) rotate(-6deg);
   z-index: 999999;
   transition: 0s all;
   width: 50rem;

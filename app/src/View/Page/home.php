@@ -19,7 +19,7 @@
 <div class="wrapMenu">
   <ul id="menuHamburger">
     <li class="itemMenu">
-      <a href="">
+      <a href="/pattern1">
         <div class="imageItem">
           <img src="/resources/images/display.png">
         </div>
@@ -68,12 +68,12 @@
 
 <div id="action">
   <a href="">
-    <div id="download" class="itemAction">
+    <div id="downloadAll" class="itemAction">
       <img src="/resources/images/download.png" alt="">
     </div>
   </a>
   <a href="">
-    <div id="trash" class="itemAction">
+    <div id="deleteAll" class="itemAction">
       <img src="/resources/images/trash.png" alt="">
     </div>
   </a>
@@ -82,7 +82,7 @@
   <div id="listPhoto">
 
     <?php foreach ($photos as $key => $value) { ?>
-      <div class="card photo">
+      <div class="card photo" data-id="<?= $value->id ?>">
         <img class="cardImage" src="/resources/uploads/<?= $value->attendeeFileName ?>" alt="">
         <div class="imageAction">
           <div class="downloadImage btn-img-action">
@@ -103,12 +103,22 @@
 <script>
   document.getElementById("hamburger").addEventListener("click", function() {
     this.classList.toggle("open");
-    document.getElementById("overlay").classList.toggle("active")
+    document.getElementById("overlay2").classList.toggle("active")
   })
 
   $$('.deleteImage').forEach(btnDelete => {
-    btnDelete.addEventListener('click', function() {
-      const cardPhoto = this.parentElement.parentElement.remove();
+    btnDelete.addEventListener('click', async function() {
+      const cardPhoto = this.parentElement.parentElement;
+      const data = new FormData();
+      const {
+        id
+      } = cardPhoto.dataset;
+      data.append('id', id);
+      const result = await fetch("/deleteImage", {
+        method: "POST",
+        body: data,
+      })
+      cardPhoto.remove()
     })
   })
 
@@ -127,8 +137,39 @@
       $("#wrapDetail > img").src = urlImage;
     })
   });
+  $("#downloadAll").addEventListener('click', async (e) => {
+    e.preventDefault();
+    const result = await fetch("/downloadAllImage", {
+      method: "POST",
+    })
+    const response = await result.json();
+    if (response.status) {
+      downloadURI(response.url, response.name)
+      const data = new FormData();
+      data.append("name", response.name);
+      const resultClean = await fetch("/deleteZipImage", {
+        method: "POST",
+        body: data
+      })
+      await resultClean.json();
+    }
+  });
+  $("#deleteAll").addEventListener('click', (e) => {
+    e.preventDefault();
+    alert('delete')
+  })
   $("#overlay").addEventListener('click', function(e) {
     if (e?.srcElement?.classList?.contains('active')) $("#overlay").classList.remove('active');
   })
+
+  function downloadURI(uri, name) {
+    let link = document.createElement("a");
+    link.download = name;
+    link.href = uri;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    delete link;
+  }
 </script>
 <?php $this->endScript(); ?>

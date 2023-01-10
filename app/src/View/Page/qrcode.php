@@ -45,7 +45,7 @@ $this->layout('main'); ?>
   <div id="cardQR">
     <span class="titleQR">招待メッセージ invitation message</span>
     <img id="imgQR" src="<?= (new QRCode())->render($_ENV["BASE_URL"] . "/join/$id"); ?>" width="346" height="346">
-    <a href="/">https://mas.com/</a>
+    <a href="/join/<?= $id ?>"><?= $_ENV["BASE_URL"] . "/join/$id" ?></a>
   </div>
 
 </div>

@@ -12,6 +12,8 @@ abstract class Model extends SingletonBase {
   public array $fields = [];
   public array $fieldSelect = [];
   public mysqli $connection;
+  public ?string $orderByField = null;
+  public string $typeOrder = "asc";
   public function __construct() {
     $fields = get_class_vars(static::class);
     $this->table = $fields['nameTable'];
@@ -68,7 +70,11 @@ abstract class Model extends SingletonBase {
 
     return $this;
   }
-
+  public function orderBy(string $field, string $type): self {
+    $this->orderByField = $field;
+    $this->typeOrder = strtoupper($type);
+    return $this;
+  }
   public function set($column, $value): self {
     array_push($this->sets, "{$column} = '{$value}'");
     return $this;
@@ -92,6 +98,10 @@ abstract class Model extends SingletonBase {
     } else {
       $query = "SELECT {$stringSelect} FROM $this->table WHERE {$stringWhere}";
     }
+    if ($this->orderByField) {
+      $query = "$query ORDER BY $this->orderByField $this->typeOrder";
+    }
+
 
     $result = $this->execute($query);
     $resultORM = new static();
@@ -114,6 +124,9 @@ abstract class Model extends SingletonBase {
       $query = "SELECT {$stringSelect} FROM $this->table WHERE {$stringWhere} LIMIT=$limit";
     } else {
       $query = "SELECT {$stringSelect} FROM $this->table WHERE {$stringWhere}";
+    }
+    if ($this->orderByField) {
+      $query = "$query ORDER BY $this->orderByField $this->typeOrder";
     }
 
     $result = $this->execute($query);
