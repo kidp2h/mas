@@ -1,6 +1,12 @@
 <?php
 
 declare(strict_types=1);
+
+use Ratchet\Server\IoServer;
+use Ratchet\Http\HttpServer;
+use Ratchet\WebSocket\WsServer;
+use Socket\Upload;
+
 define('_DIR_ROOT_', __DIR__ . '/app/');
 define('_DIR_VIEW_', __DIR__ . '/app/src/View/');
 define('_DIR_IMAGE_', __DIR__ . '/app/src/resources/images/');

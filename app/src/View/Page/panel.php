@@ -32,7 +32,7 @@
         <a href="">写真確認 Photo check</a>
       </div>
       <div class="btn">
-        <a href="">展示パネルリモコン Panle Remo-con</a>
+        <a href="">展示パネルリモコン Panel Remo-con</a>
       </div>
     </div>
   </div>

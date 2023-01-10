@@ -10,6 +10,7 @@ use Core\Response;
 use Core\Session;
 use DateTime;
 use Model\UserModel;
+use Repository\EventRepository;
 use Repository\PhotoRepository;
 use Repository\UserRepository;
 use Util\Image;
@@ -74,6 +75,11 @@ class AttendeeController extends Controller {
         'attendeeName' => $body['nickname'],
       ];
       $upload = PhotoRepository::Instance()->upload($data);
+      $x = EventRepository::Instance()->create([
+        "name" => "upload",
+        "message" => $image->name,
+        "room" => $id,
+      ]);
       if ($upload) {
         $response->status(200);
         return json_encode(['status' => true]);
@@ -86,7 +92,9 @@ class AttendeeController extends Controller {
 
   public function check(Request $request, Response $response) {
     $attendeeId = Application::Instance()->getCookie('attendee');
-    $data =  PhotoRepository::Instance()->getPhotoByAttendee($attendeeId);
+    $room = Application::Instance()->getCookie("room");
+    $orgId = $room;
+    $data =  PhotoRepository::Instance()->getPhotoByAttendee($attendeeId, $orgId);
     $this->render('check', [
       'title' => 'Photocheck',
       'titlePage' => 'Memory Album System 2000 Top page',

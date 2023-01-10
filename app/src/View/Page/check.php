@@ -34,8 +34,10 @@
               投稿メッセージ
             </span>
             <span class="status">Uploaded message</span>
+            <span><?= $value->attendeeComment ?></span>
             <div class="time">
               <span><?= $value->created_at ?></span>
+
               <span><?= $value->attendeeName  ?></span>
             </div>
           </div>

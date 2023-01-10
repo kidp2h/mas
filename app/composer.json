@@ -10,7 +10,8 @@
       "Repository\\": "src/Repository/",
       "Model\\": "src/Model/",
       "View\\": "src/View/",
-      "Util\\": "src/Util/"
+      "Util\\": "src/Util/",
+      "Socket\\": "src/Socket/"
     }
   },
   "authors": [
@@ -20,6 +21,7 @@
     }
   ],
   "require": {
-    "chillerlan/php-qrcode": "dev-main"
+    "chillerlan/php-qrcode": "dev-main",
+    "cboden/ratchet": "^0.4.4"
   }
 }

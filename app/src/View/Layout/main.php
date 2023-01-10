@@ -13,10 +13,12 @@
 
 
 </head>
-<div id="overlay" class="cccc">
+<div id="overlay">
   <div id="wrapDetail">
     <img src="" alt="">
   </div>
+</div>
+<div id="overlay2">
 </div>
 <div id="header">
   <?php $this->renderSection('header'); ?>

@@ -2,6 +2,7 @@
 
 namespace Controller;
 
+use Application;
 use Core\Controller;
 use Core\Model;
 use Core\Request;
@@ -9,8 +10,10 @@ use Core\Response;
 use Core\Session;
 use DateTime;
 use Model\UserModel;
+use Repository\EventRepository;
 use Repository\PhotoRepository;
 use Repository\UserRepository;
+use ZipArchive;
 
 class HomeController extends Controller {
 
@@ -20,7 +23,9 @@ class HomeController extends Controller {
 
 
   public function home(Request $request, Response $response) {
-    $listPhotos = PhotoRepository::Instance()->getAllPhoto();
+    $__masu = Application::Instance()->getCookie("__masu");
+    $orgId = base64_decode(urldecode($__masu));
+    $listPhotos = PhotoRepository::Instance()->getAllPhotoByOrgId($orgId);
     $this->render('home', [
       'title' => 'Photo list',
       'titlePage' => 'Memory Album System - 1100 Photo List',
@@ -35,8 +40,9 @@ class HomeController extends Controller {
   }
 
   public function settings(Request $request, Response $response) {
-    $userSession = Session::get(KEY_SESSION_USER);
-    $user = UserRepository::Instance()->getById($userSession->id);
+    $__masu = Application::Instance()->getCookie("__masu");
+    $orgId = base64_decode(urldecode($__masu));
+    $user = UserRepository::Instance()->getById($orgId);
     $createdAt = (new DateTime($user->created_at))->format('Y 年 m 月 d 日');
     $this->render('settings', [
       'title' => 'Settings',
@@ -82,7 +88,9 @@ class HomeController extends Controller {
   }
 
   public function pattern1(Request $request, Response $response) {
-    $listPhotos = PhotoRepository::Instance()->getAllPhoto();
+    $__masu = Application::Instance()->getCookie("__masu");
+    $orgId = base64_decode(urldecode($__masu));
+    $listPhotos = PhotoRepository::Instance()->getAllPhotoByOrgId($orgId);
     $this->render('pattern1', [
       'title' => 'Exhibition',
       'titlePage' => 'Memory Album System - 1200 Exhibition panel (Pattern 1)',
@@ -90,7 +98,9 @@ class HomeController extends Controller {
     ]);
   }
   public function pattern2(Request $request, Response $response) {
-    $listPhotos = PhotoRepository::Instance()->getAllPhoto();
+    $__masu = Application::Instance()->getCookie("__masu");
+    $orgId = base64_decode(urldecode($__masu));
+    $listPhotos = PhotoRepository::Instance()->getAllPhotoByOrgId($orgId);
     $this->render('pattern2', [
       'title' => 'Exhibition',
       'titlePage' => 'Memory Album System - 1200 Exhibition panel (Pattern 2)',
@@ -116,5 +126,96 @@ class HomeController extends Controller {
       return json_encode(["status" => false, "data" => null]);
     }
     return json_encode(["status" => true, 'data' => $data]);
+  }
+  public function getNewImages(Request $request, Response $response) {
+    $__masu = Application::Instance()->getCookie("__masu");
+    $orgId = base64_decode(urldecode($__masu));
+    $events = EventRepository::Instance()->findAndDelete($orgId, "upload");
+    $data = [];
+    if ($events) {
+      foreach ($events as $value) {
+        $photo =  PhotoRepository::Instance()->getPhotoByName($value->message);
+        array_push($data, [
+          "id" => $photo->id,
+          "userId" => $photo->userId,
+          "organizerId" => $photo->organizerId,
+          "attendeeFileName" => $photo->attendeeFileName,
+          "attendeeName" => $photo->attendeeName,
+          "attendeeComment" => $photo->attendeeComment
+        ]);
+      }
+      return json_encode(["status" => true, 'data' => $data]);
+    } else {
+      return json_encode(["status" => false, "data" => null]);
+    }
+  }
+
+  public function deleteImage(Request $request, Response $response) {
+    $body = $request->body();
+
+    if (isset($body['id'])) {
+      $id = $body['id'];
+      return json_encode(PhotoRepository::Instance()->deleteImageById($id));
+    }
+  }
+  public function remote(Request $request, Response $response) {
+    $this->render('remote', ["title" => "2300 - Panel remo-con"]);
+  }
+
+  public function handleRemote(Request $request, Response $response) {
+    $body = $request->body();
+    $action = $body['action'];
+    $__masu = Application::Instance()->getCookie("__masu");
+    $id = base64_decode(urldecode($__masu));
+    $x = EventRepository::Instance()->create([
+      'name' => "remote",
+      'message' => $action,
+      'room' => $id
+    ]);
+    return json_encode(['status' => true]);
+  }
+
+  public function pollRemote(Request $request, Response $response) {
+    $__masu = Application::Instance()->getCookie("__masu");
+    $orgId = base64_decode(urldecode($__masu));
+    $events = EventRepository::Instance()->findAndDelete($orgId, "remote");
+    if ($events) {
+      return json_encode(["status" => true, 'data' => $events]);
+    } else {
+      return json_encode(["status" => false, "data" => null]);
+    }
+  }
+  public function downloadAllImage(Request $request, Response $response) {
+    $__masu = Application::Instance()->getCookie("__masu");
+    $orgId = base64_decode(urldecode($__masu));
+    $zip = new ZipArchive();
+    $listImages = PhotoRepository::Instance()->getAllPhotoByOrgId($orgId);
+    $zipName = md5(rand(0, time())) . ".zip";
+    if ($zip->open("app/public/resources/uploads/" . $zipName, ZIPARCHIVE::CREATE) === TRUE) {
+      foreach ($listImages as $value) {
+        $zip->addFile("app/public/resources/uploads/" . $value->attendeeFileName, $value->attendeeFileName);
+      }
+      // close and save archive
+      $zip->close();
+      $url = $_ENV['BASE_URL'] . "/resources/uploads/" . $zipName;
+      return json_encode(["status" => true, "url" => $url, "name" => $zipName]);
+    }
+    return json_encode(["status" => false]);
+  }
+  public function deleteAllImage(Request $request, Response $response) {
+
+    return json_encode(PhotoRepository::Instance()->deleteAllPhoto());
+  }
+  public function deleteZipImage(Request $request, Response $response) {
+    $body = $request->body();
+    if (isset($body['name'])) {
+      $filePath = "app/public/resources/uploads/" . $body['name'];
+      if (file_exists($filePath)) {
+        $result = unlink($filePath);
+
+        if ($result) return json_encode(["status" => true]);
+      }
+    }
+    return json_encode(["status" => false]);
   }
 }

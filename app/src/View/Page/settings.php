@@ -95,15 +95,17 @@
       <div class="groupRadioWithPattern">
         <div class="radioPattern">
           <input type="radio" id="pattern1" name="pattern" value="1" <?= $settings['actionFlag'] === 1 ? "checked" : ""  ?>>
-          <div class="pattern pattern1">
+          <!-- <div class="pattern pattern1">
             <span>Pattern 1</span>
-          </div>
+          </div> -->
+          <span>スライドショーモード</span>
         </div>
         <div class="radioPattern">
           <input type="radio" id="pattern2" name="pattern" value="2" <?= $settings['actionFlag'] === 2 ? "checked" : ""  ?>>
-          <div class="pattern pattern2">
+          <!-- <div class="pattern pattern2">
             <span>Pattern 2</span>
-          </div>
+          </div> -->
+          <span>ランダムポップアップモード</span>
         </div>
 
       </div>
