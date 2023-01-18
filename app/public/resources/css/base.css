@@ -406,6 +406,9 @@ img#preview {
   border-radius: 0px;
   padding: 1.2rem;
 }
+button[type="submit"] {
+  cursor: pointer;
+}
 @media (min-width: 360px) and (max-width: 1280px) {
   #hamburger {
     display: block;

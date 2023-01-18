@@ -23,7 +23,7 @@
     </div>
     <div class="message image">
       <div class="wrapImage">
-        <img src="/resources/uploads/settings/<?= $data["welcomeImageFilename"] ?>">
+        <img src="/resources/uploads/settings/<?= $data["welcomeImageFilename"] ?>" onerror="this.style.display = 'none'">
       </div>
 
 
