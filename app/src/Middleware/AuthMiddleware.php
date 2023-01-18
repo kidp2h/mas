@@ -63,7 +63,7 @@ class AuthMiddleware {
       $createdAt = strtotime($user->created_at);
       $now = strtotime((new DateTime())->format('Y-m-d H:i:s'));
       $hours = ($now - $createdAt) / 3600;
-      if ($hours > 1) {
+      if ($hours > 48) {
         Session::setFlash("messageResponse", 'Your trial is expire !');
         return $response->redirect('/user/logout');
       }
