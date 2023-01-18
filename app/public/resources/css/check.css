@@ -92,6 +92,7 @@
   padding: 0 2rem;
   /* margin-right: 2rem; */
   box-sizing: border-box;
+  user-select: none;
 
 }
 .information span {
@@ -156,15 +157,18 @@
   line-height: 1.7rem;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
 }
 .btn-like {
-  border: 1px solid #666666;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   height: 3rem;
   max-width: 15rem;
+  user-select: none;
   
+}
+.nickname {
+  text-align: end;
 }

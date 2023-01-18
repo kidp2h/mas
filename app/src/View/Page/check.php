@@ -43,16 +43,16 @@
         <div class="information">
           <div class="author item">
             <span>投稿メッセージ</span>
-            <div class="btn-like" data-id="<?= $value->id ?>">いいね</div>
+            <!-- <div class="btn-like" data-id="">いいね</div> -->
           </div>
           <div class="comment item">
             <span><?= $value->attendeeComment ?></span>
-            <div class="count-like">👍 <?= $value->likeCount ?></div>
+            <div class="count-like btn-like" data-id="<?= $value->id ?>">👍 <?= $value->likeCount ?></div>
           </div>
           <div class="time item">
             <span><?= $value->created_at ?></span>
 
-            <span><?= $value->attendeeName  ?></span>
+            <span class="nickname"><?= $value->attendeeName  ?></span>
           </div>
         </div>
 

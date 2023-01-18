@@ -28,7 +28,7 @@ class HomeController extends Controller {
     $listPhotos = PhotoRepository::Instance()->getAllPhotoByOrgId($orgId);
     $user = UserRepository::Instance()->getById($orgId);
     $this->render('home', [
-      'title' => 'Photo list',
+      'title' => '思い出アルバム',
       'titlePage' => '写真リスト',
       'photos' => $listPhotos ?? [],
       'pattern' => $user?->actionFlag
