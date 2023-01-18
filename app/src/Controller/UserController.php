@@ -159,9 +159,9 @@ class UserController extends Controller {
 
   public function reset(Request $request, Response $response) {
     $token = $request->param("token");
-    //$result = Token::Instance()->verfiy($token);
-    // if (!$result["status"])
-    //   return $response->redirect("/user/forgot-password");
+    $result = Token::Instance()->verfiy($token);
+    if (!$result["status"])
+      return $response->redirect("/user/forgot-password");
     $this->render('reset', [
       'title' => 'Reset password',
       'titlePage' => 'Memory Album System - 1030 Reset password',
