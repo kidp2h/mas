@@ -34,7 +34,6 @@ class UserController extends Controller {
     $validation = new LoginValidation();
     $validation->loadData($body);
     $result = $validation->validate();
-    //var_dump("y");
     if ($result === true) {
       $row = $this->userRepository->checkUser($body['email'], $body["password"]);
       // var_dump($row);
