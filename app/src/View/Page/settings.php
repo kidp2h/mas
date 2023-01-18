@@ -4,15 +4,15 @@
 <link rel="stylesheet" href="/resources/css/settings.css">
 <?php $this->endStyle(); ?>
 <?php $this->section('header'); ?>
-<a href="/">
+<a href="/" id="btn-register-event" class="btn-action">
   <img src="/resources/images/chevron-left.png">
 </a>
 <span id="titlePage"><?= $titlePage ?></span>
 
 
 <div id="menuHeader">
-  <a href="" id="btn-register-event" class="btn-action">
-    登録
+  <a href="">
+
   </a>
 </div>
 <?php $this->end(); ?>
