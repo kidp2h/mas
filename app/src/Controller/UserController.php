@@ -127,13 +127,14 @@ class UserController extends Controller {
         $user = $this->userRepository->getByEmail($email);
         if (!empty($user)) {
           $token = Token::Instance()->generateTokenReset($user->id);
+          $domain = $_ENV['DOMAIN'];
           $htmlContent = "
           Hi $email. <br>
           There was a request to change your password!<br>
           <br>
           If you did not make this request then please ignore this email.<br>
           <br>
-          Otherwise, please click this link to change your password: <a href='http://localhost/user/reset-password/$token'>Click here</a>
+          Otherwise, please click this link to change your password: <a href='http://$domain/user/reset-password/$token'>Click here</a>
           ";
           mail($email, "Reset password", $htmlContent, $headers);
           $response->redirect("/user/login");
