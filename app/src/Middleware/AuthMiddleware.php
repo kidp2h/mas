@@ -59,15 +59,21 @@ class AuthMiddleware {
     }
     $id = base64_decode(urldecode($user));
     $user = UserRepository::Instance()->getById($id);
-    if ($user?->useFlag) {
-      $createdAt = strtotime($user->created_at);
-      $now = strtotime((new DateTime())->format('Y-m-d H:i:s'));
-      $hours = ($now - $createdAt) / 3600;
-      if ($hours > 48) {
-        Session::setFlash("messageResponse", 'Your trial is expire !');
-        return $response->redirect('/user/logout');
+    if (!$user->useFlag) {
+      Session::setFlash("messageResponse", 'Your trial is expire !');
+      return $response->redirect('/user/logout');
+    } else {
+      if ($user->useFlag === 1) {
+        $createdAt = strtotime($user->created_at);
+        $now = strtotime((new DateTime())->format('Y-m-d H:i:s'));
+        $hours = ($now - $createdAt) / 3600;
+        if ($hours > 48) {
+          Session::setFlash("messageResponse", 'Your trial is expire !');
+          return $response->redirect('/user/logout');
+        }
+      } else {
+        return true;
       }
     }
-    return true;
   }
 }
