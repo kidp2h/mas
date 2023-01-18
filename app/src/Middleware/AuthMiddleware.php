@@ -51,11 +51,14 @@ class AuthMiddleware {
   }
 
   public static function isNotExpireTrial(Request $request, Response $response) {
-    $userSession = Session::get(KEY_SESSION_USER);
-    if (!$userSession) {
+    $user = Application::Instance()->getCookie("__masu");
+
+
+    if (!$user) {
       return $response->redirect('/user/logout');
     }
-    $user = UserRepository::Instance()->getById($userSession->id);
+    $id = base64_decode(urldecode($user));
+    $user = UserRepository::Instance()->getById($id);
     if ($user?->useFlag) {
       $createdAt = strtotime($user->created_at);
       $now = strtotime((new DateTime())->format('Y-m-d H:i:s'));
