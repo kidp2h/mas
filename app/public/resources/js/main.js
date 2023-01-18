@@ -1,6 +1,5 @@
 const $ = (selector) => document.querySelector(selector)
 const $$ = (selector) => document.querySelectorAll(selector)
-const BASE_URL = "http://localhost:80"
 
 const MESSAGE = {
   REQUIRED: "This field can not be empty",
