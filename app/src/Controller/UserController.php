@@ -34,13 +34,16 @@ class UserController extends Controller {
     $validation = new LoginValidation();
     $validation->loadData($body);
     $result = $validation->validate();
+    //var_dump("y");
     if ($result === true) {
       $row = $this->userRepository->checkUser($body['email'], $body["password"]);
+      // var_dump($row);
       if (!empty($row)) {
         if ($row->useFlag) {
           $createdAt = strtotime($row->created_at);
           $now = strtotime((new DateTime())->format('Y-m-d H:i:s'));
           $hours = ($now - $createdAt) / 3600;
+
           if ($hours > 1) {
             return $this->render('login', [
               'title' => 'Login',

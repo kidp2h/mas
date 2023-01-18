@@ -40,14 +40,14 @@ services:
       - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
     networks:
       - mas
-  # adminer:
-  #   container_name: mas_adminer
-  #   image: adminer
-  #   restart: always
-  #   ports:
-  #     - 8082:8080
-  #   networks:
-  #     - mas
+  adminer:
+    container_name: mas_adminer
+    image: adminer
+    restart: always
+    ports:
+      - 8082:8080
+    networks:
+      - mas
 
 networks:
   mas:

@@ -26,6 +26,13 @@ $this->layout('auth'); ?>
 
         <span class="message"><?= $messageResponse ?></span>
       <?php } ?>
+
+      <?php if (isset($message)) { ?>
+
+        <span class="message"><?= $message ?></span>
+      <?php } ?>
+
+
       <div class="wrapInputIcon">
         <img src="/resources/images/iconEmail.png" alt="" srcset="" class="iconWithInput">
         <input type="email" placeholder="メールアドレス" class="inputText" name="email">
