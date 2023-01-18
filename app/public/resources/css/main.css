@@ -2,11 +2,17 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 3rem;
-  padding: 0 3.6rem;
+  height: 7rem;
+  padding:  0 4rem;
+  background: var(--bg-header-gradient);
+  position: relative;
 }
 #titlePage {
   margin-top: 0;
+  color: white;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 #menuHeader a {
   margin-right: 3.5rem;
@@ -62,6 +68,13 @@
 }
 
 
+
+@media (min-width: 360px) and (max-width: 1024px) {
+  #header {
+    padding:  0 1rem;
+
+  }
+}
 @keyframes top-to-center {
   0% {
     -webkit-transform: translate(-50%, -100%);

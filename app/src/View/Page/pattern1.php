@@ -1,4 +1,8 @@
-<?php $this->layout('main'); ?>
+<?php
+
+use chillerlan\QRCode\QRCode;
+
+$this->layout('main'); ?>
 
 <?php $this->style(); ?>
 <link rel="stylesheet" href="/resources/css/pattern1.css">
@@ -26,6 +30,7 @@
 <?php $this->end(); ?>
 
 <?php $this->section('content'); ?>
+<?php $id = urlencode($_COOKIE["__masu"]); ?>
 <div class="wrapFlex">
   <div id="wrapCarousel">
     <div id="listImage">
@@ -53,6 +58,14 @@
     </div>
   </div>
 </div>
+<div class="actionPattern">
+  <a href="/uploadExhibition">
+    <img src="/resources/images/pattern-cam.png">
+  </a>
+  <div class="circle">
+    <img src="<?= (new QRCode())->render($_ENV["BASE_URL"] . "/join/$id"); ?>" alt="">
+  </div>
+</div>
 
 <?php $this->end(); ?>
 
@@ -62,7 +75,7 @@
     return new Promise(resolve => setTimeout(resolve, ms))
   }
   let countImage = $$(".cardImage.visible").length;
-
+  let countImageValid = $$(".wrapVisible > .cardImage").length;
 
   let current = 0;
   let step = 1;
@@ -75,29 +88,34 @@
 
 
     console.log(queueAction);
-    if (queueAction.length !== 0) {
-      queueAction.forEach(action => {
-        switch (action) {
-          case 'left':
+    // if (queueAction.length !== 0) {
+    //   queueAction.forEach(action => {
+    //     switch (action) {
+    //       case 'left':
 
-            // prevSlide();
-            //console.log(current);
-            gotoSlide(current - 1);
+    //         // prevSlide();
+    //         //console.log(current);
+    //         gotoSlide(current - 1);
 
-            --current;
-            //console.log(current);
-            break;
-          case 'right':
-            gotoSlide(current + 1);
-            ++current;
-            break;
-        }
-        queueAction.shift();
-      })
-      await timeout(3000)
+    //         --current;
+    //         //console.log(current);
+    //         break;
+    //       case 'right':
+    //         gotoSlide(current + 1);
+    //         ++current;
+    //         break;
+    //     }
+    //     queueAction.shift();
+    //   })
+    //   await timeout(3000)
+    // } else {
+
+    if (countImage == 1) {
+      $(".cardImage.visible").classList.add('select');
     } else {
       nextSlide()
     }
+    // }
 
     // ($$(".cardImage.visible"))[current]?.classList?.add('select');
     // await timeout(500)
@@ -141,13 +159,17 @@
     // current = current + step;
     await timeout(500);
     //console.log(current);
-    $("#listImage").scrollTo({
-      behavior: 'smooth',
-      left: $$(".cardImage.visible")[current - 1]?.offsetLeft - 80
-    });
-    ($$(".cardImage.visible"))[current]?.classList?.add('select');
-    if (current === countImage - 1) current = 0;
-    else {
+
+    if (current === countImage) {
+      current = 0;
+      gotoSlide(0);
+      current++;
+    } else {
+      $("#listImage").scrollTo({
+        behavior: 'smooth',
+        left: $$(".cardImage.visible")[current - 1]?.offsetLeft - 80
+      });
+      ($$(".cardImage.visible"))[current]?.classList?.add('select');
       current = current + step;
     }
     //current = number + 1;
@@ -169,7 +191,24 @@
     // if (current === countImage - 1) current = 0;
     // else current = current + step;
     // //current = number + 1;
-    gotoSlide(current - 2);
+    // gotoSlide(current - 2);
+    if (current !== 0) {
+      ($$(".cardImage.visible")).forEach((card, index) => {
+        card.classList?.remove('select');
+
+      })
+      await timeout(500);
+
+      //current = number;
+      //console.log(current);
+      $("#listImage").scrollTo({
+        behavior: 'smooth',
+        left: $$(".cardImage.visible")[current - 3]?.offsetLeft - 80
+      });
+      ($$(".cardImage.visible"))[current - 2]?.classList?.add('select');
+      current = current - 1;
+    }
+
   }
   async function gotoSlide(number) {
     //clearInterval(idInterval);
@@ -177,7 +216,7 @@
       card.classList?.remove('select');
 
     })
-    await timeout(500);
+    // await timeout(0);
 
     //current = number;
     //console.log(current);
@@ -228,56 +267,61 @@
   pollImage();
 
   async function pollRemote() {
-    const result = await fetch("/poll-remote", {
-      method: "POST",
-    })
-    const response = await result.json();
-    console.log(response);
-    if (response.status) {
-      clearInterval(idInterval)
-      await timeout(500)
-      pollRemote();
-      const data = response.data
-      let numberSlide = null;
-      data.forEach((event) => {
-        console.log("for");
-        switch (event.message) {
-          case 'lef1t':
-            //numberSlide = current - 1;
-            // prevSlide();
-            // console.log(current);
-            // gotoSlide(current - 1);
-
-            // --current;
-            // console.log(current);
-
-            break;
-          case 'left-start':
-            gotoSlide(0);
-            break;
-          case 'righ1t':
-            // numberSlide = current + 1;
-            // console.log(numberSlide);
-
-            // console.log(current);
-            // gotoSlide(current + 1);
-            // ++current;
-            //queueAction.push("left");
-            break;
-          case 'right-end':
-            gotoSlide(countImage - 1);
-            break;
-
-          default:
-            queueAction.push(event.message);
-            break;
-        }
+    if (countImage > 1) {
+      const result = await fetch("/poll-remote", {
+        method: "POST",
       })
-      idInterval = startSlide();
-    } else {
-      await timeout(500);
-      pollRemote();
+      const response = await result.json();
+      console.log(response);
+      if (response.status) {
+        clearInterval(idInterval)
+        await timeout(500)
+        pollRemote();
+        const data = response.data
+        let numberSlide = null;
+        data.forEach((event) => {
+          console.log("for");
+          switch (event.message) {
+            case 'left':
+              //numberSlide = current - 1;
+              // prevSlide();
+              // console.log(current);
+              // gotoSlide(current - 1);
+              prevSlide()
+              // --current;
+              // console.log(current);
+
+              break;
+            case 'left-start':
+              gotoSlide(0);
+              current = 1;
+              break;
+            case 'right':
+              // numberSlide = current + 1;
+              // console.log(numberSlide);
+              nextSlide()
+              // console.log(current);
+              // gotoSlide(current + 1);
+              // ++current;
+              //queueAction.push("left");
+              break;
+            case 'right-end':
+              gotoSlide(countImage - 1);
+              current = countImage
+              break;
+
+            default:
+              //queueAction.push(event.message);
+              break;
+          }
+        })
+        // idInterval = startSlide();
+      } else {
+        await timeout(500);
+        pollRemote();
+      }
     }
+
   }
   pollRemote();
 </script>

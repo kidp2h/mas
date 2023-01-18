@@ -1,9 +1,16 @@
 #content {
-  width: 90%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#header {
+  margin-bottom: 1rem;
 }
 .slideshow {
-  width: 100%;
-  height: 48.8rem;
+  width: 95%;
+  /* height: 48.8rem; */
+  /* min-height: 48.8rem; */
   position: relative;
   background-color: #EEEEEE;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
@@ -80,15 +87,26 @@
   margin-top: 0.5rem;
   position: absolute;
   top: 100%;
-  left: 0;
+  margin-top: 5rem;
+  width: 100%;
+  padding: 0 2rem;
+  /* margin-right: 2rem; */
+  box-sizing: border-box;
+
 }
 .information span {
+  width: 100%;
   font-size: 1.4rem;
   color:#666666;
   line-height: 1.7rem;
+  /* text-align: left; */
+  /* margin-bottom: 1rem; */
+}
+.information div {
+  /* text-align: right; */
 }
 
-.btn-delete-image {
+/* .btn-delete-image {
   position: absolute;
   top: 0;
   right: 1rem;
@@ -97,4 +115,56 @@
   width: fit-content;
   height: fit-content;
   cursor: pointer;
+} */
+.groupAction {
+  position: absolute;
+  top: 0;
+  right: 1rem;
+  font-size: 3.2rem;
+  color: #AAA9A9;
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.groupAction img {
+  width: 2rem;
+  height: 2rem;
+}
+.groupAction div:first-child {
+  margin-right: 1rem;
+}
+.groupAction div {
+  cursor: pointer;
+}
+
+.author, .comment {
+  display: flex ;
+}
+.information .item {
+  width: 100%;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.item div {
+  width: 20%;
+  font-size: 1.4rem;
+  line-height: 1.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-like {
+  border: 1px solid #666666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  height: 3rem;
+  max-width: 15rem;
+  
 }

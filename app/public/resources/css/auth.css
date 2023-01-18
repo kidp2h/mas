@@ -1,5 +1,5 @@
 .bg {
-  background-image: url('/resources/images/bg.png');
+  background-image: url('/resources/images/bgLogin.png');
 
   /* Full height */
   height: 100%;
@@ -13,22 +13,103 @@
   right: 0;
   width: 100%;
   z-index: -1;
+  overflow: hidden;
 }
 
 
 #formAuth {
   position: absolute;
-  top: 50%; /* position the top  edge of the element at the middle of the parent */
-  left: 50%; /* position the left edge of the element at the middle of the parent */
+  top: 50%; 
+  left: 50%; 
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
   transform: translate(-50%, -50%);
-  width: 50.9rem;
-  height: 55.7rem;
   background-color: #fafafa;
   border-radius: 1.8rem;
+  background: linear-gradient(180deg, rgba(10, 155, 162, 0.65) 0%, rgba(18, 141, 177, 0.34) 100%);
+  width: 45.1rem;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+#titleForm {
+  margin-bottom: 6rem;
+  margin-top: 4.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+#subTitle {
+  color: white;
+  font-size: 1.6rem;
+  line-height: 1.9rem;
+  font-weight: 400;
+  margin-top: 1rem;
+}
+.wrapInputIcon {
+  position: relative;
+}
+.groupInput  {
+  position: relative;
+}
+.groupInput input {
+  border-radius: 48px;
+  background: #FFFFFF;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  outline: none;
+  width: 31.2rem;
+  height: 3.4rem;
+  border: none;
+  padding-left: 4.1rem;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.groupInput {
+  margin-bottom: 4rem;
 }
 
-#formAuth table td {
+.iconWithInput {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 1.3rem;
+  
+}
+#wrapForm {
+  width: 31.2rem;
+}
+.btn {
+  width: 100%;
+  border-radius: 20px;
+  height: 3.4rem;
+
+}
+#btn-login {
+  margin-bottom: 5.6rem;
+}
+.btn-sub:first-child {
+  margin-bottom: 2.4rem;
+}
+#subAction {
+  margin-bottom: 4rem;
+}
+span.message, span.messageResponse {
+  position: absolute;
+  height: 1rem;
+  width: 100%;
+  font-size: 1.4rem;
+  left: 1rem;
+  text-align: left;
+  color: red;
+}
+span.message {
+  top: -2.5rem
+}
+/* #formAuth table td {
   text-align: right !important;
   padding-left: 0.7rem;
 }
@@ -36,9 +117,9 @@
 .fieldInput {
   font-size: 1.4rem;
   line-height: 1.7rem;
-}
+} */
 
-.titleForm {
+/* .titleForm {
   line-height: 2.4rem;
   font-size: 2rem;
   font-weight: 400;
@@ -47,8 +128,8 @@
   align-items: center;
   padding-top: 3.2rem;
   padding-bottom: 6rem;
-}
-#formAuth form {
+} */
+/* #formAuth form {
   margin-left: 4.7rem;
 }
 #formAuth input {
@@ -163,15 +244,7 @@ span.messageResponse {
     height: 6rem;
   }
 }
-/* @media (min-width: 768px) { */
-/*   body { */
-/*     display: none; */
-/*   } */
-/**/
-/*   #titlePage { */
-/*     color: red; */
-/*   } */
-/* } */
+
 .messageResponse {
   color: red;
   font-size: 1.4rem;
@@ -182,4 +255,4 @@ span.messageResponse {
   width: 0;
   display: flex;
   flex-wrap: wrap;
-}
+} */

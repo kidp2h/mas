@@ -1,4 +1,8 @@
-<?php $this->layout('main'); ?>
+<?php
+
+use chillerlan\QRCode\QRCode;
+
+$this->layout('main'); ?>
 
 <?php $this->style(); ?>
 <link rel="stylesheet" href="/resources/css/pattern2.css">
@@ -26,6 +30,8 @@
 <?php $this->end(); ?>
 
 <?php $this->section('content'); ?>
+<?php $id = urlencode($_COOKIE["__masu"]); ?>
+
 <div class="wrapFlex">
   <div id="wrapImage">
 
@@ -60,6 +66,15 @@
     </div> -->
   </div>
 </div>
+<div class="actionPattern">
+  <a>
+    <img src="/resources/images/pattern-cam.png">
+  </a>
+  <div class="circle">
+    <img src="<?= (new QRCode())->render($_ENV["BASE_URL"] . "/join/$id"); ?>" alt="">
+  </div>
+</div>
+
 
 
 
@@ -68,89 +83,16 @@
 <?php $this->end(); ?>
 
 <?php $this->startScript(); ?>
-<!-- <script>
-  const offsetImage = 200
-  const leftWidth = $("#wrapImageLeft").offsetWidth - offsetImage;
-  const leftHeight = $("#wrapImageLeft").offsetHeight - offsetImage;
-  const rightWidth = $("#wrapImageRight").offsetWidth - offsetImage;
-  const rightHeight = $("#wrapImageRight").offsetHeight - offsetImage;
-  let countImage = $$(".photoAttendee").length;
 
-
-  function timeout(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms))
-  }
-  $$("#wrapImageLeft img").forEach((ele) => {
-    let randomTop = getRandomNumber(0, leftHeight);
-    let randomLeft = getRandomNumber(0, leftWidth);
-    ele.style.top = `${randomTop}px`
-    ele.style.left = `${randomLeft}px`
-  })
-
-  $$("#wrapImageRight img").forEach((ele) => {
-
-
-
-    let randomTop = getRandomNumber(0, rightHeight);
-    let randomLeft = getRandomNumber(0, rightWidth);
-
-    ele.style.top = `${randomTop}px`
-    ele.style.left = `${randomLeft}px`
-  })
-
-
-
-
-  async function poll() {
-
-    let data = new FormData();
-    data.append('now', Date.now());
-    const result = await fetch("/get-new-images", {
-      method: "POST",
-      body: data,
-    })
-    const response = await result.json();
-    if (response.status) {
-      const data = response.data;
-      const pos = [$('#wrapImageLeft'), $('#wrapImageRight')];
-      const leftOrRight = pos[getRandomNumber(0, 2)]
-      data.forEach(photo => {
-        const img = document.createElement('img');
-        img.classList.add("photoAttendee")
-        img.setAttribute("message", photo.attendeeComment)
-        img.setAttribute("nickname", photo.attendeeName)
-        img.setAttribute("index", countImage)
-        img.src = `/resources/uploads/${photo.attendeeFileName}`
-
-        leftOrRight.append(img);
-        ++countImage;
-
-      });
-      await timeout(3000);
-      poll();
-    } else {
-      await timeout(1000);
-      poll();
-    }
-
-  }
-
-  function getRandomNumber(min, max) {
-
-    return Math.floor(Math.random() * (max - min) + min);
-
-  }
-  poll();
-</script> -->
 <script>
   const wrapImageWidth = $("#wrapImage").offsetWidth;
   const widthCenter = $(".cardCenter").offsetWidth;
   const heightCenter = $(".cardCenter").offsetHeight - 200;
+  const countImage = $$(".imageWithMessage").length;
   const side = ['left', 'right']
   let POS_SAVED = [];
   let current = 0;
 
-  console.log(widthCenter, heightCenter);
   $$(".outside").forEach(ele => {
     let pos = side[getRandomNumber(0, 2)]
     let randomTop = getRandomNumber(0, heightCenter);
@@ -167,26 +109,25 @@
     ele.style.left = `${randomLeft}px`
 
   })
-  // setInterval(() => {
 
-
-  // }, 1000)
-
-  setInterval(() => {
-    let currentElem = $(`.imageWithMessage[index="${current}"]`);
-    ++current;
-    let next = $(`.imageWithMessage[index="${current}"]`);
-    if (currentElem) {
-      if (next) {
-        swapElement(currentElem, next)
-      } else {
-        current = 0;
-        next = $(`.imageWithMessage[index="${current}"]`);
-        swapElement(currentElem, next)
+  if (countImage >= 2) {
+    setInterval(() => {
+      let currentElem = $(`.imageWithMessage[index="${current}"]`);
+      ++current;
+      let next = $(`.imageWithMessage[index="${current}"]`);
+      if (currentElem) {
+        if (next) {
+          swapElement(currentElem, next)
+        } else {
+          current = 0;
+          next = $(`.imageWithMessage[index="${current}"]`);
+          swapElement(currentElem, next)
+        }
       }
-    }
 
-  }, 3000)
+    }, 3000)
+  }
+
 
   function swapElement(current, next) {
     const {

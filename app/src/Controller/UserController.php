@@ -95,6 +95,9 @@ class UserController extends Controller {
           'title' => 'Register',
           'titlePage' => 'Memory Album System - 1010 Sign in',
           'message' => 'Email has already exist, please try again !',
+          'form' => [
+            'email' => ["Email has already exist !!"]
+          ]
         ]);
       }
     } else {
@@ -155,9 +158,9 @@ class UserController extends Controller {
 
   public function reset(Request $request, Response $response) {
     $token = $request->param("token");
-    $result = Token::Instance()->verfiy($token);
-    if (!$result["status"])
-      return $response->redirect("/user/forgot-password");
+    //$result = Token::Instance()->verfiy($token);
+    // if (!$result["status"])
+    //   return $response->redirect("/user/forgot-password");
     $this->render('reset', [
       'title' => 'Reset password',
       'titlePage' => 'Memory Album System - 1030 Reset password',
@@ -192,10 +195,9 @@ class UserController extends Controller {
       $result = $validation->validate();
       if (!is_array($result)) {
         if (isset($data['image'])) {
-          $imageResult = Image::Instance()->upload($data['image']);
+          $imageResult = Image::Instance()->upload($data['image'], "settings");
           $data['image'] = $imageResult;
         }
-
         $statusUpdate = $this->userRepository->updateSettings($data, $id);
         $response->status(200);
         return json_encode($statusUpdate);

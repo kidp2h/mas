@@ -1,6 +1,6 @@
-div#menuHeader {
+/* div#menuHeader {
   visibility: hidden;
-}
+} */
 .textMobile, label.textMobile {
   display: none !important;
 }
@@ -9,20 +9,25 @@ div#menuHeader {
   flex-direction: row;
   gap: 3rem;
 }
-.btn-action {
+/* .btn-action {
   background-color: #D9D9D9;
   width: 6rem;
   height: 3rem;
   display: flex;
   align-items: center;
   justify-content: center;
+} */
+.btn-action{
+  color: white;
+  cursor: pointer;
+  font-size: 2.4rem;
 }
-.btn-action a {
+/* .btn-action a {
   text-decoration: none;
   color: black;
   font-size: 2rem;
 
-}
+} */
 
 label.titleGroup {
 
@@ -75,7 +80,7 @@ div.groupInput {
   margin-right: 3.9rem;
   font-size: 1.6rem;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
 }
 .radioPattern input {
   height: fit-content;
@@ -178,6 +183,13 @@ span.messageValidate.active {
   justify-content: center;
   align-items: center;
 }
+
+  div#menuHeader {
+    display: block;
+  }
+.radioPattern > span {
+  margin-left: 0rem;
+}
 @media (min-width: 360px) and (max-width: 1280px) {
   .textPC, label.textPC {
     display: none !important;
@@ -190,7 +202,7 @@ span.messageValidate.active {
     width: 40%;
     margin-right: 1rem;
     text-align: start;
-    font-size: 1.3rem;
+    font-size: 1rem;
   }
   #formSettings form {
     width: 100%;
@@ -229,5 +241,8 @@ span.messageValidate.active {
   }
   .radioText span {
     font-size: 1.3rem;
+  }
+  .btn-action {
+    font-size: 2rem;
   }
 }

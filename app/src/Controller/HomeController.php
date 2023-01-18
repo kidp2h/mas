@@ -26,16 +26,29 @@ class HomeController extends Controller {
     $__masu = Application::Instance()->getCookie("__masu");
     $orgId = base64_decode(urldecode($__masu));
     $listPhotos = PhotoRepository::Instance()->getAllPhotoByOrgId($orgId);
+    $user = UserRepository::Instance()->getById($orgId);
     $this->render('home', [
       'title' => 'Photo list',
-      'titlePage' => 'Memory Album System - 1100 Photo List',
-      'photos' => $listPhotos ?? []
+      'titlePage' => '写真リスト',
+      'photos' => $listPhotos ?? [],
+      'pattern' => $user?->actionFlag
     ]);
   }
   public function qrcode(Request $request, Response $response) {
+    $__masu = Application::Instance()->getCookie("__masu");
+    $orgId = base64_decode(urldecode($__masu));
+    $user = UserRepository::Instance()->getById($orgId);
     $this->render('qrcode', [
       'title' => 'QR Code',
-      'titlePage' => 'Memory Album System - 1300 QR code Print sheet',
+      'titlePage' => 'QRコード印刷シート',
+      'name' => $user?->name,
+      'eventTitle' => $user?->eventTitle,
+      'welcomeMessage' => $user?->welcomeMessage,
+      'welcomeMessageFilename' => $user?->welcomeImageFilename,
+      'email' => $user?->email,
+      'useFlag' => $user?->useFlag,
+      'actionFlag' => $user?->actionFlag,
+      'QRCodeFlag' => $user?->QRCodeFlag
     ]);
   }
 
@@ -46,7 +59,7 @@ class HomeController extends Controller {
     $createdAt = (new DateTime($user->created_at))->format('Y 年 m 月 d 日');
     $this->render('settings', [
       'title' => 'Settings',
-      'titlePage' => 'Memory Album System - 1400 Settings',
+      'titlePage' => '設　定',
       'settings' => [
         'name' => $user?->name,
         'eventTitle' => $user?->eventTitle,
@@ -65,7 +78,7 @@ class HomeController extends Controller {
   public function uploadExhibition(Request $request, Response $response) {
     $this->render('uploadExhibition', [
       'title' => 'Upload Exhibition',
-      'titlePage' => 'Memory Album System - 1400 Settings',
+      'titlePage' => '設　定',
     ]);
   }
 
@@ -77,7 +90,17 @@ class HomeController extends Controller {
       $file = uniqid() . '.' . $ext;
       $path = 'app/public/resources/uploads/' . $file;
       $status = file_put_contents($path, file_get_contents($base64Img));
+
       if ($status) {
+        $__masu = Application::Instance()->getCookie("__masu");
+        $orgId = base64_decode(urldecode($__masu));
+        PhotoRepository::Instance()->upload([
+          "attendeeFileName" => $file,
+          "organizerId" => $orgId,
+          'attendeeComment' => "",
+          'attendeeName' => "organizer",
+          'userId' => $orgId
+        ]);
         return json_encode(["message" => "Uploaded successfully !!", "status" => true]);
       } else {
         return json_encode(["status" => false]);
@@ -93,7 +116,7 @@ class HomeController extends Controller {
     $listPhotos = PhotoRepository::Instance()->getAllPhotoByOrgId($orgId);
     $this->render('pattern1', [
       'title' => 'Exhibition',
-      'titlePage' => 'Memory Album System - 1200 Exhibition panel (Pattern 1)',
+      'titlePage' => '〇〇さんの結婚式',
       'photos' => $listPhotos ?? []
     ]);
   }
@@ -103,7 +126,7 @@ class HomeController extends Controller {
     $listPhotos = PhotoRepository::Instance()->getAllPhotoByOrgId($orgId);
     $this->render('pattern2', [
       'title' => 'Exhibition',
-      'titlePage' => 'Memory Album System - 1200 Exhibition panel (Pattern 2)',
+      'titlePage' => '〇〇さんの結婚式',
       'photos' => $listPhotos ?? []
     ]);
   }
@@ -159,18 +182,22 @@ class HomeController extends Controller {
     }
   }
   public function remote(Request $request, Response $response) {
-    $this->render('remote', ["title" => "2300 - Panel remo-con"]);
+    $attendeeId = Application::Instance()->getCookie('attendee');
+    $room = Application::Instance()->getCookie("room");
+    $result = EventRepository::Instance()->upsert($room, 'use-remote', $attendeeId);
+    $this->render('remote', ["titlePage" => "パネルリモコン", "title" => "Remote", "status" => $result['status']]);
   }
 
   public function handleRemote(Request $request, Response $response) {
     $body = $request->body();
     $action = $body['action'];
-    $__masu = Application::Instance()->getCookie("__masu");
-    $id = base64_decode(urldecode($__masu));
-    $x = EventRepository::Instance()->create([
+    $attendeeId = Application::Instance()->getCookie('attendee');
+    $room = Application::Instance()->getCookie("room");
+    EventRepository::Instance()->updateTimeEvent($room, $attendeeId);
+    EventRepository::Instance()->create([
       'name' => "remote",
       'message' => $action,
-      'room' => $id
+      'room' => $room
     ]);
     return json_encode(['status' => true]);
   }
@@ -190,6 +217,9 @@ class HomeController extends Controller {
     $orgId = base64_decode(urldecode($__masu));
     $zip = new ZipArchive();
     $listImages = PhotoRepository::Instance()->getAllPhotoByOrgId($orgId);
+    if (!$listImages || empty($listImages)) {
+      return json_encode(["status" => false]);
+    }
     $zipName = md5(rand(0, time())) . ".zip";
     if ($zip->open("app/public/resources/uploads/" . $zipName, ZIPARCHIVE::CREATE) === TRUE) {
       foreach ($listImages as $value) {
