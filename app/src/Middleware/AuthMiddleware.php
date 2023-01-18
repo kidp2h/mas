@@ -63,7 +63,6 @@ class AuthMiddleware {
       Session::setFlash("messageResponse", 'Your trial is expire !');
       return $response->redirect('/user/logout');
     } else {
-
       if ($user->useFlag === 1) {
         $createdAt = strtotime($user->created_at);
         $now = strtotime((new DateTime())->format('Y-m-d H:i:s'));
@@ -76,15 +75,5 @@ class AuthMiddleware {
         return true;
       }
     }
-    // if ($user?->useFlag) {
-    //   $createdAt = strtotime($user->created_at);
-    //   $now = strtotime((new DateTime())->format('Y-m-d H:i:s'));
-    //   $hours = ($now - $createdAt) / 3600;
-    //   if ($hours > 48) {
-    //     Session::setFlash("messageResponse", 'Your trial is expire !');
-    //     return $response->redirect('/user/logout');
-    //   }
-    // }
-    return true;
   }
 }
