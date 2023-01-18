@@ -19,6 +19,13 @@ $this->layout('auth'); ?>
 
         <span class="message"><?= $form['email'][0] ?></span>
       <?php } ?>
+      <?php
+      $messageResponse = Session::getFlash('messageResponse');
+      if ($messageResponse) {
+      ?>
+
+        <span class="message"><?= $messageResponse ?></span>
+      <?php } ?>
       <div class="wrapInputIcon">
         <img src="/resources/images/iconEmail.png" alt="" srcset="" class="iconWithInput">
         <input type="email" placeholder="メールアドレス" class="inputText" name="email">
@@ -61,13 +68,6 @@ $this->layout('auth'); ?>
         <?php if (isset($message)) { ?>
 
           <span class="messageResponse"><?= $message ?></span>
-        <?php } ?>
-        <?php
-        $messageResponse = Session::getFlash('messageResponse');
-        if ($messageResponse) {
-        ?>
-
-          <span class="messageResponse"><?= $messageResponse ?></span>
         <?php } ?>
         <input type="email" name="email" placeholder="E-mail" />
       </td>
