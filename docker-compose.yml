@@ -1,9 +1,11 @@
-version: '3.1'
+version: '3.3'
 
 services:
   server:
     container_name: mas_server
     restart: always
+    # depends_on: 
+    #  - db
     build:
       context: .
       dockerfile: Dockerfile
@@ -38,14 +40,14 @@ services:
       - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
     networks:
       - mas
-  adminer:
-    container_name: mas_adminer
-    image: adminer
-    restart: always
-    ports:
-      - 8082:8080
-    networks:
-      - mas
+  # adminer:
+  #   container_name: mas_adminer
+  #   image: adminer
+  #   restart: always
+  #   ports:
+  #     - 8082:8080
+  #   networks:
+  #     - mas
 
 networks:
   mas:

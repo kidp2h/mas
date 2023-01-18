@@ -24,7 +24,7 @@ class UserController extends Controller {
 
   public function login(Request $request, Response $response) {
     $this->render('login', [
-      'title' => 'Login',
+      'title' => '思い出アルバム',
       'titlePage' => 'Memory Album System - 1000 Login',
     ]);
   }

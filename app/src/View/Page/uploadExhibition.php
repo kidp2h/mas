@@ -8,7 +8,7 @@
 <a href="/user/logout">
   <img src="/resources/images/chevron-left.png">
 </a>
-<span id="titlePage"><?= $titlePage ?></span>
+<span id="titlePage">〇〇さんの結婚式</span>
 
 <?php $this->end(); ?>
 
@@ -27,19 +27,17 @@
         <div class="btn-action take">
           <img src="/resources/images/cam.png" alt="" srcset="">
         </div>
-        <span class="note">Tap to shoot after 3 seconds</span>
       </div>
       <div class="group_btn-action">
         <div class="btn-action edit">
           <img src="/resources/images/reshot.png" alt="" srcset="">
         </div>
-        <span class="note">Tap to reshoot</span>
+
       </div>
       <div class="group_btn-action">
         <div class="btn-action upload">
           <img src="/resources/images/upload.png" alt="" srcset="">
         </div>
-        <span class="note">Tap to Image upload and return display</span>
       </div>
     </div>
   </div>
