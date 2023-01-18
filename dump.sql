@@ -1,4 +1,4 @@
-]-- Adminer 4.8.1 MySQL 8.0.31 dump
+-- Adminer 4.8.1 MySQL 8.0.31 dump
 
 SET NAMES utf8;
 SET time_zone = '+07:00';
