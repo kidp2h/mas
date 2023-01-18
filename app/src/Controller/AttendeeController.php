@@ -41,11 +41,12 @@ class AttendeeController extends Controller {
     $id = base64_decode($request->param('id'));
     $userId = Application::Instance()->getCookie("attendee");
     $room = Application::Instance()->getCookie('room');
+
     if (!$userId || !$room) {
       $randomIdAttendee = abs(crc32(uniqid()));
       Application::Instance()->setCookie("attendee", $randomIdAttendee);
-      Application::Instance()->setCookie("room", $id);
     }
+    Application::Instance()->setCookie("room", $id);
     return $response->redirect('/attendee/toppage');
   }
 
