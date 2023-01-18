@@ -16,36 +16,31 @@ $this->layout('main'); ?>
 
 
 <div id="menuHeader">
-  <a href="/pattern12">
-    <img src="/resources/images/display.png">
-  </a>
-  <a href="/qrcode">
-    <img src="/resources/images/qrcode.png">
-  </a>
-
-  <a href="/settings">
-    <img src="/resources/images/gear.png">
+  <a href="" onclick="printDiv()">
+    <img src="/resources/images/printer.png">
   </a>
 </div>
 <?php $this->end(); ?>
 
 <?php $this->section('content'); ?>
 <?php $id = urlencode($_COOKIE["__masu"]); ?>
-<div id="action">
-  <a href="">
-    <div id="print" class="itemAction" onclick="printDiv()">
-      <img src="/resources/images/printer.png" alt="">
-    </div>
-  </a>
-</div>
 
 
 <div id="qr">
 
   <div id="cardQR">
-    <span class="titleQR">招待メッセージ invitation message</span>
+    <span class="titleQR"><?= $eventTitle ?></span>
+    <div class="message">
+      <span class="txtMessage"><?= $welcomeMessage ?></span>
+
+
+    </div>
+    <span class="nickname"><?= $name ?></span>
+    <div id="wrapImage">
+      <img src="/resources/uploads/settings/<?= $welcomeMessageFilename ?>" alt="">
+    </div>
     <img id="imgQR" src="<?= (new QRCode())->render($_ENV["BASE_URL"] . "/join/$id"); ?>" width="346" height="346">
-    <a href="/join/<?= $id ?>"><?= $_ENV["BASE_URL"] . "/join/$id" ?></a>
+    <a class="linkQR" href="/join/<?= $id ?>"><?= $_ENV["BASE_URL"] . "/join/$id" ?></a>
   </div>
 
 </div>
@@ -55,6 +50,7 @@ $this->layout('main'); ?>
 <?php $this->startScript(); ?>
 <script>
   function printDiv() {
+
     var divContents = document.getElementById("imgQR").outerHTML;
     var a = window.open('', '', 'height=346, width=346');
     a.document.write(divContents);

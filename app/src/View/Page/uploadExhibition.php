@@ -1,19 +1,14 @@
+<?php $this->layout('main'); ?>
 <?php $this->style(); ?>
 <link rel="stylesheet" href="/resources/css/uploadExhibition.css">
 <?php $this->endStyle(); ?>
 
+
 <?php $this->section('header'); ?>
-<div id="header">
-  <div class="btn-back">
-    <a href="">戻る</a>
-  </div>
-  <div class="headerText">
-    <h3>Memory Album System</h3>
-    <h3>1500 Exhihibiton</h3>
-  </div>
-
-
-</div>
+<a href="/user/logout">
+  <img src="/resources/images/chevron-left.png">
+</a>
+<span id="titlePage"><?= $titlePage ?></span>
 
 <?php $this->end(); ?>
 
@@ -22,14 +17,30 @@
 <div class="wrapFlex">
   <canvas id="canvas"></canvas>
   <div id="content">
-    <video autoplay id="camera"></video>
+    <div class="wrapCamera">
+      <img src="/resources/images/border-cam.png" alt="" srcset="">
+      <video autoplay id="camera"></video>
+    </div>
+
     <div id="action">
       <div class="group_btn-action">
-        <div class="btn-action take">撮影</div>
-        <span class="note">３秒後に撮影します</span>
+        <div class="btn-action take">
+          <img src="/resources/images/cam.png" alt="" srcset="">
+        </div>
+        <span class="note">Tap to shoot after 3 seconds</span>
       </div>
-      <div class="btn-action edit">やり直し</div>
-      <div class="btn-action upload">投稿</div>
+      <div class="group_btn-action">
+        <div class="btn-action edit">
+          <img src="/resources/images/reshot.png" alt="" srcset="">
+        </div>
+        <span class="note">Tap to reshoot</span>
+      </div>
+      <div class="group_btn-action">
+        <div class="btn-action upload">
+          <img src="/resources/images/upload.png" alt="" srcset="">
+        </div>
+        <span class="note">Tap to Image upload and return display</span>
+      </div>
     </div>
   </div>
 
@@ -83,6 +94,7 @@
             if (result.status === 200) {
               const response = await result.json();
               console.log(response);
+              window.location.href = "/";
             } else {
               console.log("error");
             }

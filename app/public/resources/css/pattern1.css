@@ -10,15 +10,29 @@
   line-height: 2.4rem;
   margin-top: 1.5rem;
 }
-
+#titlePage {
+  color: black;
+}
+.actionPattern {
+  position: absolute;
+  bottom: 3rem;
+  right: 3rem;
+  flex-direction: row;
+  display: flex;
+  gap: 6.5rem;
+}
 body {
   background-color: #FFCCF4;
+  height: 100vh;
 }
 
 div#menuHeader {
   visibility: hidden;
 }
-
+#header {
+  background-color: none;
+  background: none;
+}
 #listImage {
   display: grid;
   grid-auto-flow:column; 
@@ -57,6 +71,7 @@ div#menuHeader {
   height: 85%;
   transition: all 1s;
   box-shadow: 0px 0px 50px 20px #FC6DDC;
+  /* width: 100%; */
 
 }
 

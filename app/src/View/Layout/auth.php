@@ -8,12 +8,11 @@
   <title><?= $title ?></title>
   <link rel="stylesheet" href="/resources/css/base.css">
   <link rel="stylesheet" href="/resources/css/auth.css">
-  <link rel="stylesheet" href="/resources/css/login.css">
+  <?php $this->renderStyle(); ?>
   </link>
 
 <body>
   <div class="bg">
-    <span id="titlePage"><?= $titlePage ?></span>
     <div id="formAuth">
       <?php $this->renderSection('content'); ?>
     </div>

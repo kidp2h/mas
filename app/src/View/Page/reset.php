@@ -4,7 +4,7 @@
 
 <form method="POST">
 
-  <table>
+  <!-- <table>
     <tr class="groupInput">
       <td class="fieldInput empty"></td>
       <td><span class="titleForm">Memory Album System</span></td>
@@ -34,9 +34,37 @@
       <td class="fieldInput empty"></td>
       <td><button type="submit">reset password</button></td>
     </tr>
-  </table>
+  </table> -->
 
+  <div id="wrapForm">
+    <div id="titleForm">
+      <img src="/resources/images/titleForm.png" alt="" srcset="">
+    </div>
+    <div class="groupInput">
+      <?php if (isset($form['password'])) { ?>
 
+        <span class="message"><?= $form['password'][0] ?></span>
+      <?php } ?>
+      <div class="wrapInputIcon">
+        <img src="/resources/images/iconPassword.png" alt="" srcset="" class="iconWithInput">
+        <input type="password" placeholder="パスワード" class="inputText" name="password">
+      </div>
+
+    </div>
+    <div class="groupInput">
+      <?php if (isset($form['confirm'])) { ?>
+
+        <span class="message"><?= $form['confirm'][0] ?></span>
+      <?php } ?>
+      <div class="wrapInputIcon">
+        <img src="/resources/images/iconPassword.png" alt="" srcset="" class="iconWithInput">
+        <input type="password" placeholder="パスワードの確認" class="inputText" name="confirm" min="8">
+      </div>
+    </div>
+    <div id="mainAction">
+      <button type="submit" id="btn-login" class="btn btn-primary">パスワードのリセット</button>
+    </div>
+  </div>
 </form>
 <?php $this->end(); ?>
 

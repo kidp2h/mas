@@ -9,7 +9,7 @@
 }
 
 #content {
-  width: 75%;
+  width: 90%;
 }
 .btn-back {
   display: flex;
@@ -28,8 +28,7 @@
 
 
 .image {
-  width: 50%;
-  height: 23.1rem;
+  width: 100%;
   background: #EEEEEE;
   margin-top: 1.2rem;
   border: 1px solid #AAAAAA;
@@ -40,6 +39,8 @@
   font-size: 1.4rem;
   color: #666666;
   position: relative;
+  box-sizing: border-box;
+  min-height: 45.3rem;
 }
 
 textarea.message {
@@ -52,6 +53,7 @@ textarea.message {
   padding-left: 0.7rem;
   padding-top: 0.3rem;
   resize: none;
+  box-sizing: border-box;
 }
 
 .groupInput {
@@ -78,7 +80,6 @@ button.upload {
   margin: auto;
   height: 3.4rem;
   background-color: #5866E1;
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
   color: white;
   font-size: 1.6rem;
   outline: none;
@@ -86,6 +87,9 @@ button.upload {
   font-style: normal;
   font-weight: 400;
   display: block;
+  background: #5866E1;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 22px;
 
 }
 
@@ -119,4 +123,8 @@ span.messageValidate {
 span.messageValidate.active {
 
   display: block;
+}
+.inputFileUpload {
+font-size: 1.4rem;
+  color: #AAAAAA;
 }

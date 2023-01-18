@@ -7,5 +7,8 @@ RUN echo "sendmail_path=sendmail -i -t" >> /usr/local/etc/php/conf.d/php-sendmai
 RUN if command -v a2enmod >/dev/null 2>&1; then \
     a2enmod rewrite headers \
     ;fi
+RUN mkdir -p /var/www/html/app/public/resources/uploads
+RUN mkdir -p /var/www/html/app/public/resources/uploads/settings
+RUN chmod 777 /var/www/html/app/public/resources/uploads
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 ENV COMPOSER_ALLOW_SUPERUSER=1

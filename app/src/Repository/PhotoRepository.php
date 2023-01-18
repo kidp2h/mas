@@ -19,6 +19,9 @@ class PhotoRepository extends Repository {
     return $this->model->where('attendeeFileName', "=", $fileName)->where('userId', "=", $attendeeId)->delete();
   }
   public function deleteImageById($id) {
+    $photo = $this->model->select("*")->where("id", "=", $id)->findOne();
+    $photo = (fn ($photo): Photo => $photo)($photo);
+    unlink("app/public/resources/uploads/" . $photo->attendeeFileName);
     return $this->model->where('id', '=', $id)->delete();
   }
 
@@ -40,5 +43,15 @@ class PhotoRepository extends Repository {
 
   public function deleteAllPhoto() {
     return $this->model->where('1', '=', 1)->delete();
+  }
+  public function likeImageById($id) {
+    $photo = $this->model->select("*")->where("id", "=", $id)->findOne();
+    $photo = (fn ($photo): Photo => $photo)($photo);
+    $likeCount = $photo->likeCount;
+    $result = $this->model->where('id', "=", $id)->set("likeCount", $likeCount + 1)->update();
+    if ($result['status']) {
+      return ['likeCount' => $likeCount + 1, 'status' => true];
+    }
+    return ['status' => false];
   }
 }

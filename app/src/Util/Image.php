@@ -7,7 +7,7 @@ use Core\SingletonBase;
 
 class Image extends SingletonBase {
 
-  public function upload($image) {
+  public function upload($image, $folder = null) {
     $validSize = 3000000;
     $_result = (object)[];
     $pattern = "/(.*)\.(jpg|png|jpeg)/i";
@@ -19,13 +19,20 @@ class Image extends SingletonBase {
       $validExt = ["jpg", "jpeg", "png"];
 
       if (in_array($ext, $validExt) && $_FILES["image"]["size"] < $validSize && !$_FILES["image"]["error"]) {
-        $path = "app/public/resources/uploads/" . $name . ".$ext";
+        if ($folder) {
+          $path = "app/public/resources/uploads/" . $folder . "/" . $name . ".$ext";
+        } else {
+          $path = "app/public/resources/uploads/" . $name . ".$ext";
+        }
 
         $flag = move_uploaded_file($_FILES["image"]["tmp_name"], $path);
 
         if ($flag) {
-
-          $_result->image = $_ENV['BASE_URL'] . "/resources/uploads/$name.$ext";
+          if ($folder) {
+            $_result->image = $_ENV['BASE_URL'] . "/resources/uploads/$folder/$name.$ext";
+          } else {
+            $_result->image = $_ENV['BASE_URL'] . "/resources/uploads/$name.$ext";
+          }
           $_result->size = number_format($_FILES["image"]["size"] / 1024 / 1024, 2) . " MB";
           $_result->name = "$name.$ext";
           $_result->status = true;

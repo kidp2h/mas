@@ -19,7 +19,27 @@
 <div class="wrapMenu">
   <ul id="menuHamburger">
     <li class="itemMenu">
-      <a href="/pattern1">
+      <a href="">
+        <div class="imageItem">
+          <img src="/resources/images/download.png">
+        </div>
+
+        <span>Display</span>
+      </a>
+
+    </li>
+    <li class="itemMenu">
+      <a href="">
+        <div class="imageItem">
+          <img src="/resources/images/trash.png">
+        </div>
+
+        <span>Display</span>
+      </a>
+
+    </li>
+    <li class="itemMenu">
+      <a href="/pattern<?= $pattern ?>">
         <div class="imageItem">
           <img src="/resources/images/display.png">
         </div>
@@ -51,7 +71,13 @@
 
 
 <div id="menuHeader">
-  <a href="/pattern1">
+  <a href="" id="downloadAll">
+    <img src="/resources/images/download.png">
+  </a>
+  <a href="" id="deleteAll">
+    <img src="/resources/images/trash.png">
+  </a>
+  <a href="/pattern<?= $pattern ?>">
     <img src="/resources/images/display.png">
   </a>
   <a href="/qrcode">
@@ -66,18 +92,6 @@
 
 <?php $this->section('content'); ?>
 
-<div id="action">
-  <a href="">
-    <div id="downloadAll" class="itemAction">
-      <img src="/resources/images/download.png" alt="">
-    </div>
-  </a>
-  <a href="">
-    <div id="deleteAll" class="itemAction">
-      <img src="/resources/images/trash.png" alt="">
-    </div>
-  </a>
-</div>
 <div id="wrapListPhoto">
   <div id="listPhoto">
 
@@ -118,6 +132,7 @@
         method: "POST",
         body: data,
       })
+      await result.json();
       cardPhoto.remove()
     })
   })
@@ -154,22 +169,18 @@
       await resultClean.json();
     }
   });
-  $("#deleteAll").addEventListener('click', (e) => {
+  $("#deleteAll").addEventListener('click', async (e) => {
     e.preventDefault();
-    alert('delete')
+    const result = await fetch("/deleteAllImage", {
+      method: "POST",
+    })
+    const response = await result.json();
+    $$(".card.photo").forEach(card => {
+      card.remove();
+    })
   })
   $("#overlay").addEventListener('click', function(e) {
     if (e?.srcElement?.classList?.contains('active')) $("#overlay").classList.remove('active');
   })
-
-  function downloadURI(uri, name) {
-    let link = document.createElement("a");
-    link.download = name;
-    link.href = uri;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    delete link;
-  }
 </script>
 <?php $this->endScript(); ?>

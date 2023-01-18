@@ -12,4 +12,5 @@ class Event extends Model {
   public string $message;
   public string $room;
   public string $created_at;
+  public string $updated_at;
 }

@@ -4,18 +4,16 @@
 <?php $this->endStyle(); ?>
 
 <?php $this->section('header'); ?>
-<div class="wrapFlex">
-
-  <div class="header">
-    <a href="/attendee/toppage" class="btn-back">
-      <img src="/resources/images/chevron-left.png">
-    </a>
-    <div class="headerText">
-      <h3>Memory Album System</h3>
-      <h3>2100 Photo upload</h3>
-    </div>
-
+<div id="header">
+  <a href="/attendee/toppage">
+    <img src="/resources/images/chevron-left.png">
+  </a>
+  <div class="wrapTitlePage">
+    <img src="/resources/images/white-cam.png" alt="" srcset="">
+    <span id="titlePage"><?= $titlePage ?></span>
   </div>
+
+
 </div>
 <?php $this->end(); ?>
 
@@ -40,18 +38,15 @@
     </div>
     <div class="groupInput">
       <span class="messageValidate" message="message">Message</span>
-      <textarea name="" id="" cols="30" rows="10" class="message">
-メッセージもお願いします
-message please
-    </textarea>
+      <textarea name="messsage" rows="10" cols="30" class="message" placeholder="メッセージをお願いします"></textarea>
     </div>
 
     <div class="groupInput">
       <span class="messageValidate" message="nickname">Message</span>
-      <input type="text" value="名前(ニックネーム) Nickname" class="nickname">
+      <input type="text" class="nickname" placeholder="名前(ニックネーム)をお願いします">
     </div>
 
-    <button class="upload" id="upload" type="submit">投稿 upload</button>
+    <button class="upload" id="upload" type="submit">投　稿</button>
   </form>
 
 </div>

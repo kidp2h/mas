@@ -6,6 +6,7 @@ use Controller\UserController;
 use Core\Request;
 use Core\Response;
 use Middleware\AuthMiddleware;
+use Middleware\AttendeeMiddleware;
 
 $app = Application::Instance();
 $router = $app->__router;
@@ -89,7 +90,7 @@ $router->get(
 );
 $router->get(
   '/remote',
-  [[AuthMiddleware::class, "isAuth"], [AuthMiddleware::class, 'isNotExpireTrial']],
+  [[AttendeeMiddleware::class, 'isJoined'], [AttendeeMiddleware::class, "isNobodyUsingRemote"]],
   fn (
     Request $request,
     Response $response
@@ -125,7 +126,7 @@ $router->post(
 
 $router->post(
   '/remote',
-  [[AuthMiddleware::class, "isAuth"], [AuthMiddleware::class, 'isNotExpireTrial']],
+  [[AttendeeMiddleware::class, 'isJoined'], [AttendeeMiddleware::class, "isNobodyUsingRemote"]],
   fn (
     Request $request,
     Response $response
@@ -157,4 +158,12 @@ $router->post(
     Request $request,
     Response $response
   ) => HomeController::Instance()->deleteZipImage($request, $response)
+);
+$router->post(
+  '/deleteAllImage',
+  [[AuthMiddleware::class, "isAuth"], [AuthMiddleware::class, 'isNotExpireTrial']],
+  fn (
+    Request $request,
+    Response $response
+  ) => HomeController::Instance()->deleteAllImage($request, $response)
 );

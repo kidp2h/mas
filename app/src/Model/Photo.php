@@ -14,5 +14,6 @@ class Photo extends Model {
   public string $attendeeName;
   public string $attendeeComment;
   public int $useFlag;
+  public int $likeCount;
   public DateTime|string $created_at;
 }

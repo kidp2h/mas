@@ -1,3 +1,10 @@
+:root {
+  --primary: #5866E1;
+  --sub: rgba(10, 155, 162, 0.65);
+  --bg-gradient: linear-gradient(180deg, #47B5F5 0%, #D0F297 100%);
+  --bg-header-gradient: linear-gradient(90deg, #D0F297 0%, #47B5F5 100%);
+  --bg-header-attendee: linear-gradient(90deg, #D0F297 0%, #47B5F5 100%);
+}
 html {
   font-family: 'Inter';
 }
@@ -5,6 +12,7 @@ button,
 hr,
 input {
   overflow: visible;
+  box-sizing: border-box;
 }
 progress,
 sub,
@@ -156,7 +164,7 @@ html {
   justify-content: center;
   align-items: center;
   margin-top: 3rem;
-  font-size: 3.6rem;
+  font-size: 2.4rem;
   font-family: 'Inter';
   font-weight: 400;
   text-align: center;
@@ -283,6 +291,7 @@ html {
   display: none;
   transition: all 0.5s;
   animation: slide-left 0.5s ease-in-out forwards;
+  background: var(--bg-gradient);
 }
 #hamburger.open ~ .wrapMenu {
   display: none;
@@ -301,6 +310,7 @@ html {
   left: 0;
   top: 7rem;
   padding-left: 0;
+
 }
 .itemMenu {
   list-style: none;
@@ -351,9 +361,30 @@ html {
   cursor: pointer;
   outline: none;
 }
+.btn-primary {
+  background-color: var(--primary);
+}
+.btn-sub {
+  background-color: var(--sub);
+}
+.btn {
+  border: none;
+  outline: none;
+  color: white;
+  display: block;
+  font-size: 1.6rem;
+  line-height: 1.9rem;
+  font-weight: 400;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
 
-
-
+}
+a {
+  text-decoration: none;
+}
 img#preview {
 	width: 100%;
 	height: 100%;
@@ -363,6 +394,17 @@ img#preview {
 	left: 0;
   right: 0;
   bottom: 0;
+}
+.circle {
+  width: 7.7rem;
+  height: 7.7rem;
+  background-color: white;
+  border-radius: 50%;
+
+}
+.circle img {
+  border-radius: 0px;
+  padding: 1.2rem;
 }
 @media (min-width: 360px) and (max-width: 1280px) {
   #hamburger {

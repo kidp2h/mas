@@ -1,11 +1,8 @@
-div#menuHeader {
-  visibility: hidden;
-}
 #qr {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 2.8rem;
+  margin-top: 10rem;
   margin-bottom: 8.1rem;
 }
 
@@ -13,9 +10,10 @@ div#menuHeader {
   height: fit-content;
   border-radius: 20px;
 }
+
 #cardQR {
-  width: 54.4rem;
-  height: 72.2rem;
+  width: 55.9rem;
+  /* height: 72.2rem; */
   border-radius: 18px;
   background-color: #fafafa;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
@@ -26,11 +24,43 @@ div#menuHeader {
 }
 
 .titleQR {
-  font-size: 3.6rem;
+  font-size: 2.4rem;
   line-height: 4.4rem;
   font-weight: 400;
   text-align: center;
   margin-bottom: 3.8rem;
+  margin-top: 3rem;
+}
+
+.message {
+  font-size: 2rem;
+  width: 100%;
+  padding: 0 5rem;
+  box-sizing: border-box;
+  margin-bottom: 2rem;
+}
+
+#wrapImage {
+  width: 30.8rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+#wrapImage img {
+  width: 100%;
+}
+
+.txtMessage {
+  width: 32.5rem;
+  display: block;
+  line-height: 24px;
+}
+
+.nickname {
+  font-size: 1.6rem;
+  text-align: right;
+  width: 100%;
+  padding-right: 3.2rem;
 }
 
 #cardQR a {
@@ -42,7 +72,9 @@ div#menuHeader {
   color: black;
   text-decoration: none;
 }
-
+.linkQR {
+  margin-bottom: 3rem;
+}
 @media (min-width: 360px) and (max-width: 1024px) {
   .titleQR {
     font-size: 2rem;
@@ -51,6 +83,7 @@ div#menuHeader {
     text-align: center;
     margin-bottom: 3.8rem;
   }
+
   #cardQR a {
     font-size: 2rem;
   }
@@ -63,5 +96,9 @@ div#menuHeader {
 
   #cardQR img {
     width: 80%;
+  }
+
+  div#menuHeader {
+    display: flex;
   }
 }

@@ -4,12 +4,14 @@
 <?php $this->endStyle(); ?>
 
 <?php $this->section('header'); ?>
-<div class="wrapFlex">
-  <div class="header">
-    <h3>Memory Album System</h3>
-    <h3>2000 Top page</h3>
-  </div>
+<div id="header">
+  <!-- <a href="/attendee/logout">
+    <img src="/resources/images/chevron-left.png">
+  </a> -->
+  <span id="titlePage"><?= $titlePage ?></span>
+
 </div>
+
 <?php $this->end(); ?>
 
 <?php $this->section('content'); ?>
@@ -21,20 +23,29 @@
     </div>
     <div class="message image">
       <div class="wrapImage">
-        <img src="/resources/uploads/<?= $data["welcomeImageFilename"] ?>">
+        <img src="/resources/uploads/settings/<?= $data["welcomeImageFilename"] ?>">
       </div>
+
 
 
     </div>
+    <span class="nickname"><?= $data["name"] ?></span>
     <div class="group-btn">
       <div class="btn">
-        <a href="/attendee/upload">写真投稿 Photo upload</a>
+        <a href="/attendee/upload">
+          <img src="/resources/images/white-cam.png" alt="">
+        </a>
       </div>
       <div class="btn">
-        <a href="/attendee/check">写真確認 Photo check</a>
+        <a href="/attendee/check">
+          <img src="/resources/images/person-square.png" alt="">
+        </a>
+
       </div>
       <div class="btn">
-        <a href="">展示パネルリモコン Panel Remo-con</a>
+        <a href="/remote">
+          <img src="/resources/images/play.png" alt="">
+        </a>
       </div>
     </div>
   </div>

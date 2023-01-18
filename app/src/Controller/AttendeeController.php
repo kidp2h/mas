@@ -26,11 +26,12 @@ class AttendeeController extends Controller {
     $data = UserRepository::Instance()->getById($id);
     $this->render('toppage', [
       'title' => 'Top page',
-      'titlePage' => 'Memory Album System 2000 Top page',
+      'titlePage' => '思い出アルバム',
       'data' => [
         'eventTitle' => $data->eventTitle,
         'welcomeMessage' => $data->welcomeMessage,
-        'welcomeImageFilename' => $data->welcomeImageFilename
+        'welcomeImageFilename' => $data->welcomeImageFilename,
+        'name' => $data->name
       ]
     ]);
   }
@@ -51,7 +52,7 @@ class AttendeeController extends Controller {
   public function upload(Request $request, Response $response) {
     $this->render('upload', [
       'title' => 'Upload',
-      'titlePage' => 'Memory Album System 2000 Top page',
+      'titlePage' => '写真投稿',
     ]);
   }
 
@@ -75,7 +76,7 @@ class AttendeeController extends Controller {
         'attendeeName' => $body['nickname'],
       ];
       $upload = PhotoRepository::Instance()->upload($data);
-      $x = EventRepository::Instance()->create([
+      EventRepository::Instance()->create([
         "name" => "upload",
         "message" => $image->name,
         "room" => $id,
@@ -94,11 +95,12 @@ class AttendeeController extends Controller {
     $attendeeId = Application::Instance()->getCookie('attendee');
     $room = Application::Instance()->getCookie("room");
     $orgId = $room;
-    $data =  PhotoRepository::Instance()->getPhotoByAttendee($attendeeId, $orgId);
+    $data =  PhotoRepository::Instance()->getAllPhotoByOrgId($orgId);
     $this->render('check', [
-      'title' => 'Photocheck',
-      'titlePage' => 'Memory Album System 2000 Top page',
-      'data' => $data ?? []
+      'title' => 'Photo check',
+      'titlePage' => '写真投稿',
+      'data' => $data ?? [],
+      'attendeeId' => $attendeeId ?? null
     ]);
   }
 
@@ -106,7 +108,16 @@ class AttendeeController extends Controller {
     $attendeeId = Application::Instance()->getCookie('attendee');
     $body = $request->body();
     $result = PhotoRepository::Instance()->deleteImageByFileName($attendeeId, $body['attendeeFileName']);
+
     $response->status(200);
     return json_encode($result);
+  }
+  public function likeImage(Request $request, Response $response) {
+    $body = $request->body();
+    if (isset($body['id'])) {
+      $id = $body['id'];
+      return json_encode(PhotoRepository::Instance()->likeImageById($id));
+    }
+    return json_encode(['status' => false]);
   }
 }

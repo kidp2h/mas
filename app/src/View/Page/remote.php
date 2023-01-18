@@ -1,15 +1,19 @@
 <?php $this->style(); ?>
 <link rel="stylesheet" href="/resources/css/attendee.css">
-<link rel="stylesheet" href="/resources/css/toppage.css">
 <link rel="stylesheet" href="/resources/css/remote.css">
 <?php $this->endStyle(); ?>
 
 <?php $this->section('header'); ?>
-<div class="wrapFlex wrapHeader">
-  <div class="header">
-    <h3>Memory Album System</h3>
-    <h3>2300 Panel</h3>
+<div id="header">
+  <a href="/attendee/toppage">
+    <img src="/resources/images/chevron-left.png">
+  </a>
+  <div class="wrapTitlePage">
+    <img src="/resources/images/play.png" alt="" srcset="">
+    <span id="titlePage"><?= $titlePage ?></span>
   </div>
+
+
 </div>
 <?php $this->end(); ?>
 

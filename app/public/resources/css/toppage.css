@@ -13,30 +13,44 @@
 }
 .message {
   width: 100%;
-  height: 12.6rem;
-  border: 1px solid #AAAAAA;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #666666;
+
   flex-direction: column;
-  font-size: 1.4rem;
+
 }
 
 .org {
   height: 12.6rem;
+  color: black;
+  font-size: 2rem;
 }
-
+#titlePage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+#content {
+  display: flex;
+  flex-direction: column;
+}
 .image {
   margin-top: 0.2rem;
-  margin-bottom: 3.6rem;
+  margin-bottom: 1.4rem;
   background-color: #EEEEEE;
-  height: 19.5rem;
+  width: 100%;
+  border: #AAAAAA;
+}
+.nickname {
+  text-align: right;
+  font-size: 1.6rem;
+  margin-bottom: 6rem;
 }
 
 .wrapImage {
   width: 100%;
-  height: 100%;
 }
 .wrapImage img {
   width: 100%;
@@ -45,33 +59,42 @@
 }
 
 .group-btn {
-  width: 100%;
   display: flex;
   gap:2.7rem;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-around;
   align-items: center;
+  margin-bottom: 3rem;
 }
 .group-btn .btn {
   align-items: center;
   justify-content: center;
   display: flex;
   background-color: #5866E1;
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 3px;
   width: 100%;
-  height: 4.3rem;
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  box-shadow: none;
+}
+.btn img {
+  width: 3.1rem;
+  height: 3.1rem;
 }
 
 .btn a {
   color: white;
   text-decoration: none;
-  font-size: 1.6rem;
+  width: 3.1rem;
+  height: 3.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .eventTitle {
   margin-bottom: 3rem;
-  font-size: 1.6rem;
+  font-size: 2.4rem;
   text-align:  center;
   text-transform: uppercase;
 }

@@ -4,19 +4,16 @@
 <link rel="stylesheet" href="/resources/css/settings.css">
 <?php $this->endStyle(); ?>
 <?php $this->section('header'); ?>
-<span id="titlePage">
-  <span class="textPC"><?= $titlePage ?></span>
-  <span class="textMobile">Settings</span>
-</span>
-<div class="groupAction">
-  <div class="btn-action" id="btn-register-event">
-    <a href="#">登録</a>
-  </div>
-  <div class="btn-action">
-    <a href="/"> 戻る</a>
+<a href="/">
+  <img src="/resources/images/chevron-left.png">
+</a>
+<span id="titlePage"><?= $titlePage ?></span>
 
-  </div>
 
+<div id="menuHeader">
+  <a href="" id="btn-register-event" class="btn-action">
+    登録
+  </a>
 </div>
 <?php $this->end(); ?>
 
@@ -83,7 +80,7 @@
         <div class="selectedImage">
           <div class="wrapText">
             <div>選択画像</div>
-            <img id="preview" src="<?= $settings['welcomeMessageFilename'] ? "/resources/uploads/" . $settings['welcomeMessageFilename'] : "" ?>" alt="" onerror="this.style.display='none'">
+            <img id="preview" src="<?= $settings['welcomeMessageFilename'] ? "/resources/uploads/settings/" . $settings['welcomeMessageFilename'] : "" ?>" alt="" onerror="this.style.display='none'">
           </div>
 
         </div>
@@ -143,7 +140,7 @@
   let messageValidateFile = "";
   let inputTextIsChanged = false;
   let imageIsChanged = false;
-  $$('input[type="text"],input[type="email"], textarea').forEach(item => {
+  $$('input[type="text"],input[type="email"], textarea,input[type="radio"]').forEach(item => {
     item.onchange = function(e) {
       inputTextIsChanged = true;
     }

@@ -53,3 +53,12 @@ $router->post(
     Response $response
   ) => AttendeeController::Instance()->deleteImage($request, $response)
 );
+
+$router->post(
+  '/likeImage',
+  [[AttendeeMiddleware::class, 'isJoined']],
+  fn (
+    Request $request,
+    Response $response
+  ) => AttendeeController::Instance()->likeImage($request, $response)
+);
