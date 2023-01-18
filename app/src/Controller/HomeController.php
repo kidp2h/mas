@@ -113,20 +113,22 @@ class HomeController extends Controller {
   public function pattern1(Request $request, Response $response) {
     $__masu = Application::Instance()->getCookie("__masu");
     $orgId = base64_decode(urldecode($__masu));
+    $user = UserRepository::Instance()->getById($orgId);
     $listPhotos = PhotoRepository::Instance()->getAllPhotoByOrgId($orgId);
     $this->render('pattern1', [
       'title' => 'Exhibition',
-      'titlePage' => '〇〇さんの結婚式',
+      'titlePage' => $user?->eventTitle,
       'photos' => $listPhotos ?? []
     ]);
   }
   public function pattern2(Request $request, Response $response) {
     $__masu = Application::Instance()->getCookie("__masu");
     $orgId = base64_decode(urldecode($__masu));
+    $user = UserRepository::Instance()->getById($orgId);
     $listPhotos = PhotoRepository::Instance()->getAllPhotoByOrgId($orgId);
     $this->render('pattern2', [
       'title' => 'Exhibition',
-      'titlePage' => '〇〇さんの結婚式',
+      'titlePage' => $user?->eventTitle,
       'photos' => $listPhotos ?? []
     ]);
   }
