@@ -37,9 +37,9 @@ $this->layout('main'); ?>
     </div>
     <span class="nickname"><?= $name ?></span>
     <div id="wrapImage">
-      <img src="/resources/uploads/settings/<?= $welcomeMessageFilename ?>" alt="">
+      <img src="/resources/uploads/settings/<?= $welcomeMessageFilename ?>" alt="" onerror="this.style.display='none'">
     </div>
-    <img id="imgQR" src="<?= (new QRCode())->render($_ENV["BASE_URL"] . "/join/$id"); ?>" onerror="this.style.display='none'" width="346" height="346">
+    <img id="imgQR" src="<?= (new QRCode())->render($_ENV["BASE_URL"] . "/join/$id"); ?>" width="346" height="346">
     <a class="qrc" href="/join/<?= $id ?>"><?= $_ENV["BASE_URL"] . "/join/$id" ?></a>
   </div>
 
