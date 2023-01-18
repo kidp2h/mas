@@ -69,12 +69,10 @@
       required: true
     }, {
       selector: ".message",
-      min: 10,
-      max: 50,
+      required: true
     }, {
       selector: ".nickname",
-      min: 6,
-      max: 15,
+      required: true
     }]
 
     const result = validator(rules);
