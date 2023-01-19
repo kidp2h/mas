@@ -34,6 +34,9 @@ class UserRepository extends Repository {
       ->where("id", "=", $id)
       ->findOne();
   }
+  public function disableById(string $id) {
+    return $this->model->set('useFlag', 0)->where('id', '=', $id)->update();
+  }
   public function resetPassword($id, $password) {
     TokenRepository::Instance()->deleteById($id);
     return $this->model

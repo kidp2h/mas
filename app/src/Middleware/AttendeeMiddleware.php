@@ -16,6 +16,8 @@ class AttendeeMiddleware {
     if ($room && $attendee) {
       return true;
     }
+    Application::Instance()->deleteCookie('room');
+    Application::Instance()->deleteCookie('attendee');
     return $response->redirect("/");
   }
   public static function isNobodyUsingRemote(Request $request, Response $response) {

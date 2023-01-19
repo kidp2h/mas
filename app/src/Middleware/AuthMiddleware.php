@@ -51,15 +51,18 @@ class AuthMiddleware {
   }
 
   public static function isNotExpireTrial(Request $request, Response $response) {
-    $user = Application::Instance()->getCookie("__masu");
+    $masu = Application::Instance()->getCookie("__masu");
 
 
-    if (!$user) {
+    if (!$masu) {
       return $response->redirect('/user/logout');
     }
-    $id = base64_decode(urldecode($user));
+    $id = base64_decode(urldecode($masu));
     $user = UserRepository::Instance()->getById($id);
-    if (!$user->useFlag) {
+    // var_dump($user);
+    // var_dump("x");
+    // exit;
+    if (!$user?->useFlag) {
       Session::setFlash("messageResponse", 'Your trial is expire !');
       return $response->redirect('/user/logout');
     } else {
@@ -67,13 +70,13 @@ class AuthMiddleware {
         $createdAt = strtotime($user->created_at);
         $now = strtotime((new DateTime())->format('Y-m-d H:i:s'));
         $hours = ($now - $createdAt) / 3600;
-        if ($hours > 48) {
+        if ($hours >= 48) {
           Session::setFlash("messageResponse", 'Your trial is expire !');
+          UserRepository::Instance()->disableById($id);
           return $response->redirect('/user/logout');
         }
-      } else {
-        return true;
       }
+      return true;
     }
   }
 }
