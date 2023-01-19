@@ -107,8 +107,8 @@
 
   $$(".btn-delete-image").forEach(btn => {
     btn.addEventListener('click', async function(e) {
-      this.parentElement.remove();
-      let attendeeFileName = this.parentElement?.querySelector('.imageSlide').getAttribute('alt')
+      this.parentElement.parentElement.remove();
+      let attendeeFileName = this.parentElement?.parentElement?.querySelector('.imageSlide').getAttribute('alt')
 
 
 
