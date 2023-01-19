@@ -63,7 +63,7 @@ class HomeController extends Controller {
       'settings' => [
         'name' => $user?->name,
         'eventTitle' => $user?->eventTitle,
-        'welcomeMessage' => $user?->welcomeMessage,
+        'welcomeMessage' =>  $user?->welcomeMessage,
         'welcomeMessageFilename' => $user?->welcomeImageFilename,
         'created_at' => $createdAt,
         'email' => $user?->email,
@@ -76,9 +76,11 @@ class HomeController extends Controller {
 
 
   public function uploadExhibition(Request $request, Response $response) {
+    $__masu = Application::Instance()->getCookie("__masu");
+    $orgId = base64_decode(urldecode($__masu));
+    $user = UserRepository::Instance()->getById($orgId);
     $this->render('uploadExhibition', [
-      'title' => 'Upload Exhibition',
-      'titlePage' => '設　定',
+      'titlePage' => $user?->eventTitle,
     ]);
   }
 
