@@ -8,13 +8,18 @@ use Application;
 use Core\Session;
 use DateTime;
 use Repository\EventRepository;
+use Repository\UserRepository;
 
 class AttendeeMiddleware {
   public static function isJoined(Request $request, Response $response) {
     $room = Application::Instance()->getCookie('room');
     $attendee = Application::Instance()->getCookie('attendee');
+
     if ($room && $attendee) {
-      return true;
+      $user = UserRepository::Instance()->getById($room);
+      if ($user) return true;
+      Application::Instance()->deleteCookie('room');
+      return $response->redirect("/user/login");
     }
     Application::Instance()->deleteCookie('room');
     Application::Instance()->deleteCookie('attendee');
