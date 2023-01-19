@@ -34,30 +34,41 @@ class UserController extends Controller {
     $validation = new LoginValidation();
     $validation->loadData($body);
     $result = $validation->validate();
+    // var_dump($result);
     if ($result === true) {
       $row = $this->userRepository->checkUser($body['email'], $body["password"]);
-      // var_dump($row);
+      // var_dump($row->useFlag);
       if (!empty($row)) {
-        if ($row->useFlag) {
-          $createdAt = strtotime($row->created_at);
-          $now = strtotime((new DateTime())->format('Y-m-d H:i:s'));
-          $hours = ($now - $createdAt) / 3600;
+        if (!$row->useFlag) {
+          UserRepository::Instance()->disableById($row->id);
+          return $this->render('login', [
+            'title' => 'Login',
+            'titlePage' => 'Memory Album System - 1000 Login',
+            'message' => 'Your trial is expire !!',
+          ]);
+        } else {
+          if ($row->useFlag === 1) {
+            $createdAt = strtotime($row->created_at);
+            $now = strtotime((new DateTime())->format('Y-m-d H:i:s'));
+            $hours = ($now - $createdAt) / 3600;
 
-          if ($hours > 1) {
-            return $this->render('login', [
-              'title' => 'Login',
-              'titlePage' => 'Memory Album System - 1000 Login',
-              'message' => 'Your trial is expire !!',
-            ]);
+            if ($hours >= 48) {
+              UserRepository::Instance()->disableById($row->id);
+              return $this->render('login', [
+                'title' => 'Login',
+                'titlePage' => 'Memory Album System - 1000 Login',
+                'message' => 'Your trial is expire !!',
+              ]);
+            }
           }
+          Session::set('user', $row);
+          Application::Instance()->setCookie('__masu', base64_encode($row->id));
+          Application::Instance()->setCookie(
+            '_masu',
+            password_hash($row->id . $_ENV['SECRET'], PASSWORD_BCRYPT)
+          );
+          return $response->redirect('/');
         }
-        Session::set('user', $row);
-        Application::Instance()->setCookie('__masu', base64_encode($row->id));
-        Application::Instance()->setCookie(
-          '_masu',
-          password_hash($row->id . $_ENV['SECRET'], PASSWORD_BCRYPT)
-        );
-        $response->redirect('/');
       } else {
         $this->render('login', [
           'title' => 'Login',
