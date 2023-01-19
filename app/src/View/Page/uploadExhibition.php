@@ -5,10 +5,10 @@
 
 
 <?php $this->section('header'); ?>
-<a href="/user/logout">
+<a href="/">
   <img src="/resources/images/chevron-left.png">
 </a>
-<span id="titlePage">〇〇さんの結婚式</span>
+<span id="titlePage"><?= $titlePage ?></span>
 
 <?php $this->end(); ?>
 

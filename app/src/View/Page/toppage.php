@@ -19,7 +19,7 @@
   <div id="content">
     <div class="eventTitle"><?= $data["eventTitle"] ?></div>
     <div class="message org">
-      <span><?= $data["welcomeMessage"] ?></span>
+      <span><?= htmlspecialchars_decode($data["welcomeMessage"]) ?></span>
     </div>
     <div class="message image">
       <div class="wrapImage">

@@ -30,7 +30,7 @@
     <div class="groupInput">
       <label class="titleGroup">ご利用状態</label>
       <div class="textValue">
-        <span>useFlag: <?= $settings['useFlag'] ?></span>
+        <span><?= $settings['useFlag'] === 1 ? "現在、ご試用中です" : "継続して、ご利用いただけます" ?></span>
       </div>
     </div>
     <div class="groupInput">
@@ -136,6 +136,7 @@
 
 <?php $this->startScript(); ?>
 <script>
+  $("#welcomeMessage").value = $("#welcomeMessage").value.replaceAll("<br/>", "\n")
   let validFile = false;
   let messageValidateFile = "";
   let inputTextIsChanged = false;
@@ -194,9 +195,10 @@
         const fullname = $("#fullname").value;
         const eventTitle = $("#eventTitle").value;
         const email = $("#email").value;
-        const welcomeMessage = $("#welcomeMessage").value;
+        const welcomeMessage = $("#welcomeMessage").value.replace(/\n/g, '<br/>');;
         const QRCodeFlag = +$(`input[name='qr']:checked`).value
         const actionFlag = +$(`input[name='pattern']:checked`).value
+        console.log(welcomeMessage);
 
         let form = new FormData();
         if (imageIsChanged) form.append("image", img.files[0]);
