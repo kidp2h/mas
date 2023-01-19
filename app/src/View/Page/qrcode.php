@@ -31,7 +31,7 @@ $this->layout('main'); ?>
   <div id="cardQR">
     <span class="titleQR"><?= $eventTitle ?></span>
     <div class="message">
-      <span class="txtMessage"><?= htmlspecialchars_decode($welcomeMessage) ?></span>
+      <span class="txtMessage"><?= $welcomeMessage ? htmlspecialchars_decode($welcomeMessage) : "" ?></span>
 
 
     </div>

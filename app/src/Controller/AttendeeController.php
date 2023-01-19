@@ -71,6 +71,9 @@ class AttendeeController extends Controller {
     $result = $validation->validate();
     if (!is_array($result)) {
       $image = Image::Instance()->upload($body['image']);
+      if (!$image->status) {
+        return json_encode(['status' => false, "message" => $image?->message]);
+      }
       $userId = Application::Instance()->getCookie("attendee");
       $id = Application::Instance()->getCookie("room");
       $data = [
