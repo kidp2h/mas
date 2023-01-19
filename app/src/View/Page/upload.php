@@ -62,6 +62,7 @@
 
   })
   $("#upload").addEventListener("click", async function(e) {
+    this.disabled = true
     e.preventDefault();
 
     const rules = [{
@@ -98,6 +99,7 @@
       } else {
         console.log("error");
       }
+      this.disabled = false;
 
     }
   })

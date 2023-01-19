@@ -64,9 +64,9 @@ class AuthMiddleware {
     }
     $id = base64_decode(urldecode($masu));
     $user = UserRepository::Instance()->getById($id);
-    // var_dump($user);
-    // var_dump("x");
-    // exit;
+    if (!$user) {
+      return $response->redirect('/user/logout');
+    }
     if (!$user?->useFlag) {
       Session::setFlash("messageResponse", 'Your trial is expire !');
       return $response->redirect('/user/logout');
