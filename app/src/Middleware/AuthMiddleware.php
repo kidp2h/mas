@@ -5,6 +5,7 @@ namespace Middleware;
 use Core\Request;
 use Core\Response;
 use Application;
+use Controller\UserController;
 use Core\Session;
 use DateTime;
 use Repository\UserRepository;
@@ -18,12 +19,16 @@ class AuthMiddleware {
       return $response->redirect('/user/login');
     }
     $id = base64_decode(urldecode($user));
+    $resultUser = UserRepository::Instance()->getById($id);
+    if (!$resultUser) {
+      return $response->redirect('/user/logout');
+    }
 
     $pwd = $id . $_ENV['SECRET'];
 
     $isCorrect = password_verify($pwd, urldecode($hash));
     if (!$isCorrect) {
-      return $response->redirect('/user/login');
+      return $response->redirect('/user/logout');
     }
     return true;
   }
