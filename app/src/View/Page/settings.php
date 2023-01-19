@@ -30,7 +30,7 @@
     <div class="groupInput">
       <label class="titleGroup">ご利用状態</label>
       <div class="textValue">
-        <span><?= $settings['useFlag'] ? "useFlag: 1" : "useFlag: 0" ?></span>
+        <span>useFlag: <?= $settings['useFlag'] ?></span>
       </div>
     </div>
     <div class="groupInput">
