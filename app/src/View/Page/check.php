@@ -21,43 +21,45 @@
 <div class="wrapFlex">
   <div id="content">
     <div class="slideshow">
-      <span class="noImage">写真がありません</span>
-      <!-- <?php foreach ($data as $value) { ?>
-        <div class="slide" draggable="true">
-          <div class="groupAction">
+      <?php if (empty($data)) { ?>
+        <span class="noImage">写真がありません</span>
+      <?php } else { ?>
+        <?php foreach ($data as $value) { ?>
+          <div class="slide" draggable="true">
+            <div class="groupAction">
 
-            <div class="btn-download-image" data-name="<?= $value->attendeeFileName ?>">
-              <img src="/resources/images/black-download.png" alt="" srcset="">
-            </div>
-            <?php
-              if ($attendeeId == $value->userId) {
-            ?>
-              <div class="btn-delete-image">
-                <img src="/resources/images/del.png" alt="" srcset="">
+              <div class="btn-download-image" data-name="<?= $value->attendeeFileName ?>">
+                <img src="/resources/images/black-download.png" alt="" srcset="">
               </div>
-            <?php } ?>
+              <?php
+              if ($attendeeId == $value->userId) {
+              ?>
+                <div class="btn-delete-image">
+                  <img src="/resources/images/del.png" alt="" srcset="">
+                </div>
+              <?php } ?>
+            </div>
+
+            <img class="imageSlide" src="/resources/uploads/<?= $value->attendeeFileName ?>" alt="<?= $value->attendeeFileName ?>" srcset="" draggable="false">
+
+          </div>
+          <div class="information">
+            <div class="author item">
+              <span>投稿メッセージ</span>
+            </div>
+            <div class="comment item">
+              <span><?= $value->attendeeComment ?></span>
+              <div class="count-like btn-like" data-id="<?= $value->id ?>">👍 <?= $value->likeCount ?></div>
+            </div>
+            <div class="time item">
+              <span><?= $value->created_at ?></span>
+
+              <span class="nickname"><?= $value->attendeeName  ?></span>
+            </div>
           </div>
 
-          <img class="imageSlide" src="/resources/uploads/<?= $value->attendeeFileName ?>" alt="<?= $value->attendeeFileName ?>" srcset="" draggable="false">
-
-        </div>
-        <div class="information">
-          <div class="author item">
-            <span>投稿メッセージ</span>
-          </div>
-          <div class="comment item">
-            <span><?= $value->attendeeComment ?></span>
-            <div class="count-like btn-like" data-id="<?= $value->id ?>">👍 <?= $value->likeCount ?></div>
-          </div>
-          <div class="time item">
-            <span><?= $value->created_at ?></span>
-
-            <span class="nickname"><?= $value->attendeeName  ?></span>
-          </div>
-        </div>
-
-      <?php } ?> -->
-
+        <?php } ?>
+      <?php } ?>
       <button class="action-slide previous" onclick="plusDivs(-1)">
         <img src="/resources/images/previous.png" alt="" srcset="">
       </button>
