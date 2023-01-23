@@ -21,7 +21,8 @@
 <div class="wrapFlex">
   <div id="content">
     <div class="slideshow">
-      <?php foreach ($data as $value) { ?>
+      <span class="noImage">写真がありません</span>
+      <!-- <?php foreach ($data as $value) { ?>
         <div class="slide" draggable="true">
           <div class="groupAction">
 
@@ -29,7 +30,7 @@
               <img src="/resources/images/black-download.png" alt="" srcset="">
             </div>
             <?php
-            if ($attendeeId == $value->userId) {
+              if ($attendeeId == $value->userId) {
             ?>
               <div class="btn-delete-image">
                 <img src="/resources/images/del.png" alt="" srcset="">
@@ -43,7 +44,6 @@
         <div class="information">
           <div class="author item">
             <span>投稿メッセージ</span>
-            <!-- <div class="btn-like" data-id="">いいね</div> -->
           </div>
           <div class="comment item">
             <span><?= $value->attendeeComment ?></span>
@@ -56,7 +56,7 @@
           </div>
         </div>
 
-      <?php } ?>
+      <?php } ?> -->
 
       <button class="action-slide previous" onclick="plusDivs(-1)">
         <img src="/resources/images/previous.png" alt="" srcset="">

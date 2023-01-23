@@ -40,7 +40,7 @@ $this->layout('main'); ?>
       <div class="wrapVisible">
         <?php $index = 0 ?>
         <?php foreach ($photos as $key => $value) { ?>
-          <div class="cardImage visible" index="<?= $index ?>">
+          <div class="cardImage visible" index="<?= $index ?>" data-id="<?= $value->id ?>">
             <span class="card-message"><?= $value->attendeeComment ?></span>
             <img src="/resources/uploads/<?= $value->attendeeFileName ?>" alt="">
             <span class="nickname">From <?= $value->attendeeName ?></span>
@@ -87,7 +87,7 @@ $this->layout('main'); ?>
     // if (current >= 1)($$(".cardImage.visible"))[current - 1]?.classList?.remove('select');
 
 
-    console.log(queueAction);
+    //console.log(queueAction);
     // if (queueAction.length !== 0) {
     //   queueAction.forEach(action => {
     //     switch (action) {
@@ -237,7 +237,12 @@ $this->layout('main'); ?>
     if (response.status) {
       const data = response.data;
       const wrapVisible = $(".wrapVisible");
+
       data.forEach(photo => {
+        console.log(photo);
+        if ($(`.cardImage.visible[data-id='${photo.id}']`)) {
+          return;
+        }
         const cardImage = document.createElement('div');
         cardImage.classList.add('cardImage', "visible");
         const img = document.createElement('img');
@@ -251,7 +256,7 @@ $this->layout('main'); ?>
         cardImage.append(message);
         cardImage.append(img)
         cardImage.append(nickname)
-        console.log(cardImage);
+        //console.log(cardImage);
 
         wrapVisible.append(cardImage);
         ++countImage;
@@ -272,7 +277,7 @@ $this->layout('main'); ?>
         method: "POST",
       })
       const response = await result.json();
-      console.log(response);
+      //console.log(response);
       if (response.status) {
         clearInterval(idInterval)
         await timeout(500)
@@ -280,7 +285,7 @@ $this->layout('main'); ?>
         const data = response.data
         let numberSlide = null;
         data.forEach((event) => {
-          console.log("for");
+          //console.log("for");
           switch (event.message) {
             case 'left':
               //numberSlide = current - 1;
