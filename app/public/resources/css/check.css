@@ -172,3 +172,23 @@
 .nickname {
   text-align: end;
 }
+
+.slideshow:has(span.noImage) {
+  width: 95%;
+  height: calc(100vh - 5.3rem);
+  position: relative;
+  background-color: white;
+  box-shadow: none;
+  border-radius: 0px;
+}
+span.noImage ~ .action-slide {
+  display: none;
+}
+
+span.noImage {
+  font-size: 2rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
