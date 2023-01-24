@@ -58,7 +58,8 @@ class UserRepository extends Repository {
       ->set('actionFlag', $actionFlag)
       ->set('QRCodeFlag', $QRCodeFlag)
       ->where("id", '=', $id);
-    if (isset($data['image']))
+    //var_dump($data);
+    if (isset($data['image']) && $data['image']->status)
       return $this->model->set('welcomeImageFilename',  $data['image']->name)->where("id", "=", $id)->update();
     return $this->model->update();
   }

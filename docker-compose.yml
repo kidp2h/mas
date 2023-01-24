@@ -13,6 +13,7 @@ services:
       - ${PORT}:80
     volumes:
       - ./:/var/www/html/
+      - ./php.ini:/usr/local/etc/php/php.ini
     environment:
       HOSTNAME_DB: ${HOSTNAME_DB}
       USERNAME_DB: ${USERNAME_DB}

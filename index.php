@@ -16,8 +16,6 @@ define('KEY_SESSION_USER', 'userSession');
 date_default_timezone_set("Asia/Ho_Chi_Minh");
 ini_set('session.gc_maxlifetime', 365 * 24 * 60 * 60);
 ini_set('session.cookie_lifetime ', 999);
-ini_set('post_max_size', '64M');
-ini_set('upload_max_filesize', '64M');
 require_once __DIR__ . '/app/vendor/autoload.php';
 
 $uri = urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));

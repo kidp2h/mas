@@ -8,10 +8,11 @@ use Core\SingletonBase;
 class Image extends SingletonBase {
 
   public function upload($image, $folder = null) {
-    $validSize = 3000000;
+    $validSize = 5000000;
     $_result = (object)[];
     $pattern = "/(.*)\.(jpg|png|jpeg)/i";
     $match = preg_match($pattern, $image["name"], $matches);
+    //var_dump($_FILES);
     if ($match) {
       $name = str_replace(' ', '-', $matches[1]) . time();
       $ext = $matches[2];

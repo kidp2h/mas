@@ -210,6 +210,9 @@ class UserController extends Controller {
       if (!is_array($result)) {
         if (isset($data['image'])) {
           $imageResult = Image::Instance()->upload($data['image'], "settings");
+          // echo ("213");
+          // var_dump($imageResult);
+          // exit;
           $data['image'] = $imageResult;
         }
         $statusUpdate = $this->userRepository->updateSettings($data, $id);
