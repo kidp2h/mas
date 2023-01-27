@@ -44,7 +44,7 @@ class UserController extends Controller {
           return $this->render('login', [
             'title' => 'Login',
             'titlePage' => 'Memory Album System - 1000 Login',
-            'message' => 'Your trial is expire !!',
+            'message' => 'トライアルの有効期限が切れました!',
           ]);
         } else {
           if ($row->useFlag === 1) {
@@ -57,7 +57,7 @@ class UserController extends Controller {
               return $this->render('login', [
                 'title' => 'Login',
                 'titlePage' => 'Memory Album System - 1000 Login',
-                'message' => 'Your trial is expire !!',
+                'message' => 'トライアルの有効期限が切れました!',
               ]);
             }
           }
@@ -73,7 +73,7 @@ class UserController extends Controller {
         $this->render('login', [
           'title' => 'Login',
           'titlePage' => 'Memory Album System - 1000 Login',
-          'message' => 'Email or password is incorrect !',
+          'message' => 'メールアドレスまたはパスワードが間違っています!',
         ]);
       }
     } else {
@@ -107,7 +107,7 @@ class UserController extends Controller {
         $this->render('register', [
           'title' => 'Register',
           'titlePage' => 'Memory Album System - 1010 Sign in',
-          'message' => 'Email has already exist, please try again !',
+          'message' => 'メールはすでに存在しています。もう一度やり直してください!',
           'form' => [
             'email' => ["Email has already exist !!"]
           ]
