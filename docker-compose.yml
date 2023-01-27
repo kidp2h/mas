@@ -32,7 +32,8 @@ services:
     ports:
       - 3303:3306
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: ${USERNAME_DB}
+      MYSQL_ROOT_PASSWORD: ${PASSWORD_DB}
       MYSQL_DATABASE: mas
       MYSQL_ROOT_HOST: '%'
       TZ: Asia/Ho_Chi_Minh
