@@ -33,11 +33,11 @@ abstract class Validation {
   }
   public function errorMessages() {
     return [
-      self::RULE_REQUIRED => 'This field can not be empty',
-      self::RULE_EMAIL => 'Email is not valid',
-      self::RULE_MIN => 'Min length of this field must be {min}',
-      self::RULE_MAX => 'Max length of this field must be {max}',
-      self::RULE_MATCH => 'This field must be same as field {match}',
+      self::RULE_REQUIRED => 'このフィールドを空にすることはできません',
+      self::RULE_EMAIL => 'メールアドレスが無効です',
+      self::RULE_MIN => 'このフィールドの最小長は、{min}',
+      self::RULE_MAX => 'このフィールドの最大長は、{max}',
+      self::RULE_MATCH => 'このフィールドはフィールドと同じである必要があります {match}',
     ];
   }
   public function validate() {
