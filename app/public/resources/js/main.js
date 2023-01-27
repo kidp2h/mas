@@ -2,9 +2,9 @@ const $ = (selector) => document.querySelector(selector)
 const $$ = (selector) => document.querySelectorAll(selector)
 
 const MESSAGE = {
-  REQUIRED: "This field can not be empty",
-  MIN: value => `Min length of this field must be ${value}`,
-  MAX: value => `Max length of this field must be ${value}`
+  REQUIRED: "このフィールドを空にすることはできません",
+  MIN: value => `このフィールドの最小長は、${value}`,
+  MAX: value => `このフィールドの最大長は、${value}`
   
 }
 
